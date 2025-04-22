@@ -3,6 +3,9 @@ import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
 
+import { RepositoryServeur } from "./repositories/repository-serveur"
+import { ModelServeur } from "./models/model-serveur"
+
 dotevnv.config()
 
 class App {
@@ -36,8 +39,19 @@ class App {
     }
 }
 
-// Instanciation de l'application
-const app = new App()
 
-// Lancement de l'application
-app.start()
+async function start() {
+
+    // Instanciation de l'application
+    const app = new App()
+
+    // Lancement de l'application
+    app.start()
+
+}
+
+start().catch((error) => {
+    console.error("Erreur lors du démarrage de l'application :", error)
+})
+
+
