@@ -18,15 +18,4 @@ export class Model {
         };
     }
 
-    // Méthode de sauvegarde du model
-    save(): void {
-        console.log(`[SAVE] ${this.constructor.name}:`, this.toJSON());
-    }
-
-    // Méthode de récupération de l'ensemble des informations du model
-    static async getAll(): Promise<Model[]> {
-        const models = await Model.models.findAll();
-        return models;
-    }
-
 }

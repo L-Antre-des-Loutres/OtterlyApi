@@ -33,11 +33,12 @@ export class ModelServeur extends Model {
     }
 
     // Initialisation du repository Serveur
-    private static serveurs = new RepositoryServeur();
+    private static readonly serveurs = new RepositoryServeur();
 
     // Méthode qui permet de convertir le model en JSON
     toJSON(): Partial<ServeurInterface> {
         return {
+            id: this.id,
             nom: this.nom,
             jeu: this.jeu,
             version: this.version,
@@ -68,5 +69,19 @@ export class ModelServeur extends Model {
     static async getAll(): Promise<ModelServeur[]> {
         const serveurs = await ModelServeur.serveurs.findAll();
         return serveurs.map(data => new ModelServeur(data));
+    }
+
+    // Méthode de création d'un serveur
+    static async create(data: Partial<ServeurInterface>): Promise<ModelServeur> {
+        const nextId = await ModelServeur.serveurs.getNextId();
+        const serveur = new ModelServeur({ ...data, id: nextId });
+        await ModelServeur.serveurs.save(serveur);
+        return serveur;
+    }
+
+    // Méthode de suppression d'un serveur 
+    static async delete(id: number): Promise<boolean> {
+        const deleted = await ModelServeur.serveurs.delete(id);
+        return deleted;
     }
 }
