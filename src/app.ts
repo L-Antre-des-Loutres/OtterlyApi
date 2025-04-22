@@ -3,9 +3,6 @@ import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
 
-import { RepositoryServeur } from "./repositories/repository-serveur"
-import { ModelServeur } from "./models/model-serveur"
-
 dotevnv.config()
 
 class App {
@@ -28,6 +25,7 @@ class App {
         this.app.get("/", (req, res) => {
             res.send("Hello World!")
         })
+        this.app.use("/api/serveurs", require("./routes/route-serveur").default)
     }
 
     public start() {
