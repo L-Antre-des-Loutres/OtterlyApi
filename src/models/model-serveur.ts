@@ -1,4 +1,5 @@
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
+import { RepositoryServeur } from "../repositories/repository-serveur";
 import { Model } from "./Model";
 
 export class ModelServeur extends Model {
@@ -31,6 +32,9 @@ export class ModelServeur extends Model {
         this.global = data.global ?? false;
     }
 
+    // Initialisation du repository Serveur
+    private static serveurs = new RepositoryServeur();
+
     // Méthode qui permet de convertir le model en JSON
     toJSON(): Partial<ServeurInterface> {
         return {
@@ -58,5 +62,11 @@ export class ModelServeur extends Model {
     stop() {
         console.log(`🛑 Arrêt du serveur "${this.nom}"`);
         // Logique d'arrêt du serveur ici
+    }
+
+    // Méthode de récupération de l'ensemble des serveurs
+    static async getAll(): Promise<ModelServeur[]> {
+        const serveurs = await ModelServeur.serveurs.findAll();
+        return serveurs.map(data => new ModelServeur(data));
     }
 }
