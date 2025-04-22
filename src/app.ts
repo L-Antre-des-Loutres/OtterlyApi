@@ -3,6 +3,12 @@ import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
 
+// Import des services de l'API
+import { ServiceToken } from "./services/service-token";
+
+// Import des tests de l'API
+import { APITest } from "./test/22-04-2025-APITEST";
+
 dotevnv.config()
 
 class App {
@@ -10,8 +16,8 @@ class App {
     private readonly port: number
 
     constructor() {
-        this.app = express()
-        this.port = Number(process.env.PORT) || 3000
+        this.app = express();
+        this.port = Number(process.env.PORT) || 3000;
     }
 
     private middlewares() {
@@ -39,12 +45,19 @@ class App {
 
 
 async function start() {
-
+    
+    // Génération des tokens initiales
+    const tokenService = new ServiceToken();
+    await tokenService.generateInitialTokens();
+    
     // Instanciation de l'application
     const app = new App()
 
     // Lancement de l'application
     app.start()
+
+    // Test de l'API Serveur avec Axios
+    APITest();
 
 }
 

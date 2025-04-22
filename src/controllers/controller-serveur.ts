@@ -16,4 +16,24 @@ export class ControllerServeur extends Controller {
             this.handleError(res, error);
         }
     }
+
+    // POST /api/serveurs
+    public async create(req: Request, res: Response): Promise<void> {
+        try {
+            const serveur = await ModelServeur.create(req.body);
+            this.sendSuccess(res, serveur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // DELETE /api/serveurs
+    public async delete(req: Request, res: Response): Promise<void> {
+        try {
+            const serveur = await ModelServeur.delete(req.body.id);
+            this.sendSuccess(res, serveur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
 }
