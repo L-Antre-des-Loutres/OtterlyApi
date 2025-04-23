@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXRpbGlzYXRldXIiOiJhcmlzb3V0cmUiLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI1LTA0LTIyIDE3OjU1OjA1IiwiaWF0IjoxNzQ1MzQ0NTA1fQ.4ngMEEH0ZDOqXJcXV0QHzU6qt4R7u7KT6ClwBI0qUrA"; // Remplacez par votre token d'authentification
+const token = "MON TOKEN"; // Remplacez par votre token d'authentification
 
 
 export function APITest2() {

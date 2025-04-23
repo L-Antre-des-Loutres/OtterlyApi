@@ -1,4 +1,3 @@
-
 // src/services/Service.ts
 
 export abstract class Service {

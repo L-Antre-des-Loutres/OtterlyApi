@@ -22,11 +22,11 @@ export class ServiceServeur extends Service {
     // Méthode de démarrage du serveur
     async startServeur(serveur: ServeurInterface): Promise<boolean> {
         try {
-            console.log(`🚀 Démarrage du serveur "${serveur.nom}" avec ${serveur.start_script}`);
+            this.logInfo(`🚀 Démarrage du serveur "${serveur.nom}" avec ${serveur.start_script}`);
 
             // Préparation de la commande de démarrage
             const command = `${this.startCommand} ${serveur.id}`;
-            console.log(`Commande de démarrage : ${command}`);
+            this.logInfo(`Commande de démarrage : ${command}`);
 
             // Exécution du script de démarrage
             const execPromise = promisify(exec);
@@ -35,7 +35,7 @@ export class ServiceServeur extends Service {
             console.error(stderr);
             return true;
         } catch (error: unknown) {
-            console.error("Erreur lors du démarrage du serveur :", error);
+            this.logError("Erreur lors du démarrage du serveur :", error instanceof Error ? error.message : String(error));
             return false;
         }
     }
@@ -56,7 +56,7 @@ export class ServiceServeur extends Service {
             console.error(stderr);
             return true;
         } catch (error: unknown) {
-            console.error("Erreur lors de l'arrêt du serveur :", error);
+            this.logError("Erreur lors de l'arrêt du serveur :", error instanceof Error ? error.message : String(error));
             return false;
         }
     }

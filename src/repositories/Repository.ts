@@ -25,11 +25,7 @@ export abstract class Repository<T extends { id?: number }> {
     // Logique de sauvegarde
     public async save(item: T): Promise<void> {
         // Logique de vérification de l'existence de l'ID
-        if (!item.id) {
-            item.id = await this.getNextId();
-        } else {
-            item.id = await this.getNextId();
-        }
+        item.id ??= await this.getNextId();
         this.store.set(item.id.toString(), item);
         // Logique de sauvegarde dans la base de données
         try {
