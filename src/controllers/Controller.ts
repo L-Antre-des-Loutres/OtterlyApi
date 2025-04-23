@@ -11,6 +11,14 @@ export abstract class Controller {
         });
     }
 
+    // Méthode pour envoyer une réponse données introuvables
+    protected sendNotFound(res: Response, message: string, status: number = 404): void {
+        res.status(status).json({
+            success: false,
+            message: message,
+        });
+    }
+
     // Méthode pour envoyer une réponse d'erreur
     protected sendError(res: Response, error: string, status: number = 500): void {
         res.status(status).json({

@@ -15,24 +15,24 @@ export class RepositoryToken extends Repository<TokenInterface> {
         return nextId;
     }
 
-    // Méthode pour sauvegarder un serveur
+    // Méthode pour sauvegarder un token
     async save(token: TokenInterface): Promise<void> {
         await super.save(token);
     }
 
-    // Méthode pour trouver un serveur par ID
+    // Méthode pour trouver un token par ID
     async findById(id: number): Promise<TokenInterface | null> {
         const serveur = await super.findById(id);
         return serveur;
     }
 
-    // Méthode pour trouver tous les serveurs
+    // Méthode pour trouver tous les tokens
     async findAll(): Promise<TokenInterface[]> {
         const serveurs = await super.findAll();
         return serveurs;
     }
 
-    // Méthode pour supprimer un serveur
+    // Méthode pour supprimer un token
     async delete(id: number): Promise<boolean> {
         const deleted = await super.delete(id);
         return deleted;

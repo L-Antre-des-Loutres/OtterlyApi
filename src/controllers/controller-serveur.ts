@@ -17,6 +17,20 @@ export class ControllerServeur extends Controller {
         }
     }
 
+    // GET /api/serveurs/:id
+    public async getById(req: Request, res: Response): Promise<void> {
+        try {
+            const serveur = await ModelServeur.getById(parseInt(req.params.id, 10));
+            if (!serveur) {
+                this.sendError(res, "Serveur introuvable");
+                return;
+            }
+            this.sendSuccess(res, serveur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
     // POST /api/serveurs
     public async create(req: Request, res: Response): Promise<void> {
         try {
@@ -31,6 +45,45 @@ export class ControllerServeur extends Controller {
     public async delete(req: Request, res: Response): Promise<void> {
         try {
             const serveur = await ModelServeur.delete(req.body.id);
+            this.sendSuccess(res, serveur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR ------------------
+
+    // POST /api/serveurs/start/
+    public async start(req: Request, res: Response): Promise<void> {
+        try {
+            const serveur = await ModelServeur.getById(req.body.id);
+            if (!serveur) {
+                this.sendNotFound(res, "Serveur introuvable");
+                return;
+            }
+            if (await ModelServeur.start(serveur)) {
+                this.sendSuccess(res, serveur);
+            } else {
+                this.sendError(res, "Erreur lors du lancement du serveur");
+            }
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // POST /api/serveurs/stop/
+    public async stop(req: Request, res: Response): Promise<void> {
+        try {
+            const serveur = await ModelServeur.getById(req.body.id);
+            if (!serveur) {
+                this.sendNotFound(res, "Serveur introuvable");
+                return;
+            }
+            if (await ModelServeur.stop(serveur)) {
+                this.sendSuccess(res, serveur);
+            } else {
+                this.sendError(res, "Erreur lors de l'arrêt du serveur");
+            }
             this.sendSuccess(res, serveur);
         } catch (error) {
             this.handleError(res, error);
