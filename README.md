@@ -22,6 +22,7 @@ Otterly API est une API RESTful permettant de gérer des serveurs Minecraft. Ell
     - [Création d'un serveur](#création-dun-serveur)
     - [Récupération de tous les serveurs](#récupération-de-tous-les-serveurs)
   - [Auteur](#auteur)
+  - [Liaisons avec les autres services de l'Antre des Loutres](#liaisons-avec-les-autres-services-de-lantre-des-loutres)
 
 ## Fonctionnalités
 
@@ -105,6 +106,12 @@ import axios from 'axios';
 ## Auteur
 
 - [Matheo Pérodeau](https://github.com/matheo-1712)
+
+## Liaisons avec les autres services de l'Antre des Loutres
+
+- [Server Sentinel](https://github.com/Corentin-cott/ServeurSentinel) réalisé par [Corentin Cotterau](https://github.com/Corentin-cott)
+- [MultiLoutre](https://github.com/L-Antre-des-Loutres/MultiLoutre) et [Mineotter](https://github.com/Corentin-cott/Mineotter-Bot) réalisé par [Corentin Cotterau](https://github.com/Corentin-cott) et [Matheo Pérodeau](https://github.com/matheo-1712)
+
 
 
 
