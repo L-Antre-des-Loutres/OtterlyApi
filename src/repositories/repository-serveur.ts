@@ -17,6 +17,7 @@ export class RepositoryServeur extends Repository<ServeurInterface> {
     // Méthode pour sauvegarder un serveur
     async save(serveur: ServeurInterface): Promise<void> {
         await super.save(serveur);
+        console.log(`🗒️  Serveur ${serveur.id} enregistré avec succès dans la base de données.`);
     }
 
     // Méthode pour trouver un serveur par ID

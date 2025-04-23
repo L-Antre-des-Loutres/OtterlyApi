@@ -1,5 +1,7 @@
+import e from "express";
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { RepositoryServeur } from "../repositories/repository-serveur";
+import { ServiceServeur } from "../services/service-serveur";
 import { Model } from "./Model";
 
 export class ModelServeur extends Model {
@@ -35,6 +37,9 @@ export class ModelServeur extends Model {
     // Initialisation du repository Serveur
     private static readonly serveurs = new RepositoryServeur();
 
+    // Initialisation du service Serveur
+    private static readonly serviceServeur = new ServiceServeur();
+
     // Méthode qui permet de convertir le model en JSON
     toJSON(): Partial<ServeurInterface> {
         return {
@@ -54,21 +59,33 @@ export class ModelServeur extends Model {
     }
 
     // Méthode de lancement du serveur
-    start() {
-        console.log(`🚀 Démarrage du serveur "${this.nom}" avec ${this.start_script}`);
-        // Logique de démarrage du serveur ici
+    static async start(serveur: ModelServeur): Promise<boolean> {
+        if (await ModelServeur.serviceServeur.startServeur(serveur)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Méthode de fermeture du serveur
-    stop() {
-        console.log(`🛑 Arrêt du serveur "${this.nom}"`);
-        // Logique d'arrêt du serveur ici
+    static async stop(serveur: ModelServeur): Promise<boolean> {
+        if(await ModelServeur.serviceServeur.stopServeur(serveur)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Méthode de récupération de l'ensemble des serveurs
     static async getAll(): Promise<ModelServeur[]> {
         const serveurs = await ModelServeur.serveurs.findAll();
         return serveurs.map(data => new ModelServeur(data));
+    }
+
+    // Méthode de récupération d'un serveur par son ID
+    static async getById(id: number): Promise<ModelServeur | null> {
+        const serveur = await ModelServeur.serveurs.findById(id);
+        return serveur ? new ModelServeur(serveur) : null;
     }
 
     // Méthode de création d'un serveur

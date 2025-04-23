@@ -19,6 +19,4 @@ export abstract class Service {
     protected toSQLDate(date: Date): string {
         return date.toISOString().slice(0, 19).replace('T', ' ');
     }
-
-    // Tu peux aussi ajouter d'autres méthodes utiles ici (debug, warn, etc.)
 }
