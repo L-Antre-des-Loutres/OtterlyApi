@@ -11,11 +11,16 @@ export abstract class Repository<T extends { id?: number }> {
 
     // Logique SQL centralisée
     protected async fetchNextId(): Promise<number> {
-        const [rows] = await db.query<RowDataPacket[]>(
-            `SELECT MAX(id) AS id FROM ${this.tableName}`
-        );
-        const maxId = (rows[0]?.id as number | null) ?? 0;
-        return maxId + 1;
+        try {
+            const [rows] = await db.query<RowDataPacket[]>(
+                `SELECT MAX(id) AS id FROM ${this.tableName}`
+            );
+            const maxId = (rows[0]?.id as number | null) ?? 0;
+            return maxId + 1;
+        } catch (error) {
+            console.error(error);
+            return 0;
+        }
     }
 
     public async getNextId(): Promise<number> {
