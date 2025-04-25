@@ -9,6 +9,12 @@ const middlewareAuth = new MiddlewareAuth();
 // GET /api/serveurs (affichage de tous les serveurs)
 router.get("/", (req, res) => controller.getServeurs(req, res));
 
+// GET /api/serveurs/infos/:id (affichage d'un serveur par son ID)
+router.get("/infos/:id", (req, res) => controller.getById(req, res));
+
+// GET /api/serveurs/primaire-secondaire (affichage des serveurs primaire et secondaire)
+router.get("/primaire-secondaire", (req, res) => controller.getServeursPrimaireSecondaire(req, res));
+
 // POST /api/serveurs (création d'un serveur) (token d'authentification requis)
 router.post("/", middlewareAuth.handle.bind(middlewareAuth), async (req, res) => {
     try {

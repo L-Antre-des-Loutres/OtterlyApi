@@ -4,6 +4,7 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { Service } from "./Service";
+import axios from "axios";
 
 export class ServiceServeur extends Service {
 
@@ -58,6 +59,54 @@ export class ServiceServeur extends Service {
         } catch (error: unknown) {
             this.logError("Erreur lors de l'arrêt du serveur :", error instanceof Error ? error.message : String(error));
             return false;
+        }
+    }
+
+    // Méthode pour récupérer le nombre de joueurs connectés au serveur
+    async getPlayersCount(serveur: ServeurInterface): Promise<number> {
+        try {
+            // Vérification du jeu sur le serveur
+            switch (serveur.jeu) {
+
+                // Minecraft
+                case "Minecraft":
+                    return 0;
+
+                // Palworld
+                case "Palworld":
+                    try {
+                        // Envoie une requête GET à l'API de Palworld pour récupérer le nombre de joueurs
+                        let config = {
+                            method: 'get',
+                            maxBodyLength: Infinity,
+                            url: 'http://localhost:8212/v1/api/players',
+
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': process.env.PALWORLD_STRING ?? "",
+                            },
+                        };
+                        const response = await axios(config);
+
+                        // Vérifie si la réponse est valide
+                        if (response.status === 200) {
+                            const players = Array.isArray(response.data.players) ? response.data.players : [];
+                            return players.length;
+                        } else {
+                            console.log(response.status);
+                            return 0;
+                        }
+                    } catch (error) {
+                        console.log("Erreur lors de la récupération des joueurs :", error);
+                        return 0;
+                    }
+
+                default:
+                    return 0;
+            }
+        } catch (error: unknown) {
+            this.logError("Erreur lors de la récupération du nombre de joueurs :", error instanceof Error ? error.message : String(error));
+            return 0;
         }
     }
 }

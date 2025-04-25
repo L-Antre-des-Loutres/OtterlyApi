@@ -77,4 +77,15 @@ export abstract class Repository<T extends { id?: number }> {
             return false;
         }
     }
+
+    // Logique de query
+    async query(query: string, params: any[] = []): Promise<T[]> {
+        try {
+            const [rows] = await db.query<RowDataPacket[]>(query, params);
+            return rows as T[];
+        } catch (error) {
+            console.error("Erreur lors de la requête :", error);
+            return [];
+        }
+    }
 }

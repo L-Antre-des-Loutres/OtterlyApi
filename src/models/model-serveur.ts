@@ -3,6 +3,8 @@ import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { RepositoryServeur } from "../repositories/repository-serveur";
 import { ServiceServeur } from "../services/service-serveur";
 import { Model } from "./Model";
+import { RepositoryServeurParameters } from "../repositories/repository-serveur_parameters";
+import { ServeurParametersInterface } from "../interfaces/ServeurParametersInterfaces";
 
 export class ModelServeur extends Model {
 
@@ -17,6 +19,7 @@ export class ModelServeur extends Model {
     start_script: string;
     actif: boolean;
     global: boolean;
+    nb_players?: number;
 
     // Constructeur de la classe Serveur
     constructor(data: Partial<ServeurInterface>) {
@@ -35,10 +38,13 @@ export class ModelServeur extends Model {
     }
 
     // Initialisation du repository Serveur
-    private static readonly serveurs = new RepositoryServeur();
+    private static readonly serveursRepository = new RepositoryServeur();
+
+    // Initialisation du repository Serveur Parameters
+    private static readonly serveursParametersRepository = new RepositoryServeurParameters();
 
     // Initialisation du service Serveur
-    private static readonly serviceServeur = new ServiceServeur();
+    private static readonly serveursService = new ServiceServeur();
 
     // Méthode qui permet de convertir le model en JSON
     toJSON(): Partial<ServeurInterface> {
@@ -60,7 +66,7 @@ export class ModelServeur extends Model {
 
     // Méthode de lancement du serveur
     static async start(serveur: ModelServeur): Promise<boolean> {
-        if (await ModelServeur.serviceServeur.startServeur(serveur)) {
+        if (await ModelServeur.serveursService.startServeur(serveur)) {
             return true;
         } else {
             return false;
@@ -69,7 +75,7 @@ export class ModelServeur extends Model {
 
     // Méthode de fermeture du serveur
     static async stop(serveur: ModelServeur): Promise<boolean> {
-        if(await ModelServeur.serviceServeur.stopServeur(serveur)) {
+        if (await ModelServeur.serveursService.stopServeur(serveur)) {
             return true;
         } else {
             return false;
@@ -78,27 +84,59 @@ export class ModelServeur extends Model {
 
     // Méthode de récupération de l'ensemble des serveurs
     static async getAll(): Promise<ModelServeur[]> {
-        const serveurs = await ModelServeur.serveurs.findAll();
+        const serveurs = await ModelServeur.serveursRepository.findAll();
         return serveurs.map(data => new ModelServeur(data));
     }
 
     // Méthode de récupération d'un serveur par son ID
     static async getById(id: number): Promise<ModelServeur | null> {
-        const serveur = await ModelServeur.serveurs.findById(id);
+        const serveur = await ModelServeur.serveursRepository.findById(id);
         return serveur ? new ModelServeur(serveur) : null;
+    }
+
+    // Méthode de récupération des ID des serveurs primaire et secondaire
+    static async getStartedServeursId(): Promise<ServeurParametersInterface | null> {
+        const serveur = await ModelServeur.serveursParametersRepository.getServeursId();
+        return serveur;
+    }
+
+    // Méthode de récupération des informations des serveurs primaire et secondaire
+    static async getStartedServeursInfo(): Promise<ModelServeur[] | null> {
+        const serveursStartedId = await ModelServeur.getStartedServeursId();
+        
+        // Vérification si les serveurs primaire et secondaire existent
+        if (serveursStartedId) {
+            const serveursPrimary = await ModelServeur.getById(serveursStartedId.id_serv_primaire);
+            const serveursSecondaire = await ModelServeur.getById(serveursStartedId.id_serv_secondaire);
+
+            // Ajout de la propriété nb_players pour chaque serveur
+            if (serveursPrimary) {
+                serveursPrimary.nb_players = await ModelServeur.serveursService.getPlayersCount(serveursPrimary);
+            }
+            if (serveursSecondaire) {
+                serveursSecondaire.nb_players = await ModelServeur.serveursService.getPlayersCount(serveursSecondaire);
+            }
+
+            if (serveursPrimary && serveursSecondaire) {
+                return [serveursPrimary, serveursSecondaire];
+            }
+            return null;
+        }
+        return null;
     }
 
     // Méthode de création d'un serveur
     static async create(data: Partial<ServeurInterface>): Promise<ModelServeur> {
-        const nextId = await ModelServeur.serveurs.getNextId();
+        const nextId = await ModelServeur.serveursRepository.getNextId();
         const serveur = new ModelServeur({ ...data, id: nextId });
-        await ModelServeur.serveurs.save(serveur);
+        await ModelServeur.serveursRepository.save(serveur);
         return serveur;
     }
 
     // Méthode de suppression d'un serveur 
     static async delete(id: number): Promise<boolean> {
-        const deleted = await ModelServeur.serveurs.delete(id);
+        const deleted = await ModelServeur.serveursRepository.delete(id);
         return deleted;
     }
 }
+
