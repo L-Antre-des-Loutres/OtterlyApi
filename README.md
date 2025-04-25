@@ -11,7 +11,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/matheo-1712/OtterlyAPI?style=social)
 
 
-Otterly API est une API RESTful permettant de gérer des serveurs Minecraft. Elle est conçue pour être simple d'utilisation et facile à maintenir. Son objectif est de devenir un véritable framework d'API, pensé pour être hautement modifiable et extrêmement facile à prendre en main.
+Otterly API est une API RESTful. Elle est conçue pour être simple d'utilisation et facile à maintenir. Son objectif est de devenir un véritable framework d'API, pensé pour être hautement modifiable et extrêmement facile à prendre en main. Cette API est spécialisée pour [l'Antre des Loutres](https://github.com/L-Antre-des-Loutres), mais elle reste facilement modifiable pour s'adapter à un environnement différent.
 
 # Sommaire
 - [Otterly API](#otterly-api)
