@@ -19,7 +19,7 @@ export class ModelServeur extends Model {
     start_script: string;
     actif: boolean;
     global: boolean;
-    nb_players?: number;
+    players_online?: number;
 
     // Constructeur de la classe Serveur
     constructor(data: Partial<ServeurInterface>) {
@@ -103,7 +103,7 @@ export class ModelServeur extends Model {
     // Méthode de récupération des informations des serveurs primaire et secondaire
     static async getStartedServeursInfo(): Promise<ModelServeur[] | null> {
         const serveursStartedId = await ModelServeur.getStartedServeursId();
-        
+
         // Vérification si les serveurs primaire et secondaire existent
         if (serveursStartedId) {
             const serveursPrimary = await ModelServeur.getById(serveursStartedId.id_serv_primaire);
@@ -111,10 +111,10 @@ export class ModelServeur extends Model {
 
             // Ajout de la propriété nb_players pour chaque serveur
             if (serveursPrimary) {
-                serveursPrimary.nb_players = await ModelServeur.serveursService.getPlayersCount(serveursPrimary);
+                serveursPrimary.players_online = await ModelServeur.serveursService.getPlayersCount(serveursPrimary);
             }
             if (serveursSecondaire) {
-                serveursSecondaire.nb_players = await ModelServeur.serveursService.getPlayersCount(serveursSecondaire);
+                serveursSecondaire.players_online = await ModelServeur.serveursService.getPlayersCount(serveursSecondaire);
             }
 
             if (serveursPrimary && serveursSecondaire) {

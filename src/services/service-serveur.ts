@@ -70,6 +70,7 @@ export class ServiceServeur extends Service {
 
                 // Minecraft
                 case "Minecraft":
+                    // TODO : Implémenter la récupération des joueurs Minecraft
                     return 0;
 
                 // Palworld
@@ -79,7 +80,7 @@ export class ServiceServeur extends Service {
                         let config = {
                             method: 'get',
                             maxBodyLength: Infinity,
-                            url: 'http://localhost:8212/v1/api/players',
+                            url: 'http://127.0.0.1:8212/v1/api/players',
 
                             headers: {
                                 'Content-Type': 'application/json',
