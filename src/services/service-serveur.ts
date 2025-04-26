@@ -127,7 +127,7 @@ export class ServiceServeur extends Service {
             return response.players.online;
 
         } catch (error) {
-            this.logError("Erreur RCON Minecraft :", error instanceof Error ? error.message : String(error));
+            this.logError("Erreur lors de la récupération du nombre de joueurs :", error instanceof Error ? error.message : String(error));
             return 0;
         }
     }
