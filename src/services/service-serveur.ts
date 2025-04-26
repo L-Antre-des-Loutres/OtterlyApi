@@ -115,8 +115,12 @@ export class ServiceServeur extends Service {
                 ? serveurParameters.host_primaire
                 : serveurParameters.host_secondaire
 
+            const port = serveur.id === serveurParameters.id_serv_primaire
+                ? 25565
+                : 25564
+
             // Utilisation du package : minecraft-server-util
-            const response = await status(host)
+            const response = await status(host, port)
 
             // Vérification de la réponse
             if (response.players.online === undefined) {
@@ -127,7 +131,7 @@ export class ServiceServeur extends Service {
             return response.players.online;
 
         } catch (error) {
-            this.logError("Erreur lors de la récupération du nombre de joueurs :", error instanceof Error ? error.message : String(error));
+            this.logError("Serveur Minecraft : erreur lors de la récupération du nombre de joueurs :", error instanceof Error ? error.message : String(error));
             return 0;
         }
     }
