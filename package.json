@@ -23,6 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.0",
     "nanoid": "^4.0.2",
+    "rcon-client": "^4.2.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

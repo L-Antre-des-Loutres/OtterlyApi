@@ -5,6 +5,8 @@ import { promisify } from "util";
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { Service } from "./Service";
 import axios from "axios";
+import { RepositoryServeurParameters } from "../repositories/repository-serveur_parameters";
+import { Rcon } from "rcon-client";
 
 export class ServiceServeur extends Service {
 
@@ -13,6 +15,9 @@ export class ServiceServeur extends Service {
 
     // Commande pour arrêter le serveur
     private readonly stopCommand: string;
+
+    // Import du RepositoryServeurParameters
+    private static readonly repositoryServeurParameters = new RepositoryServeurParameters();
 
     constructor() {
         super("Serveur - Service");
@@ -32,8 +37,8 @@ export class ServiceServeur extends Service {
             // Exécution du script de démarrage
             const execPromise = promisify(exec);
             const { stdout, stderr } = await execPromise(command);
-            console.log(stdout);
-            console.error(stderr);
+            this.logInfo(stdout);
+            this.logError(stderr);
             return true;
         } catch (error: unknown) {
             this.logError("Erreur lors du démarrage du serveur :", error instanceof Error ? error.message : String(error));
@@ -53,8 +58,8 @@ export class ServiceServeur extends Service {
             // Exécution du script d'arrêt
             const execPromise = promisify(exec);
             const { stdout, stderr } = await execPromise(command);
-            console.log(stdout);
-            console.error(stderr);
+            this.logInfo(stdout);
+            this.logError(stderr);
             return true;
         } catch (error: unknown) {
             this.logError("Erreur lors de l'arrêt du serveur :", error instanceof Error ? error.message : String(error));
@@ -67,38 +72,23 @@ export class ServiceServeur extends Service {
         try {
             // Vérification du jeu sur le serveur
             switch (serveur.jeu) {
-
                 // Minecraft
                 case "Minecraft":
-                    // TODO : Implémenter la récupération des joueurs Minecraft
-                    return 0;
+                    try {
+                        const playerCount = await this.getMinecraftPlayers(serveur);
+                        return playerCount;
+                    } catch (error) {
+                        this.logError("Erreur lors de la récupération des joueurs Minecraft :", error instanceof Error ? error.message : String(error));
+                        return 0;
+                    }
 
                 // Palworld
                 case "Palworld":
                     try {
-                        // Envoie une requête GET à l'API de Palworld pour récupérer le nombre de joueurs
-                        let config = {
-                            method: 'get',
-                            maxBodyLength: Infinity,
-                            url: 'http://127.0.0.1:8212/v1/api/players',
-
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': process.env.PALWORLD_STRING ?? "",
-                            },
-                        };
-                        const response = await axios(config);
-
-                        // Vérifie si la réponse est valide
-                        if (response.status === 200) {
-                            const players = Array.isArray(response.data.players) ? response.data.players : [];
-                            return players.length;
-                        } else {
-                            console.log(response.status);
-                            return 0;
-                        }
+                        const playerCount = await this.getPalworldPlayers(serveur);
+                        return playerCount;
                     } catch (error) {
-                        console.log("Erreur lors de la récupération des joueurs :", error);
+                        this.logError("Erreur lors de la récupération des joueurs Palworld :", error instanceof Error ? error.message : String(error));
                         return 0;
                     }
 
@@ -110,6 +100,67 @@ export class ServiceServeur extends Service {
             return 0;
         }
     }
+
+    // Méthode pour récupérer le nombre de joueurs sur Minecraft
+    private async getMinecraftPlayers(serveur: ServeurInterface): Promise<number> {
+        try {
+            const serveurParameters = await ServiceServeur.repositoryServeurParameters.getFirstParameters();
+    
+            if (!serveurParameters?.host_primaire || !serveurParameters?.rcon_password) {
+                this.logError("Serveur Minecraft : les paramètres n'ont pas été trouvés");
+                return 0;
+            }
+    
+            const host = serveur.id === serveurParameters.id_serv_primaire
+                ? serveurParameters.host_primaire
+                : serveurParameters.host_secondaire;
+    
+            const rcon = await Rcon.connect({
+                host,
+                password: serveurParameters.rcon_password,
+            });
+    
+            const response = await rcon.send("list");
+            await rcon.end();
+    
+            const regex = /There are (\d+) of a max/;
+            const match = regex.exec(response);
+            return match ? parseInt(match[1], 10) : 0;
+        } catch (error) {
+            this.logError("Erreur RCON Minecraft :", error instanceof Error ? error.message : String(error));
+            return 0;
+        }
+    }
+
+    // Méthode pour récupérer le nombre de joueurs sur Palworld
+    private async getPalworldPlayers(_: ServeurInterface): Promise<number> {
+        try {
+            const config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://127.0.0.1:8212/v1/api/players',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': process.env.PALWORLD_STRING ?? "",
+                },
+            };
+    
+            const response = await axios(config);
+    
+            if (response.status === 200) {
+                const players = Array.isArray(response.data.players) ? response.data.players : [];
+                return players.length;
+            } else {
+                this.logInfo(`Palworld: code de réponse inattendu ${response.status}`);
+                return 0;
+            }
+        } catch (error) {
+            this.logError("Erreur API Palworld :", error instanceof Error ? error.message : String(error));
+            return 0;
+        }
+    }
+    
+    
 }
 
 

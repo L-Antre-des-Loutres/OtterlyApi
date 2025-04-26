@@ -14,6 +14,12 @@ export class RepositoryServeurParameters extends Repository<ServeurParametersInt
         return parameters;
     }
 
+    // Méthode pour récupérer seulement la première ligne de la table
+    async getFirstParameters(): Promise<ServeurParametersInterface | null> {
+        const parameters = await super.findFirst();
+        return parameters;
+    }
+
     // Méthode pour récupérer uniquement les ID des serveurs primaire et secondaire
     async getServeursId(): Promise<ServeurParametersInterface | null> {
         try {

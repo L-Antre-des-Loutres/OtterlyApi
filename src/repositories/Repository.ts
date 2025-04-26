@@ -2,6 +2,7 @@ import { RowDataPacket } from "mysql2";
 import db from "../db";
 
 export abstract class Repository<T extends { id?: number }> {
+
     protected store = new Map<string, T>();
     protected tableName: string;
 
@@ -86,6 +87,17 @@ export abstract class Repository<T extends { id?: number }> {
         } catch (error) {
             console.error("Erreur lors de la requête :", error);
             return [];
+        }
+    }
+
+    // Logique de récupération de la première ligne
+    async findFirst(): Promise<T | null> {
+        try {
+            const [rows] = await db.query<RowDataPacket[]>(`SELECT * FROM ${this.tableName} LIMIT 1`);
+            return rows.length > 0 ? rows[0] as T : null;
+        } catch (error) {
+            console.error("Erreur lors de la récupération de la première ligne :", error);
+            return null;
         }
     }
 }
