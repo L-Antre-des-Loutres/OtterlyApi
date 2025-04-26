@@ -5,8 +5,8 @@ import { promisify } from "util";
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { Service } from "./Service";
 import axios from "axios";
+import { status } from 'minecraft-server-util';
 import { RepositoryServeurParameters } from "../repositories/repository-serveur_parameters";
-import { Rcon } from "rcon-client";
 
 export class ServiceServeur extends Service {
 
@@ -75,7 +75,7 @@ export class ServiceServeur extends Service {
                 // Minecraft
                 case "Minecraft":
                     try {
-                        const playerCount = await this.getMinecraftPlayers(serveur);
+                        const playerCount = await this.getMinecraftPlayersCount(serveur);
                         return playerCount;
                     } catch (error) {
                         this.logError("Erreur lors de la récupération des joueurs Minecraft :", error instanceof Error ? error.message : String(error));
@@ -102,30 +102,30 @@ export class ServiceServeur extends Service {
     }
 
     // Méthode pour récupérer le nombre de joueurs sur Minecraft
-    private async getMinecraftPlayers(serveur: ServeurInterface): Promise<number> {
+    private async getMinecraftPlayersCount(serveur: ServeurInterface): Promise<number> {
         try {
             const serveurParameters = await ServiceServeur.repositoryServeurParameters.getFirstParameters();
-    
+
             if (!serveurParameters?.host_primaire || !serveurParameters?.rcon_password) {
                 this.logError("Serveur Minecraft : les paramètres n'ont pas été trouvés");
                 return 0;
             }
-    
+
             const host = serveur.id === serveurParameters.id_serv_primaire
                 ? serveurParameters.host_primaire
-                : serveurParameters.host_secondaire;
-    
-            const rcon = await Rcon.connect({
-                host,
-                password: serveurParameters.rcon_password,
-            });
-    
-            const response = await rcon.send("list");
-            await rcon.end();
-    
-            const regex = /There are (\d+) of a max/;
-            const match = regex.exec(response);
-            return match ? parseInt(match[1], 10) : 0;
+                : serveurParameters.host_secondaire
+
+            // Utilisation du package : minecraft-server-util
+            const response = await status(host)
+
+            // Vérification de la réponse
+            if (response.players.online === undefined) {
+                this.logError("Serveur Minecraft : la réponse n'est pas valide");
+                return 0;
+            }
+
+            return response.players.online;
+
         } catch (error) {
             this.logError("Erreur RCON Minecraft :", error instanceof Error ? error.message : String(error));
             return 0;
@@ -144,9 +144,9 @@ export class ServiceServeur extends Service {
                     'Authorization': process.env.PALWORLD_STRING ?? "",
                 },
             };
-    
+
             const response = await axios(config);
-    
+
             if (response.status === 200) {
                 const players = Array.isArray(response.data.players) ? response.data.players : [];
                 return players.length;
@@ -159,8 +159,8 @@ export class ServiceServeur extends Service {
             return 0;
         }
     }
-    
-    
+
+
 }
 
 
