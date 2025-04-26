@@ -17,7 +17,7 @@ export class ControllerServeur extends Controller {
         }
     }
 
-    // GET /api/serveurs/:id
+    // GET /api/serveurs/infos/:id
     public async getById(req: Request, res: Response): Promise<void> {
         try {
             const serveur = await ModelServeur.getById(parseInt(req.params.id, 10));
@@ -26,6 +26,24 @@ export class ControllerServeur extends Controller {
                 return;
             }
             this.sendSuccess(res, serveur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // GET /api/serveurs/primaire-secondaire
+    public async getServeursPrimaireSecondaire(req: Request, res: Response): Promise<void> {
+        try {
+            const serveurs = await ModelServeur.getStartedServeursInfo();
+
+            // Ajout des joueurs en ligne pour chaque serveur
+            if (!serveurs) {
+                this.sendError(res, "Serveurs introuvables");
+                return;
+            }
+
+            // TODO : Refaire cette ligne plus tard en supprimant le ANY et en corrigeant le soucis du non renvoie de nb_players autrement.
+            this.sendSuccess(res, serveurs.map(s => Object.getOwnPropertyNames(s).reduce((acc, key) => { acc[key] = s[key as keyof typeof s]; return acc; }, {} as any)));
         } catch (error) {
             this.handleError(res, error);
         }

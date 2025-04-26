@@ -59,7 +59,7 @@ async function start() {
 
     // Test de l'API Serveur avec Axios
     // APITest();
-    APITest2();
+    // APITest2();
 
 }
 
