@@ -76,15 +76,28 @@ if [ -n "$MODPACK_LINK" ] && [ -n "$SERVEUR_LOADER_LINK" ]; then
     rm modpack.zip
     cd "$SERVEUR_PATH"
     echo "eula=true" > eula.txt
-    java -jar serveur-installer.jar --installServer
+
+    # Lancer l'installation du serveur et vérifier directement
+    if java -jar serveur-installer.jar --installServer; then
+        echo "Succès : l'installation du serveur s'est bien passée."
+        # Suppression du serveur-installer.jar
+        rm -rf serveur-installer.jar
+        # Suppression du serveur-installer.jar.log
+        rm -rf serveur-installer.jar.log
+    else
+        echo "Erreur : l'installation du serveur a échoué."
+        exit 1
+    fi
+
     # Renommage de tous les fichiers .sh en start.sh
     for sh_file in *.sh; do
         mv "$sh_file" start.sh
     done
-
+    
     # Allocation de la RAM
     echo "-Xms2G -Xmx8G" > user_jvm_args.txt
 fi
+
 
 
 
