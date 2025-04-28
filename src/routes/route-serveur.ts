@@ -66,4 +66,14 @@ router.post("/stop/", middlewareAuth.handle.bind(middlewareAuth), async (req, re
     }
 });
 
+// POST /api/serveurs/installation/
+router.post("/installation/", middlewareAuth.handle.bind(middlewareAuth), async (req, res) => {
+    try {
+        await controller.install(req, res);
+    } catch (err) {
+        console.error("Erreur lors de l'installation du serveur :", err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
 export default router;

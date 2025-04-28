@@ -25,6 +25,8 @@ export class ServiceServeur extends Service {
         this.stopCommand = "serversentinel stop-server";
     }
 
+    // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
+
     // Méthode de démarrage du serveur
     async startServeur(serveur: ServeurInterface): Promise<boolean> {
         try {
@@ -66,6 +68,20 @@ export class ServiceServeur extends Service {
             return false;
         }
     }
+
+    // Méthode d'installation du serveur
+    async install(serveur: ServeurInterface): Promise<boolean> {
+        try {
+            
+            this.logInfo('Méthode d\'installation du serveur non implémentée');
+            return false;
+        } catch (error) {
+            this.logError("Erreur lors de l'installation du serveur :", error instanceof Error ? error.message : String(error));
+            return false;
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------------
 
     // Méthode pour récupérer le nombre de joueurs connectés au serveur
     async getPlayersCount(serveur: ServeurInterface): Promise<number> {
