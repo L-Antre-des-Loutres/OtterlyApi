@@ -77,7 +77,13 @@ if [ -n "$MODPACK_LINK" ] && [ -n "$SERVEUR_LOADER_LINK" ]; then
     cd ..
     echo "eula=true" > eula.txt
     java -jar serveur-installer.jar --installServer
-    mv run.sh start.sh
+    # Renommage de tous les fichiers .sh en start.sh
+    for sh_file in *.sh; do
+        mv "$sh_file" start.sh
+    done
+
+    # Allocation de la RAM
+    echo "-Xms2G -Xmx8G" > user_jvm_args.txt
 fi
 
 
