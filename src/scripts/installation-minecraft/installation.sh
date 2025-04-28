@@ -63,6 +63,19 @@ if [ -n "$SERVEUR_PACK_LINK" ]; then
     curl -s -L "$SERVEUR_PACK_LINK" -o serveur.zip
     unzip -o serveur.zip
     rm serveur.zip
+
+    # Renommage de tous les fichiers .sh en start.sh
+    for sh_file in *.sh; do
+        mv "$sh_file" start.sh
+    done
+    
+    # Répondre si le serveur est bien installé
+    if [ -f "$SERVEUR_PATH"/start.sh ]; then
+        echo "Succès : le serveur a été installé avec succès."
+    else
+        echo "Erreur : le serveur n'a pas été installé avec succès."
+        exit 1
+    fi
 fi
 
 # Installation du modpack et du serveur loader
