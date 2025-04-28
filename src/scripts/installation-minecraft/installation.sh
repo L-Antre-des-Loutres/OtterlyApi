@@ -74,7 +74,7 @@ if [ -n "$MODPACK_LINK" ] && [ -n "$SERVEUR_LOADER_LINK" ]; then
     cd "$SERVEUR_PATH"/mods
     unzip -o modpack.zip
     rm modpack.zip
-    cd ..
+    cd "$SERVEUR_PATH"
     echo "eula=true" > eula.txt
     java -jar serveur-installer.jar --installServer
     # Renommage de tous les fichiers .sh en start.sh
