@@ -9,6 +9,7 @@ import { ServiceToken } from "./services/service-token";
 // Import des tests de l'API
 import { APITest } from "./test/22-04-2025-APITEST";
 import { APITest2 } from "./test/23-04-2025-APITEST";
+import { APITest3 } from "./test/28-04-2025-APITEST";
 
 dotevnv.config()
 
@@ -60,6 +61,7 @@ async function start() {
     // Test de l'API Serveur avec Axios
     // APITest();
     // APITest2();
+    // APITest3();
 
 }
 

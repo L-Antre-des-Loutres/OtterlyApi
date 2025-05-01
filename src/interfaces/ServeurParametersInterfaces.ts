@@ -1,3 +1,4 @@
+// Interface ServeurParametersInterface
 export interface ServeurParametersInterface {
     id: number;
     id_serv_primaire: number;

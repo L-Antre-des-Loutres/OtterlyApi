@@ -1,10 +1,10 @@
-import e from "express";
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { RepositoryServeur } from "../repositories/repository-serveur";
 import { ServiceServeur } from "../services/service-serveur";
 import { Model } from "./Model";
 import { RepositoryServeurParameters } from "../repositories/repository-serveur_parameters";
 import { ServeurParametersInterface } from "../interfaces/ServeurParametersInterfaces";
+import { ServeurMinecraftInstallationInterface } from "../interfaces/ServeurInstallationInterfaces";
 
 export class ModelServeur extends Model {
 
@@ -64,24 +64,6 @@ export class ModelServeur extends Model {
         };
     }
 
-    // Méthode de lancement du serveur
-    static async start(serveur: ModelServeur): Promise<boolean> {
-        if (await ModelServeur.serveursService.startServeur(serveur)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // Méthode de fermeture du serveur
-    static async stop(serveur: ModelServeur): Promise<boolean> {
-        if (await ModelServeur.serveursService.stopServeur(serveur)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     // Méthode de récupération de l'ensemble des serveurs
     static async getAll(): Promise<ModelServeur[]> {
         const serveurs = await ModelServeur.serveursRepository.findAll();
@@ -138,5 +120,54 @@ export class ModelServeur extends Model {
         const deleted = await ModelServeur.serveursRepository.delete(id);
         return deleted;
     }
-}
 
+    // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
+
+    // Méthode de lancement du serveur
+    static async start(serveur: ModelServeur): Promise<boolean> {
+        if (await ModelServeur.serveursService.startServeur(serveur)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Méthode de fermeture du serveur
+    static async stop(serveur: ModelServeur): Promise<boolean> {
+        if (await ModelServeur.serveursService.stopServeur(serveur)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Méthode d'installation du serveur
+    static async install(serveurInstallation: ServeurMinecraftInstallationInterface): Promise<boolean> {
+        // Passage en variable pour le model
+        const serveur : ModelServeur = new ModelServeur({
+            nom: serveurInstallation.nom_serveur,
+            jeu: serveurInstallation.version,
+            version: serveurInstallation.version,
+            modpack: serveurInstallation.modpack_name,
+            modpack_url: serveurInstallation.modpack_url,
+            nom_monde: serveurInstallation.nom_serveur,
+            embed_color: serveurInstallation.embed_color,
+            path_serv: `/home/serveurs/minecraft/serveurs-investisseurs/${serveurInstallation.discord_id}/${serveurInstallation.nom_serveur}`,
+            start_script: "start.sh",
+            actif: true,
+            global: false,
+        });
+
+        // Création du serveur
+        const serveurCreated = await ModelServeur.create(serveur);
+
+        if (await ModelServeur.serveursService.install(serveurCreated)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------------
+
+}

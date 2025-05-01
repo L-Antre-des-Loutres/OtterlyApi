@@ -10,8 +10,8 @@ declare global {
             DB_USER: string;
             DB_PASSWORD: string;
             DB_NAME: string;
-            DB_CONNEXION_LIMIT: number;
-            DB_PORT: number;
+            DB_CONNEXION_LIMIT: string;
+            DB_PORT: string;
 
             // Palworld String Connexion
             PALWORLD_STRING: string;

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ModelServeur } from "../models/model-serveur";
 import { Controller } from "./Controller";
+import { ServeurMinecraftInstallationInterface } from "../interfaces/ServeurInstallationInterfaces";
 
 export class ControllerServeur extends Controller {
     handleRequest(req: Request, res: Response): void {
@@ -69,7 +70,7 @@ export class ControllerServeur extends Controller {
         }
     }
 
-    // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR ------------------
+    // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
 
     // POST /api/serveurs/start/
     public async start(req: Request, res: Response): Promise<void> {
@@ -107,4 +108,16 @@ export class ControllerServeur extends Controller {
             this.handleError(res, error);
         }
     }
+
+    // POST /api/serveurs/installation/
+    public async install(req: Request, res: Response): Promise<void> {
+        try {
+            const serveurInstallation : ServeurMinecraftInstallationInterface = req.body.serveurInstallation;
+            this.sendSuccess(res, await ModelServeur.install(serveurInstallation));
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------------
 }

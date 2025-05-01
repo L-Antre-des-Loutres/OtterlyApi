@@ -1,3 +1,4 @@
+// Interface TokenInterface
 export interface TokenInterface {
     id: number;
     utilisateur: string;
