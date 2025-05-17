@@ -6,11 +6,6 @@ import helmet from "helmet"
 // Import des services de l'API
 import { ServiceToken } from "./services/service-token";
 
-// Import des tests de l'API
-import { APITest } from "./test/22-04-2025-APITEST";
-import { APITest2 } from "./test/23-04-2025-APITEST";
-import { APITest3 } from "./test/28-04-2025-APITEST";
-
 dotevnv.config()
 
 class App {
@@ -30,9 +25,15 @@ class App {
     }
 
     private routes() {
+        // Route d'accueil
         this.app.get("/", (req, res) => {
-            res.send("Hello World!")
-        })
+            res.status(200).json({
+                message: "API Serveur est en ligne !",
+                version: process.env.VERSION ?? "non spécifiée"
+            });
+        });
+
+        // Route des serveurs
         this.app.use("/api/serveurs", require("./routes/route-serveur").default)
     }
 
@@ -40,18 +41,18 @@ class App {
         this.middlewares()
         this.routes()
         this.app.listen(this.port, () => {
-            console.log(`L'API Serveur est en route sur le port ${this.port}`)
+            console.log(`L'API Serveur est en route sur le port http://localhost:${this.port}`)
         })
     }
 }
 
 
 async function start() {
-    
+
     // Génération des tokens initiales
     const tokenService = new ServiceToken();
     await tokenService.generateInitialTokens();
-    
+
     // Instanciation de l'application
     const app = new App()
 

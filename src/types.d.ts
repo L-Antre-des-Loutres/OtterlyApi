@@ -5,6 +5,9 @@ declare global {
             // General Configuration
             PORT: string;
 
+            // General URL Authentication
+            API_URL: string;
+
             // General Database Configuration
             DB_HOST: string;
             DB_USER: string;
@@ -15,6 +18,9 @@ declare global {
 
             // Palworld String Connexion
             PALWORLD_STRING: string;
+
+            // Version
+            VERSION: string;
 
         }
     }

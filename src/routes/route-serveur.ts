@@ -1,10 +1,41 @@
 import { Router } from "express";
 import { ControllerServeur } from "../controllers/controller-serveur";
 import { MiddlewareAuth } from "../middlewares/middleware-auth";
+import { Routes } from "./Routes";
 
 const router = Router();
 const controller = new ControllerServeur();
 const middlewareAuth = new MiddlewareAuth();
+
+const RoutesList: Routes[] = [
+    {
+        alias: "otr-serveurs", route: "/", method: "GET", parameters: "", description: "Affichage de tous les serveurs", comment: "GET /api/serveurs"
+    },
+    {
+        alias: "otr-serveurs-infos", route: "/infos/:id", method: "GET", parameters: "id", description: "Affichage d'un serveur par son ID", comment: "GET /api/serveurs/infos/:id"
+    },
+    {
+        alias: "otr-serveurs-primaire-secondaire", route: "/primaire-secondaire", method: "GET", parameters: "", description: "Affichage des serveurs primaire et secondaire", comment: "GET /api/serveurs/primaire-secondaire"
+    },
+    {
+        alias: "otr-serveurs-creer", route: "/", method: "POST", parameters: "nom jeu version modpack modpack_url nom_monde embed_color path_serv start_script actif global",description: "Création d'un serveur", comment: "POST /api/serveurs Nécessite un token d'authentification"
+    },
+    {
+        alias: "otr-serveurs-supprimer", route: "/", method: "DELETE", parameters: "id", description: "Suppression d'un serveur", comment: "DELETE /api/serveurs Nécessite un token d'authentification"
+    },
+    {
+        alias: "otr-serveurs-start", route: "/start/", method: "POST", parameters: "id", description: "Lancement du serveur", comment: "POST /api/serveurs/start/ Nécessite un token d'authentification"
+    },
+    {
+        alias: "otr-serveurs-stop", route: "/stop/", method: "POST", parameters: "id", description: "Arrêt du serveur", comment: "POST /api/serveurs/stop/ Nécessite un token d'authentification"
+    },
+    {
+        alias: "otr-serveurs-installation", route: "/installation/", method: "POST", parameters: "discord_id nom_serveur version modpack_name embed_color serveur_loader modpack_url serveur_pack_url", description: "Installation du serveur", comment: "POST /api/serveurs/installation/ Nécessite un token d'authentification"
+    },
+];
+
+// Enregistrement des routes
+Routes.registerRoutes(RoutesList, "serveurs");
 
 // GET /api/serveurs (affichage de tous les serveurs)
 router.get("/", (req, res) => controller.getServeurs(req, res));
