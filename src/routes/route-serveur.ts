@@ -3,6 +3,10 @@ import { ControllerServeur } from "../controllers/controller-serveur";
 import { MiddlewareAuth } from "../middlewares/middleware-auth";
 import { Routes } from "./Routes";
 
+/**
+ *  Routes du serveur
+**/
+
 const router = Router();
 const controller = new ControllerServeur();
 const middlewareAuth = new MiddlewareAuth();

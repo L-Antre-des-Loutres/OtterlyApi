@@ -20,13 +20,17 @@ export class RepositoryApiRoutes extends Repository<ApiRoutesInterface> {
 
     // Méthode pour ajouter une route
     async addRoute(route: ApiRoutesInterface): Promise<void> {
-        // Vérification si la route existe déjà
-        const existingRoute = await this.getRouteByAlias(route.alias);
-        if (existingRoute) {
-            await this.updateRoute(route);
-        } else {
-            await this.save(route);
-            console.log(`🗒️  Route ${route.alias} enregistrée avec succès dans la base de données.`);
+        try {
+            // Vérification si la route existe déjà
+            const existingRoute = await this.getRouteByAlias(route.alias);
+            if (existingRoute) {
+                await this.updateRoute(route);
+            } else {
+                await this.save(route);
+                console.log(`🗒️  Route ${route.alias} enregistrée avec succès dans la base de données.`);
+            }
+        } catch (error) {
+            console.error("Erreur lors de l'ajout de la route :", error);
         }
     }
 
