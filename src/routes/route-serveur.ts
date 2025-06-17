@@ -1,11 +1,21 @@
+// src/routes/route-serveur.ts
+
 import { Router } from "express";
 import { ControllerServeur } from "../controllers/controller-serveur";
 import { MiddlewareAuth } from "../middlewares/middleware-auth";
 import { Routes } from "./Routes";
 
 /**
- *  Routes du serveur
-**/
+ * Represents an instance of a router, typically used to define and handle
+ * application routes in a structured manner. The router instance can be used
+ * to register middleware, define route-specific logic, and map HTTP methods to
+ * corresponding handlers.
+ *
+ * This variable provides access to a modular routing system, allowing you to
+ * group and manage routes efficiently within an application. It is commonly
+ * employed in server frameworks to manage incoming requests and their
+ * respective responses.
+ */
 
 const router = Router();
 const controller = new ControllerServeur();

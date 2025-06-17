@@ -1,3 +1,5 @@
+// src/models/model-serveur.ts
+
 import { ServeurInterface } from "../interfaces/ServeurInterfaces";
 import { RepositoryServeur } from "../repositories/repository-serveur";
 import { ServiceServeur } from "../services/service-serveur";
@@ -6,7 +8,26 @@ import { RepositoryServeurParameters } from "../repositories/repository-serveur_
 import { ServeurParametersInterface } from "../interfaces/ServeurParametersInterfaces";
 import { ServeurMinecraftInstallationInterface } from "../interfaces/ServeurInstallationInterfaces";
 
-export class ModelServeur extends Model {
+/**
+ * Represents a server model that interacts with server-related data and logic.
+ * Inherits from the `Model` class and implements the `ServeurInterface`.
+ * Used to manage server metadata, functionality, and lifecycle.
+ *
+ * - `nom`: The name of the server.
+ * - `jeu`: The game associated with the server.
+ * - `version`: The version of the game being played on the server.
+ * - `modpack`: The modpack used on the server.
+ * - `modpack_url`: The URL where the modpack can be downloaded.
+ * - `nom_monde`: The name of the world on the server.
+ * - `embed_color`: The color used for embeds related to the server.
+ * - `path_serv`: The path to the server's files.
+ * - `start_script`: The script used to start the server.
+ * - `actif`: Indicates if the server is active.
+ * - `global`: Indicates if the server is global.
+ * - `players_online`: The number of online players on the server.
+ */
+
+export class ModelServeur extends Model implements ServeurInterface {
 
     nom: string;
     jeu: string;

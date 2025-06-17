@@ -1,8 +1,14 @@
 // src/repositories/repository-serveur.ts
 
 import db from "../db";
-import { TokenInterface } from "../interfaces/Token.interfaces";
+import { TokenInterface } from "../interfaces/Tokeninterfaces";
 import { Repository } from "./Repository";
+
+/**
+ * Class representing a repository for managing TokenInterface entities.
+ * Extends the base Repository class and provides methods for CRUD operations
+ * as well as additional functionality specific to users and authentication tokens.
+ */
 
 export class RepositoryToken extends Repository<TokenInterface> {
     constructor() {

@@ -1,5 +1,25 @@
+// src/repositories/Repository.ts
+
 import { RowDataPacket } from "mysql2";
 import db from "../db";
+
+/**
+ * Abstract base class for generic repository implementation.
+ * Provides centralized SQL logic to handle typical CRUD operations and query executions.
+ * The repository works with data models that include an optional `id` field of type `number`.
+ * Internally uses a Map to store entities and interacts with the database for persistence.
+ *
+ * @template T The type of entity the repository manages, extending an object with an optional `id` property.
+ *
+ * - `tableName`: The name of the table associated with the repository.
+ * - `store`: A Map to store entities with an optional `id` field.
+ * - `getNextId()`: Retrieves the next available ID for entities.
+ * - `save(item: T)`: Saves an entity to the repository.
+ * - `findById(id: number)`: Retrieves an entity by its ID.
+ * - `findAll()`: Retrieves all entities from the repository.
+ * - `delete(id: number)`: Deletes an entity by its ID.
+ * - `query(sql: string, params?: any[]): Promise<any>`: Executes a custom SQL query and returns the result.
+ */
 
 export abstract class Repository<T extends { id?: number }> {
 

@@ -3,6 +3,12 @@
 import { ServeurParametersInterface } from "../interfaces/ServeurParametersInterfaces";
 import { Repository } from "./Repository";
 
+/**
+ * RepositoryServeurParameters is a class that extends the Repository for managing
+ * operations related to serveur parameters. It provides methods for retrieving
+ * information from a database table.
+ */
+
 export class RepositoryServeurParameters extends Repository<ServeurParametersInterface> {
     constructor() {
         super("serveurs_parameters");

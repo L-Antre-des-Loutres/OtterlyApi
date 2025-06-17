@@ -1,12 +1,16 @@
 // src/repositories/repository-api_routes.ts
+
 import { ApiRoutesInterface } from "../interfaces/ApiRoutesInterfaces";
 import { Repository } from "./Repository";
 
 /**
- * Repository pour l'enregistrement des routes
- * @classdesc Repository pour l'enregistrement des routes et la recherche des routes
- * @author matheo-1712
-**/
+ * Class representing repository-based operations for managing API routes in the database.
+ * Extends the base `Repository` to provide specialized methods for API routes.
+ * - `getRoutes`: Retrieves all API routes from the database.
+ * - `addRoute`: Adds a new API route to the database.
+ * - `updateRoute`: Updates an existing API route in the database.
+ * - `getRouteByAlias`: Retrieves a route by its alias from the database.
+ */
 
 export class RepositoryApiRoutes extends Repository<ApiRoutesInterface> {
     constructor() {

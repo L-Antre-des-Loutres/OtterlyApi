@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { Service } from "./Service";
-import { TokenInterface } from "../interfaces/Token.interfaces";
+import { TokenInterface } from "../interfaces/Tokeninterfaces";
 import { RepositoryToken } from "../repositories/repository-token";
 
 /* SQL :

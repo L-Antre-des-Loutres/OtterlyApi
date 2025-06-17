@@ -1,7 +1,25 @@
+// src/controllers/controller-serveur.ts
+
 import { Request, Response } from "express";
 import { ModelServeur } from "../models/model-serveur";
 import { Controller } from "./Controller";
 import { ServeurMinecraftInstallationInterface } from "../interfaces/ServeurInstallationInterfaces";
+
+/**
+ * The ControllerServeur class is a specialized controller that handles HTTP requests and responses
+ * for server management operations. It extends the base Controller class and provides various
+ * methods for managing servers, such as retrieving server details, creating, deleting, starting,
+ * stopping, and installing servers.
+ * - `handleRequest` is an abstract method that must be implemented by any subclass to define specific route handling logic.
+ * - `getServeurs` retrieves all server details.
+ * - `getById` retrieves the details of a specific server by its ID.
+ * - `getServeursPrimaireSecondaire` retrieves the details of all primary and secondary servers.
+ * - `create` creates a new server.
+ * - `delete` deletes a server by its ID.
+ * - `start` starts a server by its ID.
+ * - `stop` stops a server by its ID.
+ * - `install` installs a server.
+ */
 
 export class ControllerServeur extends Controller {
     handleRequest(req: Request, res: Response): void {
