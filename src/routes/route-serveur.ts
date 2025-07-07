@@ -29,6 +29,12 @@ const RoutesList: Routes[] = [
         alias: "otr-serveurs-infos", route: "/infos/:id", method: "GET", parameters: "id", description: "Affichage d'un serveur par son ID", comment: "GET /api/serveurs/infos/:id"
     },
     {
+      alias: "otr-serveurs-actif-global", route: "/actif-global", method: "GET", parameters: "", description: "Affichage des serveurs actifs et global", comment: "GET /api/serveurs/actif-global"
+    },
+    {
+        alias: "otr-serveurs-actif-global-jeu", route: "/actif-global/:jeu", method: "GET", parameters: "jeu", description: "Affichage des serveurs actifs et global par le jeu", comment: "GET /api/serveurs/actif-global/:jeu"
+    },
+    {
         alias: "otr-serveurs-primaire-secondaire", route: "/primaire-secondaire", method: "GET", parameters: "", description: "Affichage des serveurs primaire et secondaire", comment: "GET /api/serveurs/primaire-secondaire"
     },
     {
@@ -43,9 +49,6 @@ const RoutesList: Routes[] = [
     {
         alias: "otr-serveurs-stop", route: "/stop/", method: "POST", parameters: "id", description: "Arrêt du serveur", comment: "POST /api/serveurs/stop/ Nécessite un token d'authentification"
     },
-    {
-        alias: "otr-serveurs-installation", route: "/installation/", method: "POST", parameters: "discord_id nom_serveur version modpack_name embed_color serveur_loader modpack_url serveur_pack_url", description: "Installation du serveur", comment: "POST /api/serveurs/installation/ Nécessite un token d'authentification"
-    },
 ];
 
 // Enregistrement des routes
@@ -55,7 +58,13 @@ Routes.registerRoutes(RoutesList, "serveurs");
 router.get("/", (req, res) => controller.getServeurs(req, res));
 
 // GET /api/serveurs/infos/:id (affichage d'un serveur par son ID)
-router.get("/infos/:id", (req, res) => controller.getById(req, res));
+router.get("/infos/:id", (req, res) => controller.getById(req, res))
+
+// GET /api/serveurs/actif-global (affichage des serveurs actif et global)
+router.get("/actif-global", (req, res) => controller.getServeursActifEtGlobal(req, res));
+
+// GET /api/serveurs/actif-global/:jeu (affichage des serveurs actif et global par le jeu)
+router.get("/actif-global/:jeu", (req, res) => controller.getServeursActifEtGlobalByGame(req, res));
 
 // GET /api/serveurs/primaire-secondaire (affichage des serveurs primaire et secondaire)
 router.get("/primaire-secondaire", (req, res) => controller.getServeursPrimaireSecondaire(req, res));
@@ -107,16 +116,6 @@ router.post("/stop/", middlewareAuth.handle.bind(middlewareAuth), async (req, re
         await controller.stop(req, res);
     } catch (err) {
         console.error("Erreur lors de l'arrêt du serveur :", err);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
-});
-
-// POST /api/serveurs/installation/
-router.post("/installation/", middlewareAuth.handle.bind(middlewareAuth), async (req, res) => {
-    try {
-        await controller.install(req, res);
-    } catch (err) {
-        console.error("Erreur lors de l'installation du serveur :", err);
         res.status(500).json({ message: "Internal Server Error" });
     }
 });

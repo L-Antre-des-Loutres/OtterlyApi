@@ -3,7 +3,6 @@
 import { Request, Response } from "express";
 import { ModelServeur } from "../models/model-serveur";
 import { Controller } from "./Controller";
-import { ServeurMinecraftInstallationInterface } from "../interfaces/ServeurInstallationInterfaces";
 
 /**
  * The ControllerServeur class is a specialized controller that handles HTTP requests and responses
@@ -45,6 +44,26 @@ export class ControllerServeur extends Controller {
                 return;
             }
             this.sendSuccess(res, serveur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // GET /api/serveurs/actif-global
+    public async getServeursActifEtGlobal(req: Request, res: Response): Promise<void> {
+        try {
+            const serveurs = await ModelServeur.getServeursActifGlobal();
+            this.sendSuccess(res, serveurs);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // GET /api/serveurs/actif-global/:jeu
+    public async getServeursActifEtGlobalByGame(req: Request, res: Response): Promise<void> {
+        try {
+            const serveurs = await ModelServeur.getServeursActifGlobalByGame(req.params.jeu);
+            this.sendSuccess(res, serveurs);
         } catch (error) {
             this.handleError(res, error);
         }
@@ -122,16 +141,6 @@ export class ControllerServeur extends Controller {
                 this.sendError(res, "Erreur lors de l'arrêt du serveur");
             }
             this.sendSuccess(res, serveur);
-        } catch (error) {
-            this.handleError(res, error);
-        }
-    }
-
-    // POST /api/serveurs/installation/
-    public async install(req: Request, res: Response): Promise<void> {
-        try {
-            const serveurInstallation : ServeurMinecraftInstallationInterface = req.body.serveurInstallation;
-            this.sendSuccess(res, await ModelServeur.install(serveurInstallation));
         } catch (error) {
             this.handleError(res, error);
         }

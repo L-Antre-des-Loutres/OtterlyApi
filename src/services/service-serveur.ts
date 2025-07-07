@@ -30,7 +30,7 @@ export class ServiceServeur extends Service {
     // Méthode de démarrage du serveur
     async startServeur(serveur: ServeurInterface): Promise<boolean> {
         try {
-            this.logInfo(`🚀 Démarrage du serveur "${serveur.nom}" avec ${serveur.start_script}`);
+            this.logInfo(`🚀 Démarrage du serveur "${serveur.nom}"`);
 
             // Préparation de la commande de démarrage
             const command = `${this.startCommand} ${serveur.id}`;
@@ -65,17 +65,6 @@ export class ServiceServeur extends Service {
             return true;
         } catch (error: unknown) {
             this.logError("Erreur lors de l'arrêt du serveur :", error instanceof Error ? error.message : String(error));
-            return false;
-        }
-    }
-
-    // Méthode d'installation du serveur
-    async install(serveur: ServeurInterface): Promise<boolean> {
-        try {
-            execSync(`./installation.sh --serveur_loader_link=${serveur.path_serv} --serveur_path=${serveur.path_serv} --modpack_link=${serveur.modpack_url} --serveur_pack_link=${serveur.path_serv}`)
-            return true;
-        } catch (error) {
-            this.logError("Erreur lors de l'installation du serveur :", error instanceof Error ? error.message : String(error));
             return false;
         }
     }

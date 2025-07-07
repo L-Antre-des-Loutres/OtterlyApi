@@ -1,12 +1,11 @@
 // src/models/model-serveur.ts
 
-import { ServeurInterface } from "../interfaces/ServeurInterfaces";
-import { RepositoryServeur } from "../repositories/repository-serveur";
-import { ServiceServeur } from "../services/service-serveur";
-import { Model } from "./Model";
-import { RepositoryServeurParameters } from "../repositories/repository-serveur_parameters";
-import { ServeurParametersInterface } from "../interfaces/ServeurParametersInterfaces";
-import { ServeurMinecraftInstallationInterface } from "../interfaces/ServeurInstallationInterfaces";
+import {ServeurInterface} from "../interfaces/ServeurInterfaces";
+import {RepositoryServeur} from "../repositories/repository-serveur";
+import {ServiceServeur} from "../services/service-serveur";
+import {Model} from "./Model";
+import {RepositoryServeurParameters} from "../repositories/repository-serveur_parameters";
+import {ServeurParametersInterface} from "../interfaces/ServeurParametersInterfaces";
 
 /**
  * Represents a server model that interacts with server-related data and logic.
@@ -36,11 +35,13 @@ export class ModelServeur extends Model implements ServeurInterface {
     modpack_url: string;
     nom_monde: string;
     embed_color: string;
-    path_serv: string;
-    start_script: string;
+    contenaire: string;
+    description: string;
     actif: boolean;
     global: boolean;
     players_online?: number;
+    type: string;
+    image: string
 
     // Constructeur de la classe Serveur
     constructor(data: Partial<ServeurInterface>) {
@@ -52,10 +53,12 @@ export class ModelServeur extends Model implements ServeurInterface {
         this.modpack_url = data.modpack_url ?? "";
         this.nom_monde = data.nom_monde ?? "";
         this.embed_color = data.embed_color ?? "#000000";
-        this.path_serv = data.path_serv ?? "";
-        this.start_script = data.start_script ?? "";
+        this.contenaire = data.contenaire ?? "";
+        this.description = data.description ?? "";
         this.actif = data.actif ?? false;
         this.global = data.global ?? false;
+        this.type = data.type ?? "";
+        this.image = data.image ?? "";
     }
 
     // Initialisation du repository Serveur
@@ -78,10 +81,12 @@ export class ModelServeur extends Model implements ServeurInterface {
             modpack_url: this.modpack_url,
             nom_monde: this.nom_monde,
             embed_color: this.embed_color,
-            path_serv: this.path_serv,
-            start_script: this.start_script,
+            contenaire: this.contenaire,
+            description: this.description,
             actif: this.actif,
             global: this.global,
+            type: this.type,
+            image: this.image,
         };
     }
 
@@ -99,8 +104,35 @@ export class ModelServeur extends Model implements ServeurInterface {
 
     // Méthode de récupération des ID des serveurs primaire et secondaire
     static async getStartedServeursId(): Promise<ServeurParametersInterface | null> {
-        const serveur = await ModelServeur.serveursParametersRepository.getServeursId();
-        return serveur;
+        return await ModelServeur.serveursParametersRepository.getServeursId();
+    }
+
+// Méthode pour récupérer seulement les serveurs actifs et globaux
+    static async getServeursActifGlobal(): Promise<ModelServeur[]> {
+        // 1. Récupération brute des données via ton repository
+        const serveurs = await ModelServeur.serveursRepository.findAll();
+
+        // 2. Filtrage des serveurs actifs et globaux
+        const serveursActifGlobal = serveurs.filter(
+            (serveur: ServeurInterface) => serveur.actif && serveur.global
+        );
+
+        // 3. Conversion en instances de ModelServeur si besoin
+        return serveursActifGlobal.map((data: ServeurInterface) => new ModelServeur(data));
+    }
+
+
+    static async getServeursActifGlobalByGame(game : string): Promise<ModelServeur[]> {
+        // 1. Récupération brute des données via ton repository
+        const serveurs = await ModelServeur.serveursRepository.findAll();
+
+        // 2. Filtrage des serveurs actifs et globaux
+        const serveursActifGlobal = serveurs.filter(
+            (serveur: ServeurInterface) => serveur.actif && serveur.global && serveur.jeu.toLowerCase() === game.toLowerCase()
+        );
+
+        // 3. Conversion en instances de ModelServeur si besoin
+        return serveursActifGlobal.map((data: any) => new ModelServeur(data));
     }
 
     // Méthode de récupération des informations des serveurs primaire et secondaire
@@ -161,34 +193,6 @@ export class ModelServeur extends Model implements ServeurInterface {
             return false;
         }
     }
-
-    // Méthode d'installation du serveur
-    static async install(serveurInstallation: ServeurMinecraftInstallationInterface): Promise<boolean> {
-        // Passage en variable pour le model
-        const serveur : ModelServeur = new ModelServeur({
-            nom: serveurInstallation.nom_serveur,
-            jeu: serveurInstallation.version,
-            version: serveurInstallation.version,
-            modpack: serveurInstallation.modpack_name,
-            modpack_url: serveurInstallation.modpack_url,
-            nom_monde: serveurInstallation.nom_serveur,
-            embed_color: serveurInstallation.embed_color,
-            path_serv: `/home/serveurs/minecraft/serveurs-investisseurs/${serveurInstallation.discord_id}/${serveurInstallation.nom_serveur}`,
-            start_script: "start.sh",
-            actif: true,
-            global: false,
-        });
-
-        // Création du serveur
-        const serveurCreated = await ModelServeur.create(serveur);
-
-        if (await ModelServeur.serveursService.install(serveurCreated)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     // ---------------------------------------------------------------------------------------------------
 
 }

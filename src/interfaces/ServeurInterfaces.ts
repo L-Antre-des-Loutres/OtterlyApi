@@ -26,8 +26,10 @@ export interface ServeurInterface {
     modpack_url : string;
     nom_monde : string;
     embed_color : string;
-    path_serv : string;
-    start_script : string;
+    contenaire : string;
+    description : string;
     actif : boolean;
     global : boolean;
+    type : string;
+    image?: string
 }
