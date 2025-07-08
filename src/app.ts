@@ -7,12 +7,14 @@ import helmet from "helmet"
 import { ServiceToken } from "./services/service-token";
 import {ApiRoute} from "./routes/route-api_routes";
 import {RouteJoueursStats} from "./routes/route-joueurs_stats";
+import {ServiceJoueurs} from "./services/service-joueurs";
 
 dotevnv.config()
 
 class App {
     public app: Application
     private readonly port: number
+    private readonly serviceJoueurs: ServiceJoueurs = new ServiceJoueurs();
 
     constructor() {
         this.app = express();
@@ -43,9 +45,24 @@ class App {
         this.app.use("/api/joueurs/stats-serveur/", new RouteJoueursStats().router)
     }
 
+     private async initService(){
+         const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
+
+         setInterval(async () => {
+             // [TASK] Lancement des tâches périodiques
+             console.log("[TASK] Lancement des tâches périodiques ")
+             try {
+                 await this.serviceJoueurs.registerPlayerName();
+             } catch (error) {
+                 const err = error as Error;
+             }
+         }, intervalMs);
+    }
+
     public start() {
         this.middlewares()
         this.routes()
+        this.initService()
         this.app.listen(this.port, () => {
             console.log(`L'API Serveur est en route sur le port http://localhost:${this.port}`)
         })

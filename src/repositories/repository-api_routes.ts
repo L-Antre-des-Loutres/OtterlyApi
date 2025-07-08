@@ -41,7 +41,7 @@ export class RepositoryApiRoutes extends Repository<ApiRoutesInterface> {
     // Méthode pour mettre à jour une route par son alias
     async updateRoute(route: ApiRoutesInterface): Promise<void> {
         await this.query(`UPDATE api_routes SET route = ?, method = ?, parameters = ?, description = ?, comment = ? WHERE alias = ?`, [route.route, route.method, route.parameters, route.description, route.comment, route.alias]);
-        console.log(`🗒️  Route ${route.alias} mise à jour avec succès dans la base de données.`);
+        // console.log(`🗒️  Route ${route.alias} mise à jour avec succès dans la base de données.`);
     }
 
     // Méthode pour obtenir une route par son alias

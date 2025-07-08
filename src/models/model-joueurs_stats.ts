@@ -81,4 +81,14 @@ export class ModelJoueursStats extends Model implements JoueursStatsInterface {
     async getAllMinStats() {
         return await this.repository.getMinStatsWithPlayerName();
     }
+
+    // Méthode pour obtenir le total des heures de jeux sur nos serveurs
+    async getTotalHours(){
+        return await this.repository.getTotalHours();
+    }
+
+    // Méthode pour obtenir le nombre total d'heures de jeu pour chaque serveur
+    async getTotalHoursPerServer(){
+        return await this.repository.getTotalHoursPerServer();
+    }
 }

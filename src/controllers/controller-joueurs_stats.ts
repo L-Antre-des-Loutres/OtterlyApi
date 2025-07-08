@@ -40,4 +40,22 @@ export class ControllerJoueursStats extends Controller {
             this.handleError(res, error);
         }
     }
+
+    // GET /joueurs/stats-serveur/serveurs-total-hours/
+    async getTotalServeurHours(req: Request, res: Response): Promise<void>{
+        try {
+            const totalServeurHours = await this.model.getTotalHours()
+            this.sendSuccess(res, totalServeurHours)
+        } catch (error) {
+            this.handleError(res, error)
+        }
+    }
+
+    // GET /joueurs/stats-serveur/serveurs-total-hours-per-server/
+    async getTotalHoursPerServer(req: Request, res: Response): Promise<void> {
+        try {
+            const totalHoursPerServer = await this.model.getTotalHoursPerServer()
+            this.sendSuccess(res, totalHoursPerServer)
+        } catch (error) {}
+    }
 }

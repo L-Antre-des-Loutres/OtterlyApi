@@ -59,4 +59,14 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
         `);
     }
 
+    // Méthode pour obtenir le nombre total d'heures de jeu sur nos serveurs
+    async getTotalHours(){
+        return await super.query(`SELECT SUM(tmps_jeux) as total_hours FROM ${this.tableName}`);
+    }
+
+    // Méthode pour obtenir le nombre total d'heures de jeu pour chaque serveur
+    async getTotalHoursPerServer(){
+        return await super.query(`SELECT serveur_id, SUM(tmps_jeux) as total_hours FROM ${this.tableName} GROUP BY serveur_id`);
+    }
+
 }

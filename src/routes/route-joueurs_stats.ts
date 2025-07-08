@@ -36,6 +36,15 @@ export class RouteJoueursStats extends Routes{
             method: "GET",
             parameters: "",
             comment: "GET /api/joueurs/stats-serveur/minimum",
+        },
+        {
+         id: 52,
+         alias: "otr-joueurs-stats-getTotalServeurHours",
+         route: "/joueurs/stats-serveur/serveurs-total-hours",
+         method: "GET",
+         parameters: "",
+         comment: "GET /api/joueurs/stats-serveur/serveurs-total-hours",
+         description: "Obtenir le nombre total d'heures de jeu des serveurs"
         }
     ]
 
@@ -62,5 +71,21 @@ export class RouteJoueursStats extends Routes{
                 });
             }
         });
+
+        // GET /joueurs/stats-serveur/serveurs-total-hours/
+        this.router.get("/serveurs-total-hours/", async (req, res) => {
+            try {
+                await this.controller.getTotalServeurHours(req, res);
+            } catch (error) {
+                res.status(500).json({})
+            }
+        })
+
+        // GET /joueurs/stats-serveur/serveurs-total-hours-per-server/
+        this.router.get("/serveurs-total-hours-per-server/", async (req, res) => {
+            try {
+                await this.controller.getTotalHoursPerServer(req, res);
+            } catch (error) {}
+        })
     }
 }
