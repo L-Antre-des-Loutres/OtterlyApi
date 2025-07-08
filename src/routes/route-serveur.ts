@@ -23,31 +23,31 @@ const middlewareAuth = new MiddlewareAuth();
 
 const RoutesList: Routes[] = [
     {
-        alias: "otr-serveurs", route: "/", method: "GET", parameters: "", description: "Affichage de tous les serveurs", comment: "GET /api/serveurs"
+        id: 1 ,alias: "otr-serveurs", route: "/", method: "GET", parameters: "", description: "Affichage de tous les serveurs", comment: "GET /api/serveurs"
     },
     {
-        alias: "otr-serveurs-infos", route: "/infos/:id", method: "GET", parameters: "id", description: "Affichage d'un serveur par son ID", comment: "GET /api/serveurs/infos/:id"
+        id: 2 ,alias: "otr-serveurs-infos", route: "/infos/:id", method: "GET", parameters: "id", description: "Affichage d'un serveur par son ID", comment: "GET /api/serveurs/infos/:id"
     },
     {
-      alias: "otr-serveurs-actif-global", route: "/actif-global", method: "GET", parameters: "", description: "Affichage des serveurs actifs et global", comment: "GET /api/serveurs/actif-global"
+        id: 3 ,alias: "otr-serveurs-actif-global", route: "/actif-global", method: "GET", parameters: "", description: "Affichage des serveurs actifs et global", comment: "GET /api/serveurs/actif-global"
     },
     {
-        alias: "otr-serveurs-actif-global-jeu", route: "/actif-global/:jeu", method: "GET", parameters: "jeu", description: "Affichage des serveurs actifs et global par le jeu", comment: "GET /api/serveurs/actif-global/:jeu"
+        id: 4 ,alias: "otr-serveurs-actif-global-jeu", route: "/actif-global/:jeu", method: "GET", parameters: "jeu", description: "Affichage des serveurs actifs et global par le jeu", comment: "GET /api/serveurs/actif-global/:jeu"
     },
     {
-        alias: "otr-serveurs-primaire-secondaire", route: "/primaire-secondaire", method: "GET", parameters: "", description: "Affichage des serveurs primaire et secondaire", comment: "GET /api/serveurs/primaire-secondaire"
+        id: 5 ,alias: "otr-serveurs-primaire-secondaire", route: "/primaire-secondaire", method: "GET", parameters: "", description: "Affichage des serveurs primaire et secondaire", comment: "GET /api/serveurs/primaire-secondaire"
     },
     {
-        alias: "otr-serveurs-creer", route: "/", method: "POST", parameters: "nom jeu version modpack modpack_url nom_monde embed_color path_serv start_script actif global",description: "Création d'un serveur", comment: "POST /api/serveurs Nécessite un token d'authentification"
+        id: 6 ,alias: "otr-serveurs-creer", route: "/", method: "POST", parameters: "nom jeu version modpack modpack_url nom_monde embed_color path_serv start_script actif global",description: "Création d'un serveur", comment: "POST /api/serveurs Nécessite un token d'authentification"
     },
     {
-        alias: "otr-serveurs-supprimer", route: "/", method: "DELETE", parameters: "id", description: "Suppression d'un serveur", comment: "DELETE /api/serveurs Nécessite un token d'authentification"
+        id: 7 ,alias: "otr-serveurs-supprimer", route: "/", method: "DELETE", parameters: "id", description: "Suppression d'un serveur", comment: "DELETE /api/serveurs Nécessite un token d'authentification"
     },
     {
-        alias: "otr-serveurs-start", route: "/start/", method: "POST", parameters: "id", description: "Lancement du serveur", comment: "POST /api/serveurs/start/ Nécessite un token d'authentification"
+        id: 8 ,alias: "otr-serveurs-start", route: "/start/", method: "POST", parameters: "id", description: "Lancement du serveur", comment: "POST /api/serveurs/start/ Nécessite un token d'authentification"
     },
     {
-        alias: "otr-serveurs-stop", route: "/stop/", method: "POST", parameters: "id", description: "Arrêt du serveur", comment: "POST /api/serveurs/stop/ Nécessite un token d'authentification"
+        id: 9 ,alias: "otr-serveurs-stop", route: "/stop/", method: "POST", parameters: "id", description: "Arrêt du serveur", comment: "POST /api/serveurs/stop/ Nécessite un token d'authentification"
     },
 ];
 

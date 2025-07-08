@@ -6,6 +6,7 @@ import helmet from "helmet"
 // Import des services de l'API
 import { ServiceToken } from "./services/service-token";
 import {ApiRoute} from "./routes/route-api_routes";
+import {RouteJoueursStats} from "./routes/route-joueurs_stats";
 
 dotevnv.config()
 
@@ -38,6 +39,8 @@ class App {
         this.app.use("/api/serveurs", require("./routes/route-serveur").default)
         // Route des routes
         this.app.use("/api/routes", new ApiRoute().router)
+        // Route des stats des joueurs
+        this.app.use("/api/joueurs/stats-serveur/", new RouteJoueursStats().router)
     }
 
     public start() {
