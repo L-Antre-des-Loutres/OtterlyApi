@@ -2,12 +2,12 @@ import express, { Application } from "express"
 import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
-
-// Import des services de l'API
 import { ServiceToken } from "./services/service-token";
 import {ApiRoute} from "./routes/route-api_routes";
 import {RouteJoueursStats} from "./routes/route-joueurs_stats";
 import {ServiceJoueurs} from "./services/service-joueurs";
+import {RouteAstroLoutreImage} from "./routes/route-astroloutre_image";
+import {RouteDiscord} from "./routes/route-discord";
 
 dotevnv.config()
 
@@ -43,6 +43,10 @@ class App {
         this.app.use("/api/routes", new ApiRoute().router)
         // Route des stats des joueurs
         this.app.use("/api/joueurs/stats-serveur/", new RouteJoueursStats().router)
+        // Route des images pour Astroloutre
+        this.app.use("/api/astroloutre/images/", new RouteAstroLoutreImage().router )
+        // Route de l'authentification discord
+        this.app.use("/api/", new RouteDiscord().router)
     }
 
      private async initService(){

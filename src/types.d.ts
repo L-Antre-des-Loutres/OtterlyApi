@@ -18,9 +18,12 @@ declare global {
 
             // Palworld String Connexion
             PALWORLD_STRING: string;
-
+            JWT_SECRET: string;
             // Version
             VERSION: string;
+            DISCORD_CLIENT_ID: string;
+            DISCORD_CLIENT_SECRET: string;
+            DISCORD_REDIRECT_URL: string;
 
         }
     }

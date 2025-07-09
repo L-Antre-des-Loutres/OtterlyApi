@@ -15,7 +15,7 @@ export class RouteJoueursStats extends Routes{
     constructor() {
         super("", "", "", "")
         this.router = Router();
-        Routes.registerRoutes(this.RoutesJoueursStats, "joueurs_stats");
+        Routes.registerRoutes(this.RoutesJoueursStats, "");
         this.initializeRoutes();
     }
 
