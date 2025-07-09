@@ -71,11 +71,32 @@ export class RouteDiscord extends Routes {
                 httpOnly: true,
                 secure: true,
                 sameSite: "none",
-                maxAge: 24 * 60 * 60 * 1000,
+                maxAge: 72 * 60 * 60 * 1000,
                 path: "/",
             });
 
             res.redirect(process.env.DISCORD_REDIRECT_URL ?? "https://antredesloutres.fr");
+        });
+
+        // Route pour récupérer les infos utilisateur à partir du cookie JWT
+        this.router.get('/me', (req, res) => {
+            const token = req.cookies.token;
+            if (!token) return res.status(401).json({ error: 'Non authentifié' });
+
+            try {
+                const user = jwt.verify(token, process.env.JWT_SECRET) as
+                    { username: string; avatar: string; id: string };
+
+                const avatarUrl = user.avatar
+                    ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+                    : null;
+                res.json({
+                    username: user.username,
+                    avatarUrl,
+                });
+            } catch {
+                res.status(401).json({ error: 'Token invalide' });
+            }
         });
     }
 }
