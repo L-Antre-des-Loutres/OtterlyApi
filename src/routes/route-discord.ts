@@ -19,13 +19,13 @@ export class RouteDiscord extends Routes {
 
     private initializeRoutes() {
         // Redirige vers Discord OAuth2
-        router.get("/auth/discord/login", (req, res) => {
+        router.get("/login", (req, res) => {
             const redirect_uri = encodeURIComponent("https://otterlyapi.antredesloutres.fr/api/auth/discord/callback");
             const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code&scope=identify`;
             res.redirect(discordUrl);
         });
 
-        router.get("/auth/discord/callback", async (req, res) => {
+        router.get("/callback", async (req, res) => {
 
             const codeParam = req.query.code;
             if (typeof codeParam !== "string") return res.status(400).send("Code Discord manquant ou invalide");
@@ -40,7 +40,7 @@ export class RouteDiscord extends Routes {
             params.append("client_secret", process.env.DISCORD_CLIENT_SECRET);
             params.append("grant_type", "authorization_code");
             params.append("code", code);
-            params.append("redirect_uri", "https://ton-api.com/auth/discord/callback");
+            params.append("redirect_uri", "https://otterlyapi.antredesloutres.fr/api/auth/discord/callback");
             params.append("scope", "identify");
 
             const tokenRes = await fetch("https://discord.com/api/oauth2/token", {

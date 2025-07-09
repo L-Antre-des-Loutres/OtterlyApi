@@ -46,7 +46,7 @@ class App {
         // Route des images pour Astroloutre
         this.app.use("/api/astroloutre/images/", new RouteAstroLoutreImage().router )
         // Route de l'authentification discord
-        this.app.use("/api/", new RouteDiscord().router)
+        this.app.use("/api/auth/discord", new RouteDiscord().router)
     }
 
      private async initService(){
