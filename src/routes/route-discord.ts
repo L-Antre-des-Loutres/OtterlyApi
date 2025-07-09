@@ -1,6 +1,5 @@
 import {Routes} from "./Routes";
 import {Router} from "express";
-import router from "./route-serveur";
 import jwt from "jsonwebtoken";
 
 // TODO : REFAIRE PROPREMENT L'ENSEMBLE DES ROUTES
@@ -19,14 +18,13 @@ export class RouteDiscord extends Routes {
 
     private initializeRoutes() {
         // Redirige vers Discord OAuth2
-        router.get("/login", (req, res) => {
+        this.router.get("/login", (req, res) => {
             const redirect_uri = encodeURIComponent("https://otterlyapi.antredesloutres.fr/api/auth/discord/callback");
             const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&redirect_uri=${redirect_uri}&response_type=code&scope=identify`;
             res.redirect(discordUrl);
         });
 
-        router.get("/callback", async (req, res) => {
-
+        this.router.get("/callback", async (req, res) => {
             const codeParam = req.query.code;
             if (typeof codeParam !== "string") return res.status(400).send("Code Discord manquant ou invalide");
             const code = codeParam;
