@@ -80,12 +80,20 @@ export class RouteDiscord extends Routes {
 
         // Route pour récupérer les infos utilisateur à partir du cookie JWT
         this.router.get('/me', (req, res) => {
-            const token = req.cookies.token;
+            const token = req.cookies?.token;
+
+            if (!req.cookies || !req.cookies.token) {
+                return res.status(401).json({ error: 'Token manquant' });
+            }
+
             if (!token) return res.status(401).json({ error: 'Non authentifié' });
 
             try {
-                const user = jwt.verify(token, process.env.JWT_SECRET) as
-                    { username: string; avatar: string; id: string };
+                const user = jwt.verify(token, process.env.JWT_SECRET as string) as unknown as {
+                    username: string;
+                    avatar: string;
+                    id: string;
+                };
 
                 const avatarUrl = user.avatar
                     ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`

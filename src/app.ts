@@ -2,6 +2,7 @@ import express, { Application } from "express"
 import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
+import cookieParser from 'cookie-parser';
 import { ServiceToken } from "./services/service-token";
 import {ApiRoute} from "./routes/route-api_routes";
 import {RouteJoueursStats} from "./routes/route-joueurs_stats";
@@ -42,6 +43,7 @@ class App {
             credentials: true
         }));
         this.app.use(helmet())
+        this.app.use(cookieParser());
     }
 
     private routes() {
