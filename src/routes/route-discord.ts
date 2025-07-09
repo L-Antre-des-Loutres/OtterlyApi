@@ -67,9 +67,10 @@ export class RouteDiscord extends Routes {
             const tokenJWT = jwt.sign(jwtPayload, process.env.JWT_SECRET, { expiresIn: "1d" });
 
             res.cookie("token", tokenJWT, {
+                domain: ".antredesloutres.fr",
                 httpOnly: true,
                 secure: true,
-                sameSite: "lax",
+                sameSite: "none",
                 maxAge: 24 * 60 * 60 * 1000,
                 path: "/",
             });
