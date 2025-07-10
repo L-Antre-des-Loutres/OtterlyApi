@@ -40,11 +40,20 @@ export class RouteJoueursStats extends Routes{
         {
          id: 52,
          alias: "otr-joueurs-stats-getTotalServeurHours",
-         route: "/joueurs/stats-serveur/serveurs-total-hours",
+         route: "/joueurs/stats-serveur/serveurs-total-playtime",
          method: "GET",
          parameters: "",
          comment: "GET /api/joueurs/stats-serveur/serveurs-total-hours",
-         description: "Obtenir le nombre total d'heures de jeu des serveurs"
+         description: "Obtenir le nombre total de playtime Minecraft de l'ensemble des joueurs des serveurs (à convertir en heures)"
+        },
+        {
+            id: 53,
+            alias: "otr-joueurs-stats-getTotalHoursPerServer",
+            route: "/joueurs/stats-serveur/serveurs-total-playtime-per-server",
+            method: "GET",
+            parameters: "",
+            comment: "GET /api/joueurs/stats-serveur/serveurs-total-hours-per-server",
+            description: "Obtenir le nombre total de playtime Minecraft de l'ensemble des joueurs pour chaque serveur (à convertir en heures)"
         }
     ]
 
@@ -73,7 +82,7 @@ export class RouteJoueursStats extends Routes{
         });
 
         // GET /joueurs/stats-serveur/serveurs-total-hours/
-        this.router.get("/serveurs-total-hours/", async (req, res) => {
+        this.router.get("/serveurs-total-playtime/", async (req, res) => {
             try {
                 await this.controller.getTotalServeurHours(req, res);
             } catch (error) {
@@ -82,7 +91,7 @@ export class RouteJoueursStats extends Routes{
         })
 
         // GET /joueurs/stats-serveur/serveurs-total-hours-per-server/
-        this.router.get("/serveurs-total-hours-per-server/", async (req, res) => {
+        this.router.get("/serveurs-total-playtime-per-server/", async (req, res) => {
             try {
                 await this.controller.getTotalHoursPerServer(req, res);
             } catch (error) {}
