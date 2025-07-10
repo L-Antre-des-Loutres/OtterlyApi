@@ -1,14 +1,14 @@
 // src/models/model-astroloutre_image.ts
 
 import {Model} from "./Model";
-import {AstroloutreImageInterface} from "../interfaces/AstroloutreImageInterface";
-import {RepositoryAstroLoutreImage} from "../repositories/repository-astroloutre_image";
+import {AstroloutreImagesInterface} from "../interfaces/AstroloutreImagesInterface";
+import {RepositoryAstroLoutreImage} from "../repositories/repository-astroloutre_images";
 
 /**
  * TODO
  */
 
-export class ModelAstroloutreImage extends Model implements AstroloutreImageInterface{
+export class ModelAstroloutreImage extends Model implements AstroloutreImagesInterface{
 
     id: number
     nom: string
@@ -17,7 +17,7 @@ export class ModelAstroloutreImage extends Model implements AstroloutreImageInte
     path: string
     jeu: string
 
-    constructor(data: Partial<AstroloutreImageInterface>) {
+    constructor(data: Partial<AstroloutreImagesInterface>) {
         super(data);
         this.id = data.id ?? 0;
         this.nom = data.nom ?? "";

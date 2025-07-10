@@ -7,8 +7,9 @@ import { ServiceToken } from "./services/service-token";
 import {ApiRoute} from "./routes/route-api_routes";
 import {RouteJoueursStats} from "./routes/route-joueurs_stats";
 import {ServiceJoueurs} from "./services/service-joueurs";
-import {RouteAstroLoutreImage} from "./routes/route-astroloutre_image";
 import {RouteDiscord} from "./routes/route-discord";
+import {RouteAstroLoutreImage} from "./routes/route-astroloutre_images";
+import {RouteJoueurs} from "./routes/route-joueurs";
 
 dotevnv.config()
 const allowedOrigins = [
@@ -65,6 +66,8 @@ class App {
         this.app.use("/api/astroloutre/images/", new RouteAstroLoutreImage().router )
         // Route de l'authentification discord
         this.app.use("/api/auth/discord", new RouteDiscord().router)
+        // Route de l'activité du joueur
+        this.app.use("/api/joueurs", new RouteJoueurs().router)
     }
 
      private async initService(){

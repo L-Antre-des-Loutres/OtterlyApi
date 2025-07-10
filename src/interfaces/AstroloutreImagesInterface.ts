@@ -4,7 +4,7 @@
  * TODO
  */
 
-export interface AstroloutreImageInterface {
+export interface AstroloutreImagesInterface {
     id: number,
     nom: string,
     origine: string,

@@ -1,9 +1,8 @@
-// src/routes/route-astroloutre_image.ts
+// src/routes/route-astroloutre_images.ts
 
 import {Routes} from "./Routes";
 import {Router} from "express";
-import {ApiRoutesController} from "../controllers/controller-api_routes";
-import {ControllerAstroLoutreImage} from "../controllers/controller-astroloutre_image";
+import {ControllerAstroLoutreImage} from "../controllers/controller-astroloutre_images";
 
 /**
  * TODO
@@ -44,8 +43,7 @@ export class RouteAstroLoutreImage extends Routes{
         // GET /astroloutre/images/
         this.router.get("/", async (req, res) => {
             try {
-                const routes = await this.controller.getAll(req, res);
-                res.status(200).json(routes);
+                await this.controller.getAll(req, res);
             } catch (error) {
                 res.status(500).json({
                     error: "Une erreur est survenue lors de la recherche des routes.",
