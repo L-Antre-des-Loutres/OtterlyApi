@@ -30,7 +30,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
                 js.item_crafted,
                 js.item_broken,
                 js.achievement,
-                js.dern_enregistrement,
+                js.dern_enregistrment,
                 j.playername
             FROM ${this.tableName} js
                      JOIN joueurs j ON js.compte_id = j.compte_id
@@ -57,6 +57,65 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
             FROM ${this.tableName} js
                      JOIN joueurs j ON js.compte_id = j.compte_id
         `);
+    }
+
+    // Méthode pour obtenir l'ensemble des statistiques d'un joueur par son UID par serveur
+    async getStatsByUid(uid: string): Promise<JoueursStatsInterface[]> {
+        return await super.query(
+            `
+                SELECT
+                    js.id,
+                    js.serveur_id,
+                    js.compte_id,
+                    js.tmps_jeux,
+                    js.nb_mort,
+                    js.nb_kills,
+                    js.nb_playerkill,
+                    js.mob_killed,
+                    js.nb_blocs_detr,
+                    js.nb_blocs_pose,
+                    js.dist_total,
+                    js.dist_pieds,
+                    js.dist_elytres,
+                    js.dist_vol,
+                    js.item_crafted,
+                    js.item_broken,
+                    js.achievement,
+                    js.dern_enregistrment,
+                    j.playername
+                FROM ${this.tableName} js
+                         JOIN joueurs j ON js.compte_id = j.compte_id
+                WHERE js.compte_id = ?
+            `,
+            [uid]
+        );
+    }
+
+    // Méthode pour obtenir le total des statistiques d'un joueur par son UID
+    async getTotalStatsByUid(uid: string): Promise<JoueursStatsInterface[]> {
+        return await super.query(
+            `
+                SELECT
+                    js.compte_id,
+                    MAX(j.playername) AS playername,
+                    SUM(js.tmps_jeux) AS tmps_jeux,
+                    SUM(js.nb_mort) AS nb_mort,
+                    SUM(js.nb_kills) AS nb_kills,
+                    SUM(js.nb_playerkill) AS nb_playerkill,
+                    SUM(js.nb_blocs_detr) AS nb_blocs_detr,
+                    SUM(js.nb_blocs_pose) AS nb_blocs_pose,
+                    SUM(js.dist_total) AS dist_total,
+                    SUM(js.dist_pieds) AS dist_pieds,
+                    SUM(js.dist_elytres) AS dist_elytres,
+                    SUM(js.dist_vol) AS dist_vol,
+                    MAX(js.dern_enregistrment) AS dern_enregistrment
+                FROM ${this.tableName} js
+                         JOIN joueurs j ON js.compte_id = j.compte_id
+                WHERE js.compte_id = ?
+                GROUP BY js.compte_id
+            `,
+            [uid]
+        );
     }
 
     // Méthode pour obtenir le nombre total d'heures de jeu sur nos serveurs

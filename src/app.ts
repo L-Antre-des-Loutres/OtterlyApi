@@ -72,6 +72,7 @@ class App {
 
      private async initService(){
          const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
+         await this.serviceJoueurs.registerPlayerName();
 
          setInterval(async () => {
              // [TASK] Lancement des tâches périodiques
@@ -79,7 +80,7 @@ class App {
              try {
                  await this.serviceJoueurs.registerPlayerName();
              } catch (error) {
-                 const err = error as Error;
+                 console.error("Erreur lors de l'enregistrement des noms des joueurs :", error);
              }
          }, intervalMs);
     }
@@ -106,11 +107,6 @@ async function start() {
 
     // Lancement de l'application
     app.start()
-
-    // Test de l'API Serveur avec Axios
-    // APITest();
-    // APITest2();
-    // APITest3();
 
 }
 

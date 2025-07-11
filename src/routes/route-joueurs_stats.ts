@@ -54,6 +54,24 @@ export class RouteJoueursStats extends Routes{
             parameters: "",
             comment: "GET /api/joueurs/stats-serveur/serveurs-total-hours-per-server",
             description: "Obtenir le nombre total de playtime Minecraft de l'ensemble des joueurs pour chaque serveur (à convertir en heures)"
+        },
+        {
+            id: 54,
+            alias: "otr-joueurs-stats-getByUid",
+            route: "/joueurs/stats-serveur/per-server-uid/:uid",
+            method: "GET",
+            parameters: "uid",
+            comment: "GET /api/joueurs/stats-serveur/per-server-uid/:uid",
+            description: "Obtenir les statistiques d'un joueur pour son uid"
+        },
+        {
+            id: 55,
+            alias: "otr-joueurs-totalStats-getByUid",
+            route: "/joueurs/stats-serveur/total-stats-uid/:uid",
+            method: "GET",
+            parameters: "uid",
+            comment: "GET /api/joueurs/stats-serveur/total-stats-uid/:uid",
+            description: "Obtenir le total des statistiques d'un joueur pour son uid"
         }
     ]
 
@@ -94,6 +112,20 @@ export class RouteJoueursStats extends Routes{
         this.router.get("/serveurs-total-playtime-per-server/", async (req, res) => {
             try {
                 await this.controller.getTotalHoursPerServer(req, res);
+            } catch (error) {}
+        })
+
+        // GET /joueurs/stats-serveur/per-server-uid/:uid
+        this.router.get("/per-server-uid/:uid", async (req, res) => {
+            try {
+                await this.controller.getByUid(req, res);
+            } catch (error) {}
+        })
+
+        // GET /joueurs/stats-serveur/total-stats-uid/:uid
+        this.router.get("/total-stats-uid/:uid", async (req, res) => {
+            try {
+                await this.controller.getTotalStatsByUid(req, res);
             } catch (error) {}
         })
     }

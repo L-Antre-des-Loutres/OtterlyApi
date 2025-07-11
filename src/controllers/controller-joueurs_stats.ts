@@ -58,4 +58,22 @@ export class ControllerJoueursStats extends Controller {
             this.sendSuccess(res, totalHoursPerServer)
         } catch (error) {}
     }
+
+    // GET /joueurs/stats-serveur/per-server-uid/:uid
+    async getByUid(req: Request, res: Response): Promise<void> {
+        try {
+            const stat = await this.model.getStatsByUid(req.params.uid)
+            this.sendSuccess(res, stat)
+        } catch (error) {
+            this.handleError(res, error)
+        }
+    }
+
+    // GET /joueurs/stats-serveur/total-stats-uid/:uid
+    async getTotalStatsByUid(req: Request, res: Response): Promise<void> {
+        try {
+            const stat = await this.model.getTotalStatsByUid(req.params.uid)
+            this.sendSuccess(res, stat)
+        } catch (error) {}
+    }
 }

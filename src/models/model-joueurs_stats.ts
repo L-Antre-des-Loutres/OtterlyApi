@@ -23,7 +23,7 @@ export class ModelJoueursStats extends Model implements JoueursStatsInterface {
     item_crafted: ItemMap;
     item_broken: ItemMap;
     achievement: ItemMap;
-    dern_enregistrement: string;
+    dern_enregistrment: string;
 
     constructor(data: Partial<ModelJoueursStats>) {
         super(data);
@@ -44,7 +44,7 @@ export class ModelJoueursStats extends Model implements JoueursStatsInterface {
         this.item_crafted = data.item_crafted ?? {};
         this.item_broken = data.item_broken ?? {};
         this.achievement = data.achievement ?? {};
-        this.dern_enregistrement = data.dern_enregistrement ?? "";
+        this.dern_enregistrment = data.dern_enregistrment ?? "";
     }
 
     private readonly repository = new RepositoryJoueursStats();
@@ -68,7 +68,7 @@ export class ModelJoueursStats extends Model implements JoueursStatsInterface {
             item_crafted: this.item_crafted,
             item_broken: this.item_broken,
             achievement: this.achievement,
-            dern_enregistrement: this.dern_enregistrement,
+            dern_enregistrment: this.dern_enregistrment,
         }
     }
 
@@ -90,5 +90,15 @@ export class ModelJoueursStats extends Model implements JoueursStatsInterface {
     // Méthode pour obtenir le nombre total d'heures de jeu pour chaque serveur
     async getTotalHoursPerServer(){
         return await this.repository.getTotalHoursPerServer();
+    }
+
+    // Méthode pour obtenir l'ensemble des statistiques d'un joueur par son UID par serveur
+    async getStatsByUid(uid: string){
+        return await this.repository.getStatsByUid(uid);
+    }
+
+    // Méthode pour obtenir le total des statistiques d'un joueur par son UID par serveur
+    async getTotalStatsByUid(uid: string){
+        return await this.repository.getTotalStatsByUid(uid);
     }
 }

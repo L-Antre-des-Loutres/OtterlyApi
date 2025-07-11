@@ -40,5 +40,5 @@ export interface JoueursStatsInterface {
     item_crafted: { [key: string]: number };
     item_broken: { [key: string]: number };
     achievement: { [key: string]: number };
-    dern_enregistrement: string;
+    dern_enregistrment: string;
 }
