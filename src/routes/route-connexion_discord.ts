@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 // TODO : REFAIRE PROPREMENT L'ENSEMBLE DES ROUTES
 
-export class RouteDiscord extends Routes {
+export class RouteConnexion_discord extends Routes {
     public router: Router;
 
     constructor() {
