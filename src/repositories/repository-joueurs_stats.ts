@@ -15,6 +15,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
             SELECT
                 js.id,
                 js.serveur_id,
+                s.nom,
                 js.compte_id,
                 js.tmps_jeux,
                 js.nb_mort,
@@ -34,6 +35,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
                 j.playername
             FROM ${this.tableName} js
                      JOIN joueurs j ON js.compte_id = j.compte_id
+                     JOIN serveurs s ON js.serveur_id = s.id
         `);
     }
 
@@ -42,6 +44,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
         return await super.query(`
             SELECT
                 js.serveur_id,
+                s.nom,
                 js.compte_id,
                 j.playername,
                 js.tmps_jeux,
@@ -56,6 +59,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
                 js.dist_vol
             FROM ${this.tableName} js
                      JOIN joueurs j ON js.compte_id = j.compte_id
+                     JOIN serveurs s ON js.serveur_id = s.id
         `);
     }
 
@@ -66,6 +70,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
                 SELECT
                     js.id,
                     js.serveur_id,
+                    s.nom,
                     js.compte_id,
                     js.tmps_jeux,
                     js.nb_mort,
@@ -85,6 +90,7 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
                     j.playername
                 FROM ${this.tableName} js
                          JOIN joueurs j ON js.compte_id = j.compte_id
+                         JOIN serveurs s ON js.serveur_id = s.id
                 WHERE js.compte_id = ?
             `,
             [uid]
