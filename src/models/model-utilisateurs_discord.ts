@@ -12,6 +12,7 @@ export class ModelUtilisateursDiscord extends Model implements UtilisateursDisco
 
     id: number
     discord_id: string
+    tag_discord: string
     pseudo_discord: string
     join_date_discord: string
     first_activity: string
@@ -23,6 +24,7 @@ export class ModelUtilisateursDiscord extends Model implements UtilisateursDisco
         super(data);
         this.id = data.id ?? 0;
         this.discord_id = data.discord_id ?? "";
+        this.tag_discord = data.tag_discord ?? "";
         this.pseudo_discord = data.pseudo_discord ?? "";
         this.join_date_discord = data.join_date_discord ?? "";
         this.first_activity = data.first_activity ?? "";

@@ -5,11 +5,12 @@
  */
 
 export interface UtilisateursDiscordInterface {
-    id: number
-    discord_id: string
-    pseudo_discord: string
-    join_date_discord: string,
-    first_activity: string,
-    last_activity: string,
-    nb_message: number,
+    id: number;
+    discord_id: string;
+    tag_discord: string;
+    pseudo_discord: string;
+    join_date_discord: string;
+    first_activity: string | null;
+    last_activity: string | null;
+    nb_message: number;
 }
