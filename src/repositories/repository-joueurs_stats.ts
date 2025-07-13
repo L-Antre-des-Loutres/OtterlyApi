@@ -124,6 +124,40 @@ export class RepositoryJoueursStats extends Repository<JoueursStatsInterface> {
         );
     }
 
+    // Méthode pour obtenir les statistiques des joueurs par serveurs
+    async getStatsByServer(serveur_id: string): Promise<JoueursStatsInterface[]> {
+        return await super.query(
+            `
+                SELECT
+                    js.id,
+                    js.serveur_id,
+                    s.nom,
+                    js.compte_id,
+                    js.tmps_jeux,
+                    js.nb_mort,
+                    js.nb_kills,
+                    js.nb_playerkill,
+                    js.mob_killed,
+                    js.nb_blocs_detr,
+                    js.nb_blocs_pose,
+                    js.dist_total,
+                    js.dist_pieds,
+                    js.dist_elytres,
+                    js.dist_vol,
+                    js.item_crafted,
+                    js.item_broken,
+                    js.achievement,
+                    js.dern_enregistrment,
+                    j.playername
+                    FROM ${this.tableName} js
+                JOIN joueurs j ON js.compte_id = j.compte_id
+                JOIN serveurs s ON js.serveur_id = s.id
+                WHERE js.serveur_id = ? 
+            `,
+            [serveur_id]
+        )
+    }
+
     // Méthode pour obtenir le nombre total d'heures de jeu sur nos serveurs
     async getTotalHours(){
         return await super.query(`SELECT SUM(tmps_jeux) as total_hours FROM ${this.tableName}`);

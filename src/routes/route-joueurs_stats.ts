@@ -72,6 +72,15 @@ export class RouteJoueursStats extends Routes{
             parameters: "uid",
             comment: "GET /api/joueurs/stats-serveur/total-stats-uid/:uid",
             description: "Obtenir le total des statistiques d'un joueur pour son uid"
+        },
+        {
+            id: 56,
+            alias: "otr-joueurs-stats-getStatsByServer",
+            route: "/joueurs/stats-serveur/stats-by-server/:id",
+            method: "GET",
+            parameters: "id",
+            comment: "GET /api/joueurs/stats-serveur/stats-by-server/:id",
+            description: "Obtenir les statistiques de l'ensemble des joueurs par serveur"
         }
     ]
 
@@ -81,31 +90,21 @@ export class RouteJoueursStats extends Routes{
         this.router.get("/", async (req, res) => {
             try {
                 await this.controller.getAll(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
+            } catch (error) {}
         });
 
         // GET /joueurs/stats-serveur/minimum/
         this.router.get("/minimum/", async (req, res) => {
             try {
                 await this.controller.getAllMinStats(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
+            } catch (error) {}
         });
 
         // GET /joueurs/stats-serveur/serveurs-total-hours/
         this.router.get("/serveurs-total-playtime/", async (req, res) => {
             try {
                 await this.controller.getTotalServeurHours(req, res);
-            } catch (error) {
-                res.status(500).json({})
-            }
+            } catch (error) {}
         })
 
         // GET /joueurs/stats-serveur/serveurs-total-hours-per-server/
@@ -126,6 +125,13 @@ export class RouteJoueursStats extends Routes{
         this.router.get("/total-stats-uid/:uid", async (req, res) => {
             try {
                 await this.controller.getTotalStatsByUid(req, res);
+            } catch (error) {}
+        })
+
+        // GET /joueurs/stats-serveur/stats-by-server/:id
+        this.router.get("/stats-by-server/:id", async (req, res) => {
+            try {
+                await this.controller.getStatsByServer(req, res);
             } catch (error) {}
         })
     }
