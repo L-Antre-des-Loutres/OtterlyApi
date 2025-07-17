@@ -117,7 +117,9 @@ export class ControllerServeur extends Controller {
                 this.sendNotFound(res, "Serveur introuvable");
                 return;
             }
-            if (await ModelServeur.start(serveur)) {
+
+            const started = await ModelServeur.start(serveur);
+            if (started) {
                 this.sendSuccess(res, serveur);
             } else {
                 this.sendError(res, "Erreur lors du lancement du serveur");
@@ -126,25 +128,5 @@ export class ControllerServeur extends Controller {
             this.handleError(res, error);
         }
     }
-
-    // POST /api/serveurs/stop/
-    public async stop(req: Request, res: Response): Promise<void> {
-        try {
-            const serveur = await ModelServeur.getById(req.body.id);
-            if (!serveur) {
-                this.sendNotFound(res, "Serveur introuvable");
-                return;
-            }
-            if (await ModelServeur.stop(serveur)) {
-                this.sendSuccess(res, serveur);
-            } else {
-                this.sendError(res, "Erreur lors de l'arrêt du serveur");
-            }
-            this.sendSuccess(res, serveur);
-        } catch (error) {
-            this.handleError(res, error);
-        }
-    }
-
     // ---------------------------------------------------------------------------------------------------
 }

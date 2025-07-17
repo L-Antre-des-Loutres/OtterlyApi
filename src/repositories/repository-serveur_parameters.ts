@@ -44,4 +44,15 @@ export class RepositoryServeurParameters extends Repository<ServeurParametersInt
         }
     }
 
+    // Méthode pour enregistrer un changement de serveur
+    async updateActifServeur(serveurId: number): Promise<boolean> {
+        try {
+            await super.query(
+                `UPDATE ${this.tableName} SET id_serv_secondaire = $1`,
+                [serveurId]
+            );
+            return true
+        } catch (error) {return false}
+    }
+
 }

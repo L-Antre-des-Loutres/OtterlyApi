@@ -27,48 +27,6 @@ export class ServiceServeur extends Service {
 
     // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
 
-    // Méthode de démarrage du serveur
-    async startServeur(serveur: ServeurInterface): Promise<boolean> {
-        try {
-            this.logInfo(`🚀 Démarrage du serveur "${serveur.nom}"`);
-
-            // Préparation de la commande de démarrage
-            const command = `${this.startCommand} ${serveur.id}`;
-            this.logInfo(`Commande de démarrage : ${command}`);
-
-            // Exécution du script de démarrage
-            const execPromise = promisify(exec);
-            const { stdout, stderr } = await execPromise(command);
-            this.logInfo(stdout);
-            this.logError(stderr);
-            return true;
-        } catch (error: unknown) {
-            this.logError("Erreur lors du démarrage du serveur :", error instanceof Error ? error.message : String(error));
-            return false;
-        }
-    }
-
-    // Methode d'arrêt du serveur
-    async stopServeur(serveur: ServeurInterface): Promise<boolean> {
-        try {
-            console.log(`🛑 Arrêt du serveur "${serveur.nom}"`);
-
-            // Préparation de la commande d'arrêt
-            const command = `${this.stopCommand} ${serveur.id}`;
-            console.log(`Commande d'arrêt : ${command}`);
-
-            // Exécution du script d'arrêt
-            const execPromise = promisify(exec);
-            const { stdout, stderr } = await execPromise(command);
-            this.logInfo(stdout);
-            this.logError(stderr);
-            return true;
-        } catch (error: unknown) {
-            this.logError("Erreur lors de l'arrêt du serveur :", error instanceof Error ? error.message : String(error));
-            return false;
-        }
-    }
-
     // ---------------------------------------------------------------------------------------------------
 
     // Méthode pour récupérer le nombre de joueurs connectés au serveur

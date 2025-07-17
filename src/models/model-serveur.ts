@@ -178,21 +178,13 @@ export class ModelServeur extends Model implements ServeurInterface {
 
     // Méthode de lancement du serveur
     static async start(serveur: ModelServeur): Promise<boolean> {
-        if (await ModelServeur.serveursService.startServeur(serveur)) {
+        if (await ModelServeur.serveursParametersRepository.updateActifServeur(serveur.id)) {
             return true;
         } else {
             return false;
         }
     }
 
-    // Méthode de fermeture du serveur
-    static async stop(serveur: ModelServeur): Promise<boolean> {
-        if (await ModelServeur.serveursService.stopServeur(serveur)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     // ---------------------------------------------------------------------------------------------------
 
 }

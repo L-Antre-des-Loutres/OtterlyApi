@@ -110,14 +110,4 @@ router.post("/start/", middlewareAuth.handle.bind(middlewareAuth), async (req, r
     }
 });
 
-// POST /api/serveurs/stop/
-router.post("/stop/", middlewareAuth.handle.bind(middlewareAuth), async (req, res) => {
-    try {
-        await controller.stop(req, res);
-    } catch (err) {
-        console.error("Erreur lors de l'arrêt du serveur :", err);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
-});
-
 export default router;
