@@ -44,15 +44,27 @@ export class RepositoryServeurParameters extends Repository<ServeurParametersInt
         }
     }
 
-    // Méthode pour enregistrer un changement de serveur
     async updateActifServeur(serveurId: number): Promise<boolean> {
         try {
-            await super.query(
-                `UPDATE ${this.tableName} SET id_serv_secondaire = $1`,
-                [serveurId]
-            );
-            return true
-        } catch (error) {return false}
+            // Attendre la résolution de la Promise
+            const serveurPrimaire: ServeurParametersInterface | null = await this.getFirstParameters();
+
+            // Vérifie que serveurPrimaire n'est pas null et que les ids correspondent
+            if (serveurPrimaire && serveurId !== serveurPrimaire.id_serv_primaire) {
+                await super.query(
+                    `UPDATE ${this.tableName} SET id_serv_secondaire = ?`,
+                    [serveurId]
+                );
+                // Renvoie true après la requête
+                return true;
+            }
+            return false;
+        } catch (error) {
+            // Optionnel : tu peux logger l'erreur ici
+            // console.error(error);
+            return false;
+        }
     }
+
 
 }
