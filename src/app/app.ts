@@ -7,12 +7,9 @@ import { TokenService } from "../otterly/Token/TokenService";
 import {ApiRoute} from "../otterly/ApiRoutes/ApiRoutes";
 
 dotenv.config()
-const allowedOrigins = [
-    'https://antredesloutres.fr',
-    'https://www.antredesloutres.fr',
-    'https://qa.antredesloutres.fr',
-    'https://build.antredesloutres.fr',
-    'https://dev.antredesloutres.fr'
+// Sites autorisés pour du CORS
+const allowedOrigins: string | string[] = [
+
 ];
 
 class App {
@@ -61,9 +58,9 @@ class App {
     }
 
     // Initialisation des services
-     private async initService() : Promise<void>{
+     private initService(){
          const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
-         await this.services();
+         this.services().then();
 
          setInterval(async () => {
              // [TASK] Lancement des tâches périodiques
@@ -79,7 +76,7 @@ class App {
     public start() {
         this.middlewares()
         this.routes()
-        this.initService().then(r => {console.log(r)})
+        this.initService()
         this.app.listen(this.port, () => {
             console.log(`L'API est en route sur le port http://localhost:${this.port}`)
         })

@@ -26,7 +26,7 @@ export abstract class Repository<T extends { id?: number }> {
     protected store = new Map<string, T>();
     protected tableName: string;
 
-    constructor(tableName: string) {
+    protected constructor(tableName: string) {
         this.tableName = tableName;
     }
 

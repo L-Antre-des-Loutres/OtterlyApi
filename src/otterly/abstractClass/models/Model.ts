@@ -4,14 +4,14 @@
  * Represents a generic Model class with basic functionality.
  */
 
-export class Model {
+export abstract class Model {
 
     // Propriété id de type number
     id: number;
     static readonly models: any;
 
     // Constructeur de la classe Model
-    constructor(data: Partial<Model>) {
+    protected constructor(data: Partial<Model>) {
         this.id = data.id ?? 0;
     }
 

@@ -14,7 +14,7 @@
 export abstract class Service {
     protected label: string;
 
-    constructor(label: string) {
+    protected constructor(label: string) {
         this.label = label;
     }
 

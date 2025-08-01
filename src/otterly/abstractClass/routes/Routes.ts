@@ -13,7 +13,7 @@ import { RepositoryApiRoutes } from "../../ApiRoutes/ApiRoutesRepository";
  * Implements the `ApiRoutesInterface`.
  */
 
-export class Routes implements ApiRoutesInterface {
+export abstract class Routes implements ApiRoutesInterface {
     id?: number;
     alias: string;
     route: string;
@@ -22,7 +22,7 @@ export class Routes implements ApiRoutesInterface {
     comment?: string;
     description?: string;
 
-    constructor(route: string, method: string, alias: string, parameters: string) {
+    protected constructor(route: string, method: string, alias: string, parameters: string) {
         this.route = route;
         this.method = method;
         this.alias = alias;
