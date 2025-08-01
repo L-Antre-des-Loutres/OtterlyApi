@@ -21,6 +21,7 @@ class App {
         this.port = Number(process.env.PORT) || 3000;
     }
 
+    // Gestion des middlewares
     private middlewares() {
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }))
@@ -38,6 +39,7 @@ class App {
         this.app.use(cookieParser());
     }
 
+    // Initialisation des routes
     private routes() {
         // Route d'accueil
         this.app.get("/", (req, res) => {
@@ -82,14 +84,7 @@ class App {
         })
     }
 }
-
-
 async function start() {
-
-    // Génération des tokens initiales
-    const tokenService = new TokenService();
-    await tokenService.generateInitialTokens();
-
     // Instanciation de l'application
     const app = new App()
 
