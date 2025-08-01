@@ -1,7 +1,7 @@
 // src/repositories/Repository.ts
 
 import { RowDataPacket } from "mysql2";
-import db from "../db";
+import db from "../../db";
 
 /**
  * Abstract base class for generic repository implementation.

@@ -1,22 +1,18 @@
 <p align="center">
-  <img src="../../../otterlyapi.png" alt="OtterlyAPI Logo" height="150"/>
+  <img src="../../otterlyapi.png" alt="OtterlyAPI Logo" height="150"/>
 </p>
 
 <h1 align="center">Bienvenue dans le framework OtterlyAPI 🦦</h1>
 
 ---
-
 ## 📁 Structure du dossier
 
-Ce dossier contient l'ensemble des **classes de base** mises à disposition pour l'héritage dans les différents modules du framework :
+Ce dossier contient l'ensemble des class disponibles pour l'héritage ainsi que l'utilitaires dans les différents modules du framework :
 
-- 📂 `controllers` – Logique métier associée aux routes
-- 📂 `middlewares` – Middlewares personnalisés (authentification, validation, etc.)
-- 📂 `models` – Représentation et manipulation des données
-- 📂 `repositories` – Abstraction de l'accès aux sources de données
-- 📂 `routes` – Définition des points d'entrée de l'API
-- 📂 `services` – Logique métier indépendante des routes
-
+- 📂 `abstractClass` – Contient l'ensemble des classes d'héritage du framework
+- 📂 `ApiRoutes` – Classe gérant l'affichage et l'enregistrement des routes
+- 📂 `Token` – Contient les classes gérant les tokens, de leur création à leur vérification
+- 🗒️ `db.ts` – Classe permettant la connexion à la base de données
 ---
 
 ## ⚠️ Bonnes pratiques

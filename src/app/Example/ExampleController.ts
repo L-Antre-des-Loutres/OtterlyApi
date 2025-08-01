@@ -1,8 +1,8 @@
 // src/controllers/ExampleController.ts
 
 import {Request, Response} from "express";
-import {Controller} from "../app_otterly/otterly/controllers/Controller";
-import {ExampleModel} from "../models/ExampleModel";
+import {Controller} from "../../otterly/abstractClass/controllers/Controller";
+import {ExampleModel} from "./ExampleModel";
 
 /**
  * TODO

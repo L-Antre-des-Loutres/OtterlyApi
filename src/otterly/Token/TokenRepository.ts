@@ -1,8 +1,8 @@
 // src/repositories/repository-serveur.ts
 
 import db from "../db";
-import { Repository } from "./Repository";
-import {TokenInterface} from "../interfaces/TokenInterface";
+import { Repository } from "../abstractClass/repositories/Repository";
+import {TokenInterface} from "./TokenInterface";
 
 /**
  * Class representing a repository for managing TokenInterface entities.

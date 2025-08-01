@@ -1,8 +1,8 @@
 // src/routes/Route.ts
 
 import { Request, Response } from "express";
-import { ApiRoutesInterface } from "../interfaces/ApiRoutesInterfaces";
-import { RepositoryApiRoutes } from "../repositories/ApiRoutesRepository";
+import { ApiRoutesInterface } from "../../ApiRoutes/ApiRoutesInterfaces";
+import { RepositoryApiRoutes } from "../../ApiRoutes/ApiRoutesRepository";
 
 /**
  * Represents API routes configuration with metadata and registration functionality.

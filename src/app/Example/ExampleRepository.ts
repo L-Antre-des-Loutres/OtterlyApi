@@ -1,7 +1,7 @@
 // src/repositories/ExampleRepository.ts.
 
-import {Repository} from "../app_otterly/otterly/repositories/Repository";
-import {ExampleInterface} from "../interfaces/ExampleInteface";
+import {Repository} from "../../otterly/abstractClass/repositories/Repository";
+import {ExampleInterface} from "./ExampleInteface";
 
 /**
  * ExampleRepository is a class that extends the base Repository class,

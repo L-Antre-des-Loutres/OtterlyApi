@@ -1,8 +1,8 @@
 // src/controllers/ApiRoutesController.ts
 
 import { Request, Response } from "express";
-import {Controller} from "./Controller";
-import {ApiRoutesModel} from "../models/ApiRoutesModel";
+import {Controller} from "../abstractClass/controllers/Controller";
+import {ApiRoutesModel} from "./ApiRoutesModel";
 
 /**
  * ApiRoutesController class

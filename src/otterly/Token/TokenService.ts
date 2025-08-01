@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { Service } from "./Service";
-import {RepositoryToken} from "../repositories/TokenRepository";
-import {TokenInterface} from "../interfaces/TokenInterface";
+import { Service } from "../abstractClass/services/Service";
+import {RepositoryToken} from "./TokenRepository";
+import {TokenInterface} from "./TokenInterface";
 
 /**
  * TokenService class provides methods to handle generation, verification, and management

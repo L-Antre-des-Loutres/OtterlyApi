@@ -1,12 +1,12 @@
 import express, { Application } from "express"
-import * as dotevnv from "dotenv"
+import * as dotenv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
 import cookieParser from 'cookie-parser';
-import { TokenService } from "./app_otterly/otterly/services/TokenService";
-import {ApiRoute} from "./app_otterly/otterly/routes/ApiRoutes";
+import { TokenService } from "../otterly/Token/TokenService";
+import {ApiRoute} from "../otterly/ApiRoutes/ApiRoutes";
 
-dotevnv.config()
+dotenv.config()
 const allowedOrigins = [
     'https://antredesloutres.fr',
     'https://www.antredesloutres.fr',
@@ -45,7 +45,7 @@ class App {
         // Route d'accueil
         this.app.get("/", (req, res) => {
             res.status(200).json({
-                message: "API Serveur est en ligne !",
+                message: "API en ligne !",
                 version: process.env.VERSION ?? "non spécifiée"
             });
         });
@@ -53,9 +53,27 @@ class App {
         this.app.use("/api/routes", new ApiRoute().router)
     }
 
+    // Enregistrement des services
+    private async services(){
+        // Génération des tokens
+        const tokenService = new TokenService();
+        await tokenService.generateInitialTokens();
+    }
+
+    // Initialisation des services
      private async initService() : Promise<void>{
          const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
-         // Initialisation des services
+         await this.services();
+
+         setInterval(async () => {
+             // [TASK] Lancement des tâches périodiques
+             console.log("[TASK] Lancement des tâches périodiques ")
+             try {
+                 await this.services()
+             } catch (error) {
+                 console.error("Erreur lors de l'execution du service", error);
+             }
+         }, intervalMs);
     }
 
     public start() {
@@ -63,7 +81,7 @@ class App {
         this.routes()
         this.initService().then(r => {console.log(r)})
         this.app.listen(this.port, () => {
-            console.log(`L'API Serveur est en route sur le port http://localhost:${this.port}`)
+            console.log(`L'API est en route sur le port http://localhost:${this.port}`)
         })
     }
 }

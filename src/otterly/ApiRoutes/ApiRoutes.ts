@@ -1,6 +1,6 @@
 import { Router } from "express";
-import {ApiRoutesController} from "../controllers/ApiRoutesController";
-import {Routes} from "./Routes";
+import {ApiRoutesController} from "./ApiRoutesController";
+import {Routes} from "../abstractClass/routes/Routes";
 
 /**
  * Route pour obtenir toutes les routes de l'API

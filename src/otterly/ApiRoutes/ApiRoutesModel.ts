@@ -1,8 +1,8 @@
 // src/models/ApiRoutesModel.ts
 
-import { Model } from "./Model";
-import {ApiRoutesInterface} from "../interfaces/ApiRoutesInterfaces";
-import {RepositoryApiRoutes} from "../repositories/ApiRoutesRepository";
+import { Model } from "../abstractClass/models/Model";
+import {ApiRoutesInterface} from "./ApiRoutesInterfaces";
+import {RepositoryApiRoutes} from "./ApiRoutesRepository";
 
 /**
  * ApiRoutesModel class

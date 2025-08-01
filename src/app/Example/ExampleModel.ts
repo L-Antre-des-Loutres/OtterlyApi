@@ -1,8 +1,8 @@
 // src/models/ExampleModel.ts
 
-import { Model } from "../app_otterly/otterly/models/Model";
-import { ExampleInterface } from "../interfaces/ExampleInteface";
-import {ExampleRepository} from "../repositories/ExampleRepository";
+import { Model } from "../../otterly/abstractClass/models/Model";
+import { ExampleInterface } from "./ExampleInteface";
+import {ExampleRepository} from "./ExampleRepository";
 
 /**
  * ExampleModel is a class that extends the base Model class and implements the ExampleInterface.

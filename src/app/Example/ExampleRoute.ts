@@ -1,6 +1,6 @@
 import { Router} from "express";
-import { Routes } from "../app_otterly/otterly/routes/Routes";
-import {ExampleController} from "../controllers/ExampleController";
+import { Routes } from "../../otterly/abstractClass/routes/Routes";
+import {ExampleController} from "./ExampleController";
 
 /**
  * RouteUtilisateursDiscord configure les routes liées aux utilisateurs Discord.
