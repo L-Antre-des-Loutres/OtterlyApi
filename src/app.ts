@@ -3,14 +3,7 @@ import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
 import cookieParser from 'cookie-parser';
-import { ServiceToken } from "./services/service-token";
-import {ApiRoute} from "./routes/route-api_routes";
-import {RouteJoueursStats} from "./routes/route-joueurs_stats";
-import {ServiceJoueurs} from "./services/service-joueurs";
-import {RouteConnexion_discord} from "./routes/route-connexion_discord";
-import {RouteAstroLoutreImage} from "./routes/route-astroloutre_images";
-import {RouteJoueurs} from "./routes/route-joueurs";
-import {RouteUtilisateursDiscord} from "./routes/route-utilisateurs_discord";
+import { TokenService } from "./services/TokenService";
 
 dotevnv.config()
 const allowedOrigins = [
@@ -24,7 +17,6 @@ const allowedOrigins = [
 class App {
     public app: Application
     private readonly port: number
-    private readonly serviceJoueurs: ServiceJoueurs = new ServiceJoueurs();
 
     constructor() {
         this.app = express();
@@ -56,42 +48,17 @@ class App {
                 version: process.env.VERSION ?? "non spécifiée"
             });
         });
-
-        // Route des serveurs
-        this.app.use("/api/serveurs", require("./routes/route-serveur").default)
-        // Route des routes
-        this.app.use("/api/routes", new ApiRoute().router)
-        // Route des stats des joueurs
-        this.app.use("/api/joueurs/stats-serveur/", new RouteJoueursStats().router)
-        // Route des images pour Astroloutre
-        this.app.use("/api/astroloutre/images/", new RouteAstroLoutreImage().router )
-        // Route de l'authentification discord
-        this.app.use("/api/auth/discord", new RouteConnexion_discord().router)
-        // Route de l'activité du joueur
-        this.app.use("/api/joueurs", new RouteJoueurs().router)
-        // Route des utilisateurs discord
-        this.app.use("/api/utilisateurs_discord", new RouteUtilisateursDiscord().router)
     }
 
-     private async initService(){
+     private async initService() : Promise<void>{
          const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
-         await this.serviceJoueurs.registerPlayerName();
-
-         setInterval(async () => {
-             // [TASK] Lancement des tâches périodiques
-             console.log("[TASK] Lancement des tâches périodiques ")
-             try {
-                 await this.serviceJoueurs.registerPlayerName();
-             } catch (error) {
-                 console.error("Erreur lors de l'enregistrement des noms des joueurs :", error);
-             }
-         }, intervalMs);
+         // Initialisation des services
     }
 
     public start() {
         this.middlewares()
         this.routes()
-        this.initService()
+        this.initService().then(r => {console.log(r)})
         this.app.listen(this.port, () => {
             console.log(`L'API Serveur est en route sur le port http://localhost:${this.port}`)
         })
@@ -102,7 +69,7 @@ class App {
 async function start() {
 
     // Génération des tokens initiales
-    const tokenService = new ServiceToken();
+    const tokenService = new TokenService();
     await tokenService.generateInitialTokens();
 
     // Instanciation de l'application

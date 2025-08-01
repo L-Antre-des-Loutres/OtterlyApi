@@ -1,6 +1,6 @@
 // src/routes/Route.ts
-import { ApiRoutesInterface } from "../interfaces/ApiRoutesInterfaces";
-import {RepositoryApiRoutes} from "../repositories/repository-api_routes";
+import {ApiRoutesInterface} from "../interfaces/ApiRoutesInterfaces";
+import {RepositoryApiRoutes} from "../repositories/ApiRoutesRepository";
 
 /**
  * Classe de base pour les routes
@@ -32,7 +32,7 @@ export class Routes implements ApiRoutesInterface {
         routes.forEach(route => {
             if (type) route.route = `${process.env.API_URL}/${type}${route.route}`;
             else route.route =`${process.env.API_URL}${route.route}`
-            Routes.repository.addRoute(route);
+            Routes.repository.addRoute(route).then(r => {console.log(r)})
         });
     }
 }

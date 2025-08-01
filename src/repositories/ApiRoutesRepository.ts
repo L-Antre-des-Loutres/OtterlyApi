@@ -1,7 +1,7 @@
 // src/repositories/repository-api_routes.ts
 
-import { ApiRoutesInterface } from "../interfaces/ApiRoutesInterfaces";
 import { Repository } from "./Repository";
+import {ApiRoutesInterface} from "../interfaces/ApiRoutesInterfaces";
 
 /**
  * Class representing repository-based operations for managing API routes in the database.

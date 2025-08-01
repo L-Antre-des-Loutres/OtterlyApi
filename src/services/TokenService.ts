@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import { Service } from "./Service";
-import { TokenInterface } from "../interfaces/Tokeninterfaces";
-import { RepositoryToken } from "../repositories/repository-token";
+import {RepositoryToken} from "../repositories/TokenRepository";
+import {TokenInterface} from "../interfaces/TokenInterface";
+
 
 /* SQL :
 CREATE TABLE adl_global.api_token (
@@ -17,7 +18,7 @@ DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_0900_ai_ci;
 */
 
-export class ServiceToken extends Service {
+export class TokenService extends Service {
 
     // Secret pour la signature des tokens JWT
     private readonly secret: string;
@@ -53,7 +54,7 @@ export class ServiceToken extends Service {
             payload.token = token;
 
             // Vérifie si l'utilisateur possède déjà un token
-            const tokenExist = await ServiceToken.repositoryToken.findById(payload.id);
+            const tokenExist = await TokenService.repositoryToken.findById(payload.id);
             if (tokenExist) {
                 // this.logError("Erreur lors de la génération du token : utilisateur possède déjà un token");
                 return false;
@@ -71,7 +72,7 @@ export class ServiceToken extends Service {
     async save(tokenData: TokenInterface): Promise<void> {
         try {
             // Sauvegarde du token dans la base de données
-            await ServiceToken.repositoryToken.save(tokenData);
+            await TokenService.repositoryToken.save(tokenData);
 
         } catch (error) {
             console.error("Erreur lors de la sauvegarde du token dans la base de données :", error);
@@ -80,11 +81,11 @@ export class ServiceToken extends Service {
 
     // Fonction de vérification du token
     static async verifyToken(token: string): Promise<boolean> {
-        return await ServiceToken.repositoryToken.verifyToken(token);
+        return await TokenService.repositoryToken.verifyToken(token);
     }
 
     // Récupération du nom d'utilisateur associé au token
     static async getUtilisateurByToken(token: string): Promise<string | null> {
-        return await ServiceToken.repositoryToken.findUtilisateurByToken(token);
+        return await TokenService.repositoryToken.findUtilisateurByToken(token);
     }
 }

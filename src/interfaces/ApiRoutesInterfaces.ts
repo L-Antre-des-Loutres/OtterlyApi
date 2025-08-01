@@ -7,7 +7,7 @@
  *
  * Optional fields are included for providing additional descriptive information.
  *
- * @interface ApiRoutesInterface
+ * @interface ApiRoutesInterfaces
  *
  * @property {number} [id] - The optional unique identifier for the API route.
  * @property {string} alias - A human-readable alias for the API route.

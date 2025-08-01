@@ -1,8 +1,8 @@
 // src/repositories/repository-serveur.ts
 
 import db from "../db";
-import { TokenInterface } from "../interfaces/Tokeninterfaces";
 import { Repository } from "./Repository";
+import {TokenInterface} from "../interfaces/TokenInterface";
 
 /**
  * Class representing a repository for managing TokenInterface entities.
@@ -64,7 +64,7 @@ export class RepositoryToken extends Repository<TokenInterface> {
     private async findByUsername(username: string): Promise<boolean> {
         // Lance une requête SQL afficher si un utilisateur possède déjà un token
         const [rows]: [any[], any] = await db.query(`SELECT * FROM ${this.tableName} WHERE username = ?`, [username]);
-        
+
         // Vérifie si des lignes ont été trouvées et retourne true si oui, sinon false
         return rows.length > 0;
     }
@@ -73,7 +73,7 @@ export class RepositoryToken extends Repository<TokenInterface> {
     async findUtilisateurByToken(token: string): Promise<string | null> {
         // Lance une requête SQL afficher si un utilisateur possède déjà un token
         const [rows]: [any[], any] = await db.query(`SELECT utilisateur FROM ${this.tableName} WHERE token = ?`, [token]);
-        
+
         // Vérifie si des lignes ont été trouvées et retourne le premier élément, sinon null
         return rows.length > 0 ? rows[0]?.utilisateur : null;
     }
