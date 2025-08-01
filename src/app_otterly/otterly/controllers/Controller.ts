@@ -3,15 +3,18 @@
 import { Request, Response } from "express";
 
 /**
- * The `Controller` class is an abstract base class designed to handle HTTP responses for a server application.
- * It provides utility methods for sending different types of HTTP responses, such as success, not found, and error responses.
- * It also includes an abstract method `handleRequest` that must be implemented by any subclass to define specific route handling logic.
+ * Abstract class representing a Controller, designed to handle HTTP responses and implement
+ * route-specific behavior through the `handleRequest` method.
+ * Includes utility methods to send different types of responses (e.g., success, not found, error).
  *
- * This class is intended to be extended by other controllers to provide consistent response handling across the application.
- * - `sendSuccess` sends a success response with the provided data and status code.
- * - `sendNotFound` sends a not found response with the provided message and status code.
- * - `sendError` sends an error response with the provided error message and status code.
- * - `handleRequest` is an abstract method that must be implemented by any subclass to define specific route handling logic.
+ * All classes extending this Controller must implement the `handleRequest` method to define specific request handling logic.
+ *
+ * Methods:
+ * - sendSuccess: Sends an HTTP response for successful requests with provided data and status code.
+ * - sendNotFound: Sends an HTTP response indicating resource not found with a custom message.
+ * - sendError: Sends an HTTP response indicating an error with a custom message and status code.
+ * - handleError: Handles server-side errors by logging the error and sending a generic error response.
+ * - handleRequest: Abstract method to define specific business logic for incoming requests.
  */
 
 export abstract class Controller {

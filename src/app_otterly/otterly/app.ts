@@ -1,19 +1,9 @@
-import express, { Application } from "express"
-import * as dotevnv from "dotenv"
-import cors from "cors"
-import helmet from "helmet"
-import cookieParser from 'cookie-parser';
-import { TokenService } from "./app_otterly/otterly/services/TokenService";
-import {ApiRoute} from "./app_otterly/otterly/routes/ApiRoutes";
-
-dotevnv.config()
-const allowedOrigins = [
-    'https://antredesloutres.fr',
-    'https://www.antredesloutres.fr',
-    'https://qa.antredesloutres.fr',
-    'https://build.antredesloutres.fr',
-    'https://dev.antredesloutres.fr'
-];
+import express, {Application} from "express";
+import cors from "cors";
+import helmet from "helmet";
+import cookieParser from "cookie-parser";
+import {TokenService} from "./services/TokenService";
+import {ApiRoute} from "./routes/ApiRoutes";
 
 class App {
     public app: Application
@@ -27,20 +17,11 @@ class App {
     private middlewares() {
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }))
-        this.app.use(cors({
-            origin: (origin, callback) => {
-                if (!origin || allowedOrigins.includes(origin)) {
-                    callback(null, true);
-                } else {
-                    callback(new Error('Not allowed by CORS'));
-                }
-            },
-            credentials: true
-        }));
         this.app.use(helmet())
         this.app.use(cookieParser());
     }
 
+    // Initialisation des routes
     private routes() {
         // Route d'accueil
         this.app.get("/", (req, res) => {
@@ -49,13 +30,19 @@ class App {
                 version: process.env.VERSION ?? "non spécifiée"
             });
         });
-        // Route des entry de l'API
+
+        // Route affichant les entrées de l'API
         this.app.use("/api/routes", new ApiRoute().router)
     }
 
-     private async initService() : Promise<void>{
-         const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
-         // Initialisation des services
+    private async services(){
+        const tokenService = new TokenService();
+        await tokenService.generateInitialTokens();
+    }
+
+    private async initService() : Promise<void>{
+        const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
+        // Initialisation des services
     }
 
     public start() {
@@ -66,6 +53,24 @@ class App {
             console.log(`L'API Serveur est en route sur le port http://localhost:${this.port}`)
         })
     }
+}
+
+async function crossOrigin(app: Application, allowedOrigins: string[]){
+    app.use(cors({
+        origin: (origin, callback) => {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true
+    }));
+}
+
+// Getters
+async function getApp() : Promise<Application>{
+    return express();
 }
 
 
@@ -86,5 +91,4 @@ async function start() {
 start().catch((error) => {
     console.error("Erreur lors du démarrage de l'application :", error)
 })
-
 

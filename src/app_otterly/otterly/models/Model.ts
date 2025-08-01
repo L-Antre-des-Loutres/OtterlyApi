@@ -1,9 +1,7 @@
 // src/models/Model.ts
 
 /**
- * Represents a generic Model class that can be used as a base for other models.
- * Includes functionality for initialization with partial data and converting the
- * instance to a JSON representation.
+ * Represents a generic Model class with basic functionality.
  */
 
 export class Model {

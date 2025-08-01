@@ -3,20 +3,15 @@ import { Service } from "./Service";
 import {RepositoryToken} from "../repositories/TokenRepository";
 import {TokenInterface} from "../interfaces/TokenInterface";
 
-
-/* SQL :
-CREATE TABLE adl_global.api_token (
-    id TINYINT AUTO_INCREMENT,
-    utilisateur VARCHAR(100) NULL,
-    `role` VARCHAR(100) NULL,
-    token VARCHAR(255) NOT NULL,  -- Token généralement plus long, augmenter la taille
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP, -- Utilisation de DATETIME pour inclure l'heure
-    PRIMARY KEY (id)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci;
-*/
+/**
+ * TokenService class provides methods to handle generation, verification, and management
+ * of JSON Web Tokens (JWTs) for users. It includes functionality for saving tokens into
+ * a database, verifying token authenticity, and retrieving user information associated
+ * with a token.
+ *
+ * This service makes use of JWT for secure token generation and interacts with a repository
+ * for database operations.
+ */
 
 export class TokenService extends Service {
 

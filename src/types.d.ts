@@ -8,6 +8,9 @@ declare global {
             // General URL Authentication
             API_URL: string;
 
+            // Clé pour les token JWT
+            JWT_SECRET: string
+
             // General Database Configuration
             DB_HOST: string;
             DB_USER: string;
@@ -16,14 +19,6 @@ declare global {
             DB_CONNEXION_LIMIT: string;
             DB_PORT: string;
 
-            // Palworld String Connexion
-            PALWORLD_STRING: string;
-            JWT_SECRET: string;
-            // Version
-            VERSION: string;
-            DISCORD_CLIENT_ID: string;
-            DISCORD_CLIENT_SECRET: string;
-            DISCORD_REDIRECT_URL: string;
 
         }
     }
