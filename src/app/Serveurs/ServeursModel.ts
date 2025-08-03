@@ -1,16 +1,16 @@
-import {ServeurInterface} from "./ServeurInterface";
+import {ServeursInterface} from "./ServeursInterface";
 import {Model} from "../../otterly/abstractClass/models/Model";
-import {ServeurRepository} from "./ServeurRepository";
-import {ServeurParametersRepository} from "./ServeurParameters/ServeurParametersRepository";
+import {ServeursRepository} from "./ServeursRepository";
+import {ServeurParametersRepository} from "./ServeursParameters/ServeurParametersRepository";
 import {ServeurService} from "./ServeurService";
-import {ServeurParametersInterface} from "./ServeurParameters/ServeurParametersInterface";
+import {ServeurParametersInterface} from "./ServeursParameters/ServeurParametersInterface";
 
 /**
  * Represents a model for a server, providing properties and methods to manage server data.
  * Extends the base `Model` class and implements `ServeurInterface`.
  */
 
-export class ServeurModel extends Model implements ServeurInterface {
+export class ServeursModel extends Model implements ServeursInterface {
 
     nom: string;
     jeu: string;
@@ -28,7 +28,7 @@ export class ServeurModel extends Model implements ServeurInterface {
     image: string
 
     // Constructeur de la classe Serveur
-    constructor(data: Partial<ServeurInterface>) {
+    constructor(data: Partial<ServeursInterface>) {
         super(data);
         this.nom = data.nom ?? "";
         this.jeu = data.jeu ?? "";
@@ -46,7 +46,7 @@ export class ServeurModel extends Model implements ServeurInterface {
     }
 
     // Initialisation du repository Serveur
-    private static readonly serveursRepository = new ServeurRepository();
+    private static readonly serveursRepository = new ServeursRepository();
 
     // Initialisation du repository Serveur Parameters
     private static readonly serveursParametersRepository = new ServeurParametersRepository();
@@ -55,7 +55,7 @@ export class ServeurModel extends Model implements ServeurInterface {
     private static readonly serveursService = new ServeurService();
 
     // Méthode qui permet de convertir le model en JSON
-    toJSON(): Partial<ServeurInterface> {
+    toJSON(): Partial<ServeursInterface> {
         return {
             id: this.id,
             nom: this.nom,
@@ -75,65 +75,65 @@ export class ServeurModel extends Model implements ServeurInterface {
     }
 
     // Méthode de récupération de l'ensemble des serveurs
-    static async getAll(): Promise<ServeurModel[]> {
-        const serveurs = await ServeurModel.serveursRepository.findAll();
-        return serveurs.map(data => new ServeurModel(data));
+    static async getAll(): Promise<ServeursModel[]> {
+        const serveurs = await ServeursModel.serveursRepository.findAll();
+        return serveurs.map(data => new ServeursModel(data));
     }
 
     // Méthode de récupération d'un serveur par son ID
-    static async getById(id: number): Promise<ServeurModel | null> {
-        const serveur = await ServeurModel.serveursRepository.findById(id);
-        return serveur ? new ServeurModel(serveur) : null;
+    static async getById(id: number): Promise<ServeursModel | null> {
+        const serveur = await ServeursModel.serveursRepository.findById(id);
+        return serveur ? new ServeursModel(serveur) : null;
     }
 
     // Méthode de récupération des ID des serveurs primaire et secondaire
     static async getStartedServeursId(): Promise<ServeurParametersInterface | null> {
-        return await ServeurModel.serveursParametersRepository.getServeursId();
+        return await ServeursModel.serveursParametersRepository.getServeursId();
     }
 
 // Méthode pour récupérer seulement les serveurs actifs et globaux
-    static async getServeursActifGlobal(): Promise<ServeurModel[]> {
+    static async getServeursActifGlobal(): Promise<ServeursModel[]> {
         // 1. Récupération brute des données via ton repository
-        const serveurs = await ServeurModel.serveursRepository.findAll();
+        const serveurs = await ServeursModel.serveursRepository.findAll();
 
         // 2. Filtrage des serveurs actifs et globaux
         const serveursActifGlobal = serveurs.filter(
-            (serveur: ServeurInterface) => serveur.actif && serveur.global
+            (serveur: ServeursInterface) => serveur.actif && serveur.global
         );
 
         // 3. Conversion en instances de ModelServeur si besoin
-        return serveursActifGlobal.map((data: ServeurInterface) => new ServeurModel(data));
+        return serveursActifGlobal.map((data: ServeursInterface) => new ServeursModel(data));
     }
 
 
-    static async getServeursActifGlobalByGame(game : string): Promise<ServeurModel[]> {
+    static async getServeursActifGlobalByGame(game : string): Promise<ServeursModel[]> {
         // 1. Récupération brute des données via ton repository
-        const serveurs = await ServeurModel.serveursRepository.findAll();
+        const serveurs = await ServeursModel.serveursRepository.findAll();
 
         // 2. Filtrage des serveurs actifs et globaux
         const serveursActifGlobal = serveurs.filter(
-            (serveur: ServeurInterface) => serveur.actif && serveur.global && serveur.jeu.toLowerCase() === game.toLowerCase()
+            (serveur: ServeursInterface) => serveur.actif && serveur.global && serveur.jeu.toLowerCase() === game.toLowerCase()
         );
 
         // 3. Conversion en instances de ModelServeur si besoin
-        return serveursActifGlobal.map((data: any) => new ServeurModel(data));
+        return serveursActifGlobal.map((data: any) => new ServeursModel(data));
     }
 
     // Méthode de récupération des informations des serveurs primaire et secondaire
-    static async getStartedServeursInfo(): Promise<ServeurModel[] | null> {
-        const serveursStartedId = await ServeurModel.getStartedServeursId();
+    static async getStartedServeursInfo(): Promise<ServeursModel[] | null> {
+        const serveursStartedId = await ServeursModel.getStartedServeursId();
 
         // Vérification si les serveurs primaire et secondaire existent
         if (serveursStartedId) {
-            const serveursPrimary = await ServeurModel.getById(serveursStartedId.id_serv_primaire);
-            const serveursSecondaire = await ServeurModel.getById(serveursStartedId.id_serv_secondaire);
+            const serveursPrimary = await ServeursModel.getById(serveursStartedId.id_serv_primaire);
+            const serveursSecondaire = await ServeursModel.getById(serveursStartedId.id_serv_secondaire);
 
             // Ajout de la propriété nb_players pour chaque serveur
             if (serveursPrimary) {
-                serveursPrimary.players_online = await ServeurModel.serveursService.getPlayersCount(serveursPrimary);
+                serveursPrimary.players_online = await ServeursModel.serveursService.getPlayersCount(serveursPrimary);
             }
             if (serveursSecondaire) {
-                serveursSecondaire.players_online = await ServeurModel.serveursService.getPlayersCount(serveursSecondaire);
+                serveursSecondaire.players_online = await ServeursModel.serveursService.getPlayersCount(serveursSecondaire);
             }
 
             if (serveursPrimary && serveursSecondaire) {
@@ -145,23 +145,23 @@ export class ServeurModel extends Model implements ServeurInterface {
     }
 
     // Méthode de création d'un serveur
-    static async create(data: Partial<ServeurInterface>): Promise<ServeurModel> {
-        const nextId = await ServeurModel.serveursRepository.getNextId();
-        const serveur = new ServeurModel({ ...data, id: nextId });
-        await ServeurModel.serveursRepository.save(serveur);
+    static async create(data: Partial<ServeursInterface>): Promise<ServeursModel> {
+        const nextId = await ServeursModel.serveursRepository.getNextId();
+        const serveur = new ServeursModel({ ...data, id: nextId });
+        await ServeursModel.serveursRepository.save(serveur);
         return serveur;
     }
 
     // Méthode de suppression d'un serveur
     static async delete(id: number): Promise<boolean> {
-        return await ServeurModel.serveursRepository.delete(id);
+        return await ServeursModel.serveursRepository.delete(id);
     }
 
     // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
 
     // Méthode de lancement du serveur
-    static async start(serveur: ServeurModel): Promise<boolean> {
-        return (await ServeurModel.serveursParametersRepository.updateActifServeur(serveur.id));
+    static async start(serveur: ServeursModel): Promise<boolean> {
+        return (await ServeursModel.serveursParametersRepository.updateActifServeur(serveur.id));
     }
 
     // ---------------------------------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import helmet from "helmet"
 import cookieParser from 'cookie-parser';
 import { TokenService } from "../otterly/Token/TokenService";
 import {ApiRoute} from "../otterly/ApiRoutes/ApiRoutes";
-import {ServeurRoutes} from "./Serveur/ServeurRoutes";
+import {ServeursRoutes} from "./Serveurs/ServeursRoutes";
 
 dotenv.config()
 // Sites autorisés pour du CORS
@@ -53,7 +53,7 @@ class App {
         this.app.use("/api/routes", new ApiRoute().router)
 
         // Route des serveurs
-        this.app.use("/api/serveurs", new ServeurRoutes().router)
+        this.app.use("/api/serveurs", new ServeursRoutes().router)
     }
 
     // Enregistrement des services

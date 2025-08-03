@@ -1,8 +1,8 @@
 import axios from "axios";
 import {status} from 'minecraft-server-util';
 import {Service} from "../../otterly/abstractClass/services/Service";
-import {ServeurInterface} from "./ServeurInterface";
-import {ServeurParametersRepository} from "./ServeurParameters/ServeurParametersRepository";
+import {ServeursInterface} from "./ServeursInterface";
+import {ServeurParametersRepository} from "./ServeursParameters/ServeurParametersRepository";
 
 /**
  * ServeurService is a class responsible for managing server operations, including player data retrieval
@@ -24,7 +24,7 @@ export class ServeurService extends Service {
     // ---------------------------------------------------------------------------------------------------
 
     // Méthode pour récupérer le nombre de joueurs connectés au serveur
-    async getPlayersCount(serveur: ServeurInterface): Promise<number> {
+    async getPlayersCount(serveur: ServeursInterface): Promise<number> {
         try {
             // Vérification du jeu sur le serveur
             switch (serveur.jeu) {
@@ -56,7 +56,7 @@ export class ServeurService extends Service {
     }
 
     // Méthode pour récupérer le nombre de joueurs sur Minecraft
-    private async getMinecraftPlayersCount(serveur: ServeurInterface): Promise<number> {
+    private async getMinecraftPlayersCount(serveur: ServeursInterface): Promise<number> {
         try {
             const serveurParameters = await ServeurService.repositoryServeurParameters.getFirstParameters();
 
@@ -91,7 +91,7 @@ export class ServeurService extends Service {
     }
 
     // Méthode pour récupérer le nombre de joueurs sur Palworld
-    private async getPalworldPlayers(_: ServeurInterface): Promise<number> {
+    private async getPalworldPlayers(_: ServeursInterface): Promise<number> {
         try {
             const config = {
                 method: 'get',

@@ -1,7 +1,7 @@
 /**
  * Interface representing a server configuration.
  *
- * @interface ServeurInterface
+ * @interface ServeursInterface
  * @property {number} id - Unique identifier for the server.
  * @property {string} nom - Name of the server.
  * @property {string} jeu - Name of the game the server is hosting.
@@ -18,7 +18,7 @@
  * @property {string} [image] - Optional property for a server image or thumbnail.
  */
 
-export interface ServeurInterface {
+export interface ServeursInterface {
     id: number;
     nom : string;
     jeu : string;

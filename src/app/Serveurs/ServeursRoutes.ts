@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { MiddlewareAuth } from "../../otterly/Token/TokenMiddleware";
 import { Routes } from "../../otterly/abstractClass/routes/Routes";
-import { ServeurController } from "./ServeurController";
+import { ServeursController } from "./ServeursController";
 
 /**
  * The `ServeurRoutes` class defines all server-related API endpoints, handles routing, and applies middleware.
@@ -9,14 +9,14 @@ import { ServeurController } from "./ServeurController";
  * This class manages routes for server-related operations such as fetching, creating, starting, and deleting servers.
  */
 
-export class ServeurRoutes {
+export class ServeursRoutes {
     public readonly router: Router;
-    private readonly controller: ServeurController;
+    private readonly controller: ServeursController;
     private readonly middlewareAuth: MiddlewareAuth;
 
     constructor() {
         this.router = Router();
-        this.controller = new ServeurController();
+        this.controller = new ServeursController();
         this.middlewareAuth = new MiddlewareAuth();
 
         this.registerDocumentation();

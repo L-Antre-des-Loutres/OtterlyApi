@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import {Controller} from "../../otterly/abstractClass/controllers/Controller";
-import {ServeurModel} from "./ServeurModel";
+import {ServeursModel} from "./ServeursModel";
 
 /**
  * ServeurController is responsible for handling requests related to server management operations.
@@ -9,7 +9,7 @@ import {ServeurModel} from "./ServeurModel";
  * It extends the base `Controller` class to utilize shared functionality like response handling and error management.
  */
 
-export class ServeurController extends Controller {
+export class ServeursController extends Controller {
     handleRequest(req: Request, res: Response): void {
         throw new Error("Method not implemented.");
     }
@@ -17,7 +17,7 @@ export class ServeurController extends Controller {
     // GET /api/serveurs
     public async getServeurs(req: Request, res: Response): Promise<void> {
         try {
-            const serveurs = await ServeurModel.getAll();
+            const serveurs = await ServeursModel.getAll();
             this.sendSuccess(res, serveurs);
         } catch (error) {
             this.handleError(res, error);
@@ -27,7 +27,7 @@ export class ServeurController extends Controller {
     // GET /api/serveurs/infos/:id
     public async getById(req: Request, res: Response): Promise<void> {
         try {
-            const serveur = await ServeurModel.getById(parseInt(req.params.id, 10));
+            const serveur = await ServeursModel.getById(parseInt(req.params.id, 10));
             if (!serveur) {
                 this.sendError(res, "Serveur introuvable");
                 return;
@@ -41,7 +41,7 @@ export class ServeurController extends Controller {
     // GET /api/serveurs/actif-global
     public async getServeursActifEtGlobal(req: Request, res: Response): Promise<void> {
         try {
-            const serveurs = await ServeurModel.getServeursActifGlobal();
+            const serveurs = await ServeursModel.getServeursActifGlobal();
             this.sendSuccess(res, serveurs);
         } catch (error) {
             this.handleError(res, error);
@@ -51,7 +51,7 @@ export class ServeurController extends Controller {
     // GET /api/serveurs/actif-global/:jeu
     public async getServeursActifEtGlobalByGame(req: Request, res: Response): Promise<void> {
         try {
-            const serveurs = await ServeurModel.getServeursActifGlobalByGame(req.params.jeu);
+            const serveurs = await ServeursModel.getServeursActifGlobalByGame(req.params.jeu);
             this.sendSuccess(res, serveurs);
         } catch (error) {
             this.handleError(res, error);
@@ -61,7 +61,7 @@ export class ServeurController extends Controller {
     // GET /api/serveurs/primaire-secondaire
     public async getServeursPrimaireSecondaire(req: Request, res: Response): Promise<void> {
         try {
-            const serveurs = await ServeurModel.getStartedServeursInfo();
+            const serveurs = await ServeursModel.getStartedServeursInfo();
 
             // Ajout des joueurs en ligne pour chaque serveur
             if (!serveurs) {
@@ -79,7 +79,7 @@ export class ServeurController extends Controller {
     // POST /api/serveurs
     public async create(req: Request, res: Response): Promise<void> {
         try {
-            const serveur = await ServeurModel.create(req.body);
+            const serveur = await ServeursModel.create(req.body);
             this.sendSuccess(res, serveur);
         } catch (error) {
             this.handleError(res, error);
@@ -89,7 +89,7 @@ export class ServeurController extends Controller {
     // DELETE /api/serveurs
     public async delete(req: Request, res: Response): Promise<void> {
         try {
-            const serveur = await ServeurModel.delete(req.body.id);
+            const serveur = await ServeursModel.delete(req.body.id);
             this.sendSuccess(res, serveur);
         } catch (error) {
             this.handleError(res, error);
@@ -101,13 +101,13 @@ export class ServeurController extends Controller {
     // POST /api/serveurs/start/
     public async start(req: Request, res: Response): Promise<void> {
         try {
-            const serveur = await ServeurModel.getById(req.body.id);
+            const serveur = await ServeursModel.getById(req.body.id);
             if (!serveur) {
                 this.sendNotFound(res, "Serveur introuvable");
                 return;
             }
 
-            const started = await ServeurModel.start(serveur);
+            const started = await ServeursModel.start(serveur);
             if (started) {
                 this.sendSuccess(res, serveur);
             } else {
