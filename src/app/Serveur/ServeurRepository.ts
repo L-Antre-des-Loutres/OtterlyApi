@@ -14,8 +14,7 @@ export class ServeurRepository extends Repository<ServeurInterface> {
 
     // Méthode pour récupérer le prochain ID
     async getNextId(): Promise<number> {
-        const nextId = await super.getNextId();
-        return nextId;
+        return await super.getNextId();
     }
 
     // Méthode pour sauvegarder un serveur
@@ -26,20 +25,17 @@ export class ServeurRepository extends Repository<ServeurInterface> {
 
     // Méthode pour trouver un serveur par ID
     async findById(id: number): Promise<ServeurInterface | null> {
-        const serveur = await super.findById(id);
-        return serveur;
+        return await super.findById(id);
     }
 
     // Méthode pour trouver tous les serveurs
     async findAll(): Promise<ServeurInterface[]> {
-        const serveurs = await super.findAll();
-        return serveurs;
+        return await super.findAll();
     }
 
     // Méthode pour supprimer un serveur
     async delete(id: number): Promise<boolean> {
-        const deleted = await super.delete(id);
-        return deleted;
+        return await super.delete(id);
     }
 
 }
