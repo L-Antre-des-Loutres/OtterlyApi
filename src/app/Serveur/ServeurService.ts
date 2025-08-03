@@ -5,7 +5,9 @@ import {ServeurInterface} from "./ServeurInterface";
 import {ServeurParametersRepository} from "./ServeurParameters/ServeurParametersRepository";
 
 /**
- *
+ * ServeurService is a class responsible for managing server operations, including player data retrieval
+ * for various games like Minecraft and Palworld. It extends the base Service class and focuses on
+ * functionalities required to interact with servers and fetch relevant information.
  */
 
 export class ServeurService extends Service {

@@ -4,7 +4,9 @@ import { Routes } from "../../otterly/abstractClass/routes/Routes";
 import { ServeurController } from "./ServeurController";
 
 /**
+ * The `ServeurRoutes` class defines all server-related API endpoints, handles routing, and applies middleware.
  *
+ * This class manages routes for server-related operations such as fetching, creating, starting, and deleting servers.
  */
 
 export class ServeurRoutes {

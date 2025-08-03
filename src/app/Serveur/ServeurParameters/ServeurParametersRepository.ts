@@ -2,9 +2,9 @@ import {Repository} from "../../../otterly/abstractClass/repositories/Repository
 import {ServeurParametersInterface} from "./ServeurParametersInterface";
 
 /**
- * ServeurParametersRepository is a class that extends the Repository for managing
- * operations related to serveur parameters. It provides methods for retrieving
- * information from a database table.
+ * ServeurParametersRepository is a repository class that provides methods
+ * to interact with the "serveurs_parameters" database table. It extends
+ * the generic Repository class to perform operations specific to server parameters.
  */
 
 export class ServeurParametersRepository extends Repository<ServeurParametersInterface> {

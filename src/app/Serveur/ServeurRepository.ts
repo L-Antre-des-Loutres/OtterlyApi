@@ -2,17 +2,9 @@ import {Repository} from "../../otterly/abstractClass/repositories/Repository";
 import {ServeurInterface} from "./ServeurInterface";
 
 /**
- * Class representing the RepositoryServeur, which extends the Repository class and provides
- * methods to manage ServeurInterface entities.
- *
- * This class is specifically designed to handle the storage, retrieval, and management of
- * server-related data within the underlying database using the Repository pattern.
- *
- * - `getNextId()`: Retrieves the next available ID for a new serveur.
- * - `save(serveur: ServeurInterface)`: Saves a new serveur to the repository.
- * - `findById(id: number)`: Finds a serveur by its ID.
- * - `findAll()`: Retrieves all serveurs.
- * - `delete(id: number)`: Deletes a serveur by its ID.
+ * The ServeurRepository class extends a generic Repository to handle CRUD operations
+ * specific to objects conforming to the ServeurInterface. It provides methods to
+ * interact with persistent storage of "serveurs", such as saving, retrieving, and deleting.
  */
 
 export class ServeurRepository extends Repository<ServeurInterface> {

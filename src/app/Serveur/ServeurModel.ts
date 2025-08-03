@@ -6,22 +6,8 @@ import {ServeurService} from "./ServeurService";
 import {ServeurParametersInterface} from "./ServeurParameters/ServeurParametersInterface";
 
 /**
- * Represents a server model that interacts with server-related data and logic.
- * Inherits from the `Model` class and implements the `ServeurInterface`.
- * Used to manage server metadata, functionality, and lifecycle.
- *
- * - `nom`: The name of the server.
- * - `jeu`: The game associated with the server.
- * - `version`: The version of the game being played on the server.
- * - `modpack`: The modpack used on the server.
- * - `modpack_url`: The URL where the modpack can be downloaded.
- * - `nom_monde`: The name of the world on the server.
- * - `embed_color`: The color used for embeds related to the server.
- * - `path_serv`: The path to the server's files.
- * - `start_script`: The script used to start the server.
- * - `actif`: Indicates if the server is active.
- * - `global`: Indicates if the server is global.
- * - `players_online`: The number of online players on the server.
+ * Represents a model for a server, providing properties and methods to manage server data.
+ * Extends the base `Model` class and implements `ServeurInterface`.
  */
 
 export class ServeurModel extends Model implements ServeurInterface {

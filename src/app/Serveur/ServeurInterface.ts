@@ -1,18 +1,21 @@
 /**
- * Interface ServeurInterface
+ * Interface representing a server configuration.
+ *
  * @interface ServeurInterface
- * @property {number} id - L'identifiant du serveur.
- * @property {string} nom - Le nom du serveur.
- * @property {string} jeu - Le jeu du serveur.
- * @property {string} version - La version du serveur.
- * @property {string} modpack - Le modpack du serveur.
- * @property {string} modpack_url - L'URL du modpack du serveur.
- * @property {string} nom_monde - Le nom du monde du serveur.
- * @property {string} embed_color - La couleur de l'embed du serveur.
- * @property {string} path_serv - Le chemin du serveur.
- * @property {string} start_script - Le script de démarrage du serveur.
- * @property {boolean} actif - Indique si le serveur est actif.
- * @property {boolean} global - Indique si le serveur est global.
+ * @property {number} id - Unique identifier for the server.
+ * @property {string} nom - Name of the server.
+ * @property {string} jeu - Name of the game the server is hosting.
+ * @property {string} version - Version of the game or server software.
+ * @property {string} modpack - Name of the modpack used, if any.
+ * @property {string} modpack_url - URL of the modpack, if applicable.
+ * @property {string} nom_monde - Name of the game world hosted by the server.
+ * @property {string} embed_color - Color used for any embedding purposes.
+ * @property {string} contenaire - Name or identifier of the container managing the server.
+ * @property {string} description - Description of the server.
+ * @property {boolean} actif - Indicates whether the server is active.
+ * @property {boolean} global - Indicates whether the server has a global configuration.
+ * @property {string} type - Type of the server.
+ * @property {string} [image] - Optional property for a server image or thumbnail.
  */
 
 export interface ServeurInterface {
