@@ -41,9 +41,7 @@ export abstract class Routes implements ApiRoutesInterface {
             } else {
                 route.route = `${process.env.API_URL}${route.route}`;
             }
-            Routes.repository.addRoute(route).then(r => {
-                console.log(r);
-            });
+            Routes.repository.addRoute(route)
         });
     }
 
