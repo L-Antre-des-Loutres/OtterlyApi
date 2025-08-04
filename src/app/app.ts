@@ -6,6 +6,9 @@ import cookieParser from 'cookie-parser';
 import { TokenService } from "../otterly/Token/TokenService";
 import {ApiRoute} from "../otterly/ApiRoutes/ApiRoutes";
 import {ServeursRoutes} from "./Serveurs/ServeursRoutes";
+import {JoueursRoutes} from "./Joueurs/JoueursRoutes";
+import {JoueursService} from "./Joueurs/JoueursService";
+import {JoueursStatsRoutes} from "./Joueurs/JoueursStats/JoueursStatsRoutes";
 
 dotenv.config()
 // Sites autorisés pour du CORS
@@ -54,6 +57,12 @@ class App {
 
         // Route des serveurs
         this.app.use("/api/serveurs", new ServeursRoutes().router)
+
+        // Route des joueurs
+        this.app.use("/api/joueurs", new JoueursRoutes().router)
+
+        // Route des stats des joueurs
+        this.app.use("/api/joueurs/stats-serveur", new JoueursStatsRoutes().router)
     }
 
     // Enregistrement des services
@@ -61,6 +70,9 @@ class App {
         // Génération des tokens
         const tokenService = new TokenService();
         await tokenService.generateInitialTokens();
+        // Enregistrement des pseudos des joueurs
+        const joueursService = new JoueursService();
+        await joueursService.registerPlayerName()
     }
 
     // Initialisation des services
