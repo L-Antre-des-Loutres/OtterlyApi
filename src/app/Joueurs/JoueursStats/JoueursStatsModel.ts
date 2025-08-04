@@ -1,7 +1,14 @@
-
 import {JoueursStatsInterface} from "./JoueursStatsInterface";
 import {Model} from "../../../otterly/abstractClass/models/Model";
 import {JoueursStatsRepository} from "./JoueursStatsRepository";
+
+/**
+ * Represents a mapping of string keys to numerical values.
+ *
+ * This type is used to associate unique keys with corresponding numeric values.
+ *
+ * Useful for scenarios where data needs to be indexed or categorized by string identifiers.
+ */
 
 // Types utilitaires
 type ItemMap = { [key: string]: number };
