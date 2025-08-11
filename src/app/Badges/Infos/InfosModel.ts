@@ -1,6 +1,6 @@
 import {Model} from "../../../otterly/abstractClass/models/Model";
-import {AstroloutreBadgesInfosInterface} from "./InfosInterface";
-import {AstroloutreBadgesInfosRepository} from "./InfosRepository";
+import {BadgesInfosInterface} from "./InfosInterface";
+import {BadgesInfosRepository} from "./InfosRepository";
 
 /**
  * Represents a model for Astroloutre images. This class is designed to handle
@@ -9,7 +9,7 @@ import {AstroloutreBadgesInfosRepository} from "./InfosRepository";
  *
  */
 
-export class AstroloutreBadgesInfosModel extends Model implements AstroloutreBadgesInfosInterface{
+export class BadgesInfosModel extends Model implements BadgesInfosInterface{
 
     nom : string
     categorie_id : number
@@ -18,7 +18,7 @@ export class AstroloutreBadgesInfosModel extends Model implements AstroloutreBad
     description? : string
     obtention : string
 
-    constructor(data: Partial<AstroloutreBadgesInfosInterface>) {
+    constructor(data: Partial<BadgesInfosInterface>) {
         super(data);
         this.nom = data.nom ?? "";
         this.categorie_id = data.categorie_id ?? 0;
@@ -28,7 +28,7 @@ export class AstroloutreBadgesInfosModel extends Model implements AstroloutreBad
         this.obtention = data.obtention ?? "";
     }
 
-    private readonly repository = new AstroloutreBadgesInfosRepository();
+    private readonly repository = new BadgesInfosRepository();
 
     // Méthode pour obtenir l'ensemble des images
     async getAll(){

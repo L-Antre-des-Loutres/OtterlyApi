@@ -1,16 +1,16 @@
 import {Request, Response} from "express";
 import {Controller} from "../../../otterly/abstractClass/controllers/Controller";
-import {BadgesInfosModel} from "./InfosModel";
+import {BadgesCategoriesModel} from "./CategoriesModel";
 
 /**
  * Controller responsible for handling requests related to Astroloutre images.
  * Extends the base Controller class to provide HTTP request handling functionalities.
  */
 
-export class BadgesInfosController extends Controller {
+export class BadgesCategoriesController extends Controller {
     constructor
     (
-        private readonly model : BadgesInfosModel = new BadgesInfosModel({})
+        private readonly model : BadgesCategoriesModel = new BadgesCategoriesModel({})
     )
     {
         super();

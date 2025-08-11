@@ -14,13 +14,7 @@
  * - `obtention`: Description of how the badge is obtained.
  */
 
-export interface BadgesInfosInterface {
+export interface BadgesCategoriesInterface {
     id : number
     nom : string
-    categorie_id : number
-    actif : boolean
-    image_url : string
-    description? : string
-    obtention : string
-
 }
