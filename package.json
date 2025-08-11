@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --pretty --respawn src/app/app.ts",
     "build": "tsc --project tsconfig.json",
-    "start": "node ./build/app.js"
+    "start": "node ./build/app/app.js"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "minecraft-server-util": "^5.4.4",
     "mysql2": "^3.14.0",
-    "nanoid": "^4.0.2",
+    "nanoid": "^5.1.5",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
