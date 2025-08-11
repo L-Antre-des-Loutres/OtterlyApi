@@ -12,6 +12,7 @@ import {JoueursStatsRoutes} from "./Joueurs/JoueursStats/JoueursStatsRoutes";
 import {ConnexionRoutes} from "./Discord/Connexion/ConnexionRoutes";
 import {UtilisateursDiscordRoutes} from "./Discord/UtilisateursDiscord/UtilisateursDiscordRoutes";
 import {AstroloutreImagesRoutes} from "./Astroloutre/Images/ImagesRoutes";
+import {AstroloutreBadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
 
 dotenv.config()
 // Sites autorisés pour du CORS
@@ -75,6 +76,9 @@ class App {
 
         // Route des images Astroloutre
         this.app.use("/api/astroloutre/images", new AstroloutreImagesRoutes().router)
+
+        // Route des infos des badges
+        this.app.use("/api/astroloutre/badges", new AstroloutreBadgesInfosRoutes().router)
     }
 
     // Enregistrement des services
