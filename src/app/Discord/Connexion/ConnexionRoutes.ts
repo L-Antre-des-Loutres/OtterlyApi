@@ -37,36 +37,20 @@ export class ConnexionRoutes extends Routes {
     ]
 
     private initializeRoutes() {
+        this.router.get("/login", Routes.safeHandler(
+            (req, res) => this.controller.discordLogin(req, res),
+            "Une erreur est survenue lors de la route de connexion discord."
+        ));
 
-        this.router.get("/login", async (req, res) => {
-            try {
-                await this.controller.discordLogin(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        });
+        this.router.get("/callback", Routes.safeHandler(
+            (req, res) => this.controller.discordCallback(req, res),
+            "Une erreur est survenue lors de la route de callback discord."
+        ));
 
-        this.router.get("/callback", async (req, res) => {
-            try {
-                await this.controller.discordCallback(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        });
-
-        // Route pour récupérer les infos utilisateur à partir du cookie JWT
-        this.router.get('/me', async (req, res) => {
-            try {
-                await this.controller.discordMe(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        });
+        this.router.get("/me", Routes.safeHandler(
+            (req, res) => this.controller.discordMe(req, res),
+            "Une erreur est survenue lors de la route de me discord."
+        ));
     }
+
 }

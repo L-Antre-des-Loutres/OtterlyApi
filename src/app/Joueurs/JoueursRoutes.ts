@@ -33,14 +33,9 @@ export class JoueursRoutes extends Routes {
 
     private initializeRoutes() {
         // GET /joueurs
-        this.router.get("/", async (req, res) => {
-            try {
-                await this.controller.getAll(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        });
+        this.router.get("/", Routes.safeHandler(
+            (req, res) => this.controller.getAll(req, res),
+            "Erreur lors de la récupération de tous les joueurs."
+        ));
     }
 }

@@ -31,16 +31,10 @@ export class UtilisateursDiscordRoutes extends Routes{
 
     private initializeRoutes() {
         // GET /utilisateurs_discord/
-        this.router.get("/", async (req, res) => {
-            try {
-                await this.controller.getAll(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        });
-
+        this.router.get("/", Routes.safeHandler(
+            this.controller.getAll.bind(this.controller),
+            "Une erreur est survenue lors de la récupération de la route des utilisateurs Discord."
+        ));
     }
 
 }
