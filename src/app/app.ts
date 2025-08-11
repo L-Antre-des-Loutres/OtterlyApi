@@ -13,6 +13,7 @@ import {ConnexionRoutes} from "./Discord/Connexion/ConnexionRoutes";
 import {UtilisateursDiscordRoutes} from "./Discord/UtilisateursDiscord/UtilisateursDiscordRoutes";
 import {AstroloutreImagesRoutes} from "./Astroloutre/Images/ImagesRoutes";
 import allowedOrigins from "./allowedOrigins.json";
+import {AstroloutreBadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
 
 dotenv.config()
 
@@ -72,6 +73,9 @@ class App {
 
         // Route des images Astroloutre
         this.app.use("/api/astroloutre/images", new AstroloutreImagesRoutes().router)
+
+        // Route des infos des badges
+        this.app.use("/api/astroloutre/badges", new AstroloutreBadgesInfosRoutes().router)
     }
 
     // Enregistrement des services
