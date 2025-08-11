@@ -10,6 +10,7 @@ import {JoueursRoutes} from "./Joueurs/JoueursRoutes";
 import {JoueursService} from "./Joueurs/JoueursService";
 import {JoueursStatsRoutes} from "./Joueurs/JoueursStats/JoueursStatsRoutes";
 import {ConnexionRoutes} from "./Discord/Connexion/ConnexionRoutes";
+import {UtilisateursDiscordRoutes} from "./Discord/UtilisateursDiscord/UtilisateursDiscordRoutes";
 
 dotenv.config()
 // Sites autorisés pour du CORS
@@ -67,6 +68,9 @@ class App {
 
         // Route des connexions discord
         this.app.use("/api/auth/discord", new ConnexionRoutes().router)
+
+        // Route des utilisateurs discord
+        this.app.use("/api/utilisateurs_discord", new UtilisateursDiscordRoutes().router)
     }
 
     // Enregistrement des services

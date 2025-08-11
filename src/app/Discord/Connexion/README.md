@@ -1,4 +1,4 @@
-# Connexion via Discord
+# `Connexion via Discord`
 
 Ce module regroupe l'ensemble des routes nécessaires à l'authentification via Discord.
 
