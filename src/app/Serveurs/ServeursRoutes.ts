@@ -39,43 +39,63 @@ export class ServeursRoutes {
     }
 
     private registerRoutes() {
-        this.router.get("/", (req, res) => this.controller.getServeurs(req, res));
 
-        this.router.get("/infos/:id", (req, res) => this.controller.getById(req, res));
+        this.router.get("/", Routes.safeHandler(
+            (req, res) => this.controller.getServeurs(req, res),
+            "Erreur lors de la récupération des serveurs."
+        ));
 
-        this.router.get("/actif-global", (req, res) => this.controller.getServeursActifEtGlobal(req, res));
+        this.router.get("/infos/:id", Routes.safeHandler(
+            (req, res) => this.controller.getById(req, res),
+            "Erreur lors de la récupération des infos par ID."
+        ));
 
-        this.router.get("/actif-global/:jeu", (req, res) => this.controller.getServeursActifEtGlobalByGame(req, res));
+        this.router.get("/actif-global", Routes.safeHandler(
+            (req, res) => this.controller.getServeursActifEtGlobal(req, res),
+            "Erreur lors de la récupération des serveurs actifs et globaux."
+        ));
 
-        this.router.get("/primaire-secondaire", (req, res) => this.controller.getServeursPrimaireSecondaire(req, res));
+        this.router.get("/actif-global/:jeu", Routes.safeHandler(
+            (req, res) => this.controller.getServeursActifEtGlobalByGame(req, res),
+            "Erreur lors de la récupération des serveurs actifs et globaux par jeu."
+        ));
 
-        this.router.post("/", this.middlewareAuth.handle.bind(this.middlewareAuth), async (req, res) => {
-            try {
-                const serveur = await this.controller.create(req, res);
-                res.status(201).json({ success: true, data: serveur });
-            } catch (err) {
-                console.error("Erreur lors de la création :", err);
-                res.status(500).json({ message: "Internal Server Error" });
-            }
-        });
+        this.router.get("/primaire-secondaire", Routes.safeHandler(
+            (req, res) => this.controller.getServeursPrimaireSecondaire(req, res),
+            "Erreur lors de la récupération des serveurs primaire/secondaire."
+        ));
 
-        this.router.delete("/", this.middlewareAuth.handle.bind(this.middlewareAuth), async (req, res) => {
-            try {
-                const serveur = await this.controller.delete(req, res);
-                res.status(200).json({ success: true, data: serveur });
-            } catch (err) {
-                console.error("Erreur lors de la suppression :", err);
-                res.status(500).json({ message: "Internal Server Error" });
-            }
-        });
+        // Routes avec authentification
+        this.router.post("/",
+            this.middlewareAuth.handle.bind(this.middlewareAuth),
+            Routes.safeHandler(
+                async (req, res) => {
+                    const serveur = await this.controller.create(req, res);
+                    res.status(201).json({ success: true, data: serveur });
+                },
+                "Erreur lors de la création du serveur."
+            )
+        );
 
-        this.router.post("/start/", this.middlewareAuth.handle.bind(this.middlewareAuth), async (req, res) => {
-            try {
-                await this.controller.start(req, res);
-            } catch (err) {
-                console.error("Erreur lors du lancement du serveur :", err);
-                res.status(500).json({ message: "Internal Server Error" });
-            }
-        });
+        this.router.delete("/",
+            this.middlewareAuth.handle.bind(this.middlewareAuth),
+            Routes.safeHandler(
+                async (req, res) => {
+                    const serveur = await this.controller.delete(req, res);
+                    res.status(200).json({ success: true, data: serveur });
+                },
+                "Erreur lors de la suppression du serveur."
+            )
+        );
+
+        this.router.post("/start/",
+            this.middlewareAuth.handle.bind(this.middlewareAuth),
+            Routes.safeHandler(
+                async (req, res) => {
+                    await this.controller.start(req, res);
+                },
+                "Erreur lors du lancement du serveur."
+            )
+        );
     }
 }

@@ -87,53 +87,39 @@ export class JoueursStatsRoutes extends Routes{
 
 
     private initializeRoutes() {
-        // GET /api/joueurs/stats-serveur/
-        this.router.get("/", async (req, res) => {
-            try {
-                await this.controller.getAll(req, res);
-            } catch (error) {}
-        });
+        this.router.get("/", Routes.safeHandler(
+            (req, res) => this.controller.getAll(req, res),
+            "Erreur lors de la récupération de tous les joueurs."
+        ));
 
-        // GET /joueurs/stats-serveur/minimum/
-        this.router.get("/minimum/", async (req, res) => {
-            try {
-                await this.controller.getAllMinStats(req, res);
-            } catch (error) {}
-        });
+        this.router.get("/minimum/", Routes.safeHandler(
+            (req, res) => this.controller.getAllMinStats(req, res),
+            "Erreur lors de la récupération des statistiques minimales."
+        ));
 
-        // GET /joueurs/stats-serveur/serveurs-total-hours/
-        this.router.get("/serveurs-total-playtime/", async (req, res) => {
-            try {
-                await this.controller.getTotalServeurHours(req, res);
-            } catch (error) {}
-        })
+        this.router.get("/serveurs-total-playtime/", Routes.safeHandler(
+            (req, res) => this.controller.getTotalServeurHours(req, res),
+            "Erreur lors de la récupération du temps total de jeu sur les serveurs."
+        ));
 
-        // GET /joueurs/stats-serveur/serveurs-total-hours-per-server/
-        this.router.get("/serveurs-total-playtime-per-server/", async (req, res) => {
-            try {
-                await this.controller.getTotalHoursPerServer(req, res);
-            } catch (error) {}
-        })
+        this.router.get("/serveurs-total-playtime-per-server/", Routes.safeHandler(
+            (req, res) => this.controller.getTotalHoursPerServer(req, res),
+            "Erreur lors de la récupération du temps total de jeu par serveur."
+        ));
 
-        // GET /joueurs/stats-serveur/per-server-uid/:uid
-        this.router.get("/per-server-uid/:uid", async (req, res) => {
-            try {
-                await this.controller.getByUid(req, res);
-            } catch (error) {}
-        })
+        this.router.get("/per-server-uid/:uid", Routes.safeHandler(
+            (req, res) => this.controller.getByUid(req, res),
+            "Erreur lors de la récupération des données par UID serveur."
+        ));
 
-        // GET /joueurs/stats-serveur/total-stats-uid/:uid
-        this.router.get("/total-stats-uid/:uid", async (req, res) => {
-            try {
-                await this.controller.getTotalStatsByUid(req, res);
-            } catch (error) {}
-        })
+        this.router.get("/total-stats-uid/:uid", Routes.safeHandler(
+            (req, res) => this.controller.getTotalStatsByUid(req, res),
+            "Erreur lors de la récupération des statistiques totales par UID."
+        ));
 
-        // GET /joueurs/stats-serveur/stats-by-server/:id
-        this.router.get("/stats-by-server/:id", async (req, res) => {
-            try {
-                await this.controller.getStatsByServer(req, res);
-            } catch (error) {}
-        })
+        this.router.get("/stats-by-server/:id", Routes.safeHandler(
+            (req, res) => this.controller.getStatsByServer(req, res),
+            "Erreur lors de la récupération des statistiques par serveur."
+        ));
     }
 }

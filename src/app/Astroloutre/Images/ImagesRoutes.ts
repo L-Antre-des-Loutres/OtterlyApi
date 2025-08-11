@@ -7,7 +7,7 @@ import {AstroloutreImagesController} from "./ImagesController";
  * It extends the `Routes` class and sets up the routes used to manage Astroloutre images data.
  */
 
-export class AstroloutreImagesRoutes extends Routes{
+export class AstroloutreImagesRoutes extends Routes {
     public router: Router;
     private readonly controller = new AstroloutreImagesController();
 
@@ -17,9 +17,10 @@ export class AstroloutreImagesRoutes extends Routes{
         Routes.registerRoutes(this.RoutesList, "");
         this.initializeRoutes();
     }
+
     private readonly RoutesList: Routes[] = [
         {
-            id: 100 ,
+            id: 100,
             alias: "otr-astroloutre-images-getAll",
             route: "/astroloutre/images",
             method: "GET",
@@ -40,26 +41,17 @@ export class AstroloutreImagesRoutes extends Routes{
 
     private initializeRoutes() {
         // GET /astroloutre/images/
-        this.router.get("/", async (req, res) => {
-            try {
-                await this.controller.getAll(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        });
+        this.router.get("/", Routes.safeHandler(
+            this.controller.getAll.bind(this.controller),
+            "Une erreur est survenue lors de la récupération des images dans l'API."
+        ));
 
         // GET /astroloutre/images/:jeu
-        this.router.get("/:jeu", async (req, res) => {
-            try {
-                await this.controller.getByGame(req, res);
-            } catch (error) {
-                res.status(500).json({
-                    error: "Une erreur est survenue lors de la recherche des routes.",
-                });
-            }
-        })
-    }
+        this.router.get("/:jeu", Routes.safeHandler(
+            (req, res) => this.controller.getByGame(req, res),
+            "Une erreur est survenue lors de la récupération des images par jeu dans l'API."
+        ));
 
+
+    }
 }
