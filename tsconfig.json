@@ -5,6 +5,7 @@
     "esModuleInterop": true,
     "strict": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "outDir": "./build",
     "rootDir": "./src"
   },
