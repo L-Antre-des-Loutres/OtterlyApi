@@ -12,7 +12,7 @@ import {JoueursStatsRoutes} from "./Joueurs/JoueursStats/JoueursStatsRoutes";
 import {ConnexionRoutes} from "./Discord/Connexion/ConnexionRoutes";
 import {UtilisateursDiscordRoutes} from "./Discord/UtilisateursDiscord/UtilisateursDiscordRoutes";
 import {AstroloutreImagesRoutes} from "./Astroloutre/Images/ImagesRoutes";
-import allowedOrigins from "../../allowedOrigins.json";
+import allowedOrigins from "./allowedOrigins.json";
 
 dotenv.config()
 
