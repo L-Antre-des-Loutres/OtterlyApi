@@ -1,4 +1,4 @@
-<picture>
+<picture> 
   <img src="./otterlyapi.png" alt="PyCaret Logo"/>
 </picture>
 
