@@ -3,8 +3,8 @@ import {Routes} from "../../../otterly/abstractClass/routes/Routes";
 import {BadgesCategoriesController} from "./CategoriesController";
 
 /**
- * The `AstroloutreImagesRoutes` class handles routing for the Astroloutre Images API endpoints.
- * It extends the `Routes` class and sets up the routes used to manage Astroloutre images data.
+ * Class responsible for defining and managing routes related to badges categories.
+ * Inherits from the base Routes class and sets up the routes specific to fetching badge category data.
  */
 
 export class BadgesCategoriesRoutes extends Routes {
@@ -20,12 +20,12 @@ export class BadgesCategoriesRoutes extends Routes {
 
     private readonly RoutesList: Routes[] = [
         {
-            alias: "otr-astroloutre-badges-categories-getAll",
+            alias: "otr-badges-categories-getAll",
             route: "/badges/categories/",
             method: "GET",
             parameters: "",
             comment: "GET /api/badges/categories/",
-            description: "Obtenir toutes les images astroloutre"
+            description: ""
         },
     ]
 
@@ -33,7 +33,7 @@ export class BadgesCategoriesRoutes extends Routes {
         // GET /astroloutre/badges/categories/
         this.router.get("/", Routes.safeHandler(
             this.controller.getAll.bind(this.controller),
-            "Une erreur est survenue lors de la récupération des images dans l'API."
+            "Une erreur est survenue lors de la récupération des catégories des badges dans l'API."
         ));
 
     }

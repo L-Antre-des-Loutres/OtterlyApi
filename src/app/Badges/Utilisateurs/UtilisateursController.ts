@@ -1,17 +1,19 @@
 import {Request, Response} from "express";
 import {Controller} from "../../../otterly/abstractClass/controllers/Controller";
-import {BadgesCategoriesModel} from "./CategoriesModel";
+import {BadgesUtilisateursModel} from "./UtilisateursModel";
 
 /**
- * Controller class for handling badge category-related API requests.
- * Extends the base Controller class and uses the BadgesCategoriesModel
- * for interacting with badge category data.
+ * The BadgesUtilisateursController handles requests and operations related
+ * to user badges. It provides methods for retrieving badges and handling
+ * client requests.
+ *
+ * @extends Controller
  */
 
-export class BadgesCategoriesController extends Controller {
+export class BadgesUtilisateursController extends Controller {
     constructor
     (
-        private readonly model : BadgesCategoriesModel = new BadgesCategoriesModel({})
+        private readonly model : BadgesUtilisateursModel = new BadgesUtilisateursModel({})
     )
     {
         super();

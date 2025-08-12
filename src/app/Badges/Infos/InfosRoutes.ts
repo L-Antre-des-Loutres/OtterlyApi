@@ -20,12 +20,12 @@ export class BadgesInfosRoutes extends Routes {
 
     private readonly RoutesList: Routes[] = [
         {
-            alias: "otr-astroloutre-badges-infos-getAll",
+            alias: "otr-badges-infos-getAll",
             route: "/badges/infos",
             method: "GET",
             parameters: "",
             comment: "GET /api/badges/infos/",
-            description: "Obtenir toutes les images astroloutre"
+            description: ""
         },
     ]
 
@@ -33,7 +33,7 @@ export class BadgesInfosRoutes extends Routes {
         // GET /astroloutre/badges/infos/
         this.router.get("/", Routes.safeHandler(
             this.controller.getAll.bind(this.controller),
-            "Une erreur est survenue lors de la récupération des images dans l'API."
+            "Une erreur est survenue lors de la récupération des informations des badges dans l'API."
         ));
 
     }

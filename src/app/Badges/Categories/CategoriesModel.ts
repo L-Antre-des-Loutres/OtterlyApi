@@ -3,10 +3,8 @@ import {BadgesCategoriesInterface} from "./CategoriesInterface";
 import {BadgesCategoriesRepository} from "./CategoriesRepository";
 
 /**
- * Represents a model for Astroloutre images. This class is designed to handle
- * the data and logic related to Astroloutre images, including their retrieval
- * and associated details.
- *
+ * The BadgesCategoriesModel class extends the base Model class and implements the BadgesCategoriesInterface.
+ * This class is used to manage badge categories, storing their properties and interacting with the associated repository for database operations.
  */
 
 export class BadgesCategoriesModel extends Model implements BadgesCategoriesInterface{

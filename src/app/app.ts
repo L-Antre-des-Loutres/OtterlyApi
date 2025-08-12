@@ -15,6 +15,7 @@ import {AstroloutreImagesRoutes} from "./Astroloutre/Images/ImagesRoutes";
 import allowedOrigins from "./allowedOrigins.json";
 import {BadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
 import {BadgesCategoriesRoutes} from "./Badges/Categories/CategoriesRoutes";
+import {BadgesUtilisateursRoutes} from "./Badges/Utilisateurs/UtilisateursRoutes";
 
 dotenv.config()
 
@@ -80,6 +81,10 @@ class App {
 
         // Route des catégories des badges
         this.app.use("/api/badges/categories", new BadgesCategoriesRoutes().router)
+
+        // Routes listant les badges des utilisateurs
+        this.app.use("/api/badges/utilisateurs", new BadgesUtilisateursRoutes().router)
+
     }
 
     // Enregistrement des services
