@@ -105,6 +105,7 @@ export class ConnexionController extends Controller {
             const token = req.cookies?.token;
             if (!token) {
                 res.status(401).json({ error: 'Token manquant ou non authentifié' });
+                return; // prevent sending more than one response
             }
 
             try {
@@ -119,12 +120,15 @@ export class ConnexionController extends Controller {
                         ? `https://cdn.discordapp.com/avatars/${id}/${avatar}.png`
                         : null,
                 });
+                return;
             } catch {
                 res.status(401).json({ error: 'Token invalide' });
+                return;
             }
         } catch (error) {
             console.error(error);
             res.status(500).send('Erreur interne');
         }
     }
+
 }
