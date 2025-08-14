@@ -19,4 +19,8 @@ export class BadgesInfosRepository extends Repository<BadgesInfosInterface>{
     constructor() {
         super("badges");
     }
+
+    async findByCategorieId(id : number){
+        return await this.query(`SELECT * FROM ${this.tableName} WHERE categorie_id = ?`, [id]);
+    }
 }

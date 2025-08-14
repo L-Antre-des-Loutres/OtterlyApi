@@ -43,9 +43,19 @@ export class BadgesInfosModel extends Model implements BadgesInfosInterface{
 
     private readonly repository = new BadgesInfosRepository();
 
-    // Méthode pour obtenir l'ensemble des images
+    // Méthode pour obtenir l'ensemble des informations des badges
     async getAll(){
         return await this.repository.findAll();
+    }
+
+    // Méthode pour obtenir les informations du badge par son ID
+    async getById(id: number){
+        return await this.repository.findById(id);
+    }
+
+    // Méthode pour obtenir les badges par leur id de catégorie
+    async getByCategorieId(id: number) {
+        return await this.repository.findByCategorieId(id)
     }
 
 }

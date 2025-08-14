@@ -23,9 +23,13 @@ export class BadgesUtilisateursModel extends Model implements BadgesUtilisateurs
 
     private readonly repository = new BadgesUtilisateursRepository();
 
-    // Méthode pour obtenir l'ensemble des images
+    // Méthode pour obtenir l'ensemble des badges pour l'utilisateur
     async getAll(){
         return await this.repository.findAll();
+    }
+
+    async getByUserId(id: number){
+        return await this.repository.findByUserId(id);
     }
 
 }

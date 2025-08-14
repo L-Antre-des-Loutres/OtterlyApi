@@ -25,7 +25,7 @@ export class BadgesUtilisateursController extends Controller {
         res.status(200).send("Request handled successfully.");
     }
 
-    // GET /astroloutre/badges/
+    // GET /badges/utilisateurs
     async getAll(req: Request, res: Response) {
         try {
             const images = await this.model.getAll();
@@ -33,5 +33,13 @@ export class BadgesUtilisateursController extends Controller {
         } catch (error) {
             this.handleError(res, error);
         }
+    }
+
+    // GET /badges/utilisateurs/:id
+    async getByUserId(req: Request, res: Response) {
+        try {
+            const badges = await this.model.getByUserId(parseInt(req.params.id, 10))
+            this.sendSuccess(res, badges)
+        } catch (error) {}
     }
 }

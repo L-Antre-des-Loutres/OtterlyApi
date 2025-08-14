@@ -15,4 +15,17 @@ export class BadgesJoueursRepository extends Repository<BadgesJoueursInterface>{
     constructor() {
         super("badges_joueurs");
     }
+
+    async findByPlayerId(id: number){
+        return await this.query(
+            `SELECT j.*,
+                    b.id AS badge_id, b.nom AS badge_nom, b.categorie_id, b.image_url, b.description, b.obtention,
+                    c.nom AS categorie
+             FROM ${this.tableName} AS j
+                      JOIN badges AS b ON j.badge_id = b.id
+                      JOIN badges_categories AS c ON b.categorie_id = c.id
+             WHERE j.joueur_id = ?`,
+            [id]
+        );
+    }
 }

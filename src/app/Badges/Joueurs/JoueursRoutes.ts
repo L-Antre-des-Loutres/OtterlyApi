@@ -28,6 +28,13 @@ export class BadgesJoueursRoutes extends Routes {
             comment: "GET /api/badges/joueurs",
             description: ""
         },
+        {
+            alias: "otr-badges-joueurs-getByPlayerId",
+            route: "/badges/joueurs/:id",
+            method: "GET",
+            parameters: "id",
+            comment: "GET /api/badges/joueurs/:id",
+        }
     ]
 
     private initializeRoutes() {
@@ -35,6 +42,12 @@ export class BadgesJoueursRoutes extends Routes {
         this.router.get("/", Routes.safeHandler(
             this.controller.getAll.bind(this.controller),
             "Une erreur est survenue lors de la récupération des badges des joueurs dans l'API."
+        ));
+
+        // GET /api/badges/joueurs/:id
+        this.router.get("/:id", Routes.safeHandler(
+            (req, res) => this.controller.getByPlayerId(req, res),
+            "Erreur lors de la récupération des badges pour cette ID."
         ));
 
     }

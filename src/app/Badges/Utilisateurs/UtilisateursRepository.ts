@@ -11,4 +11,15 @@ export class BadgesUtilisateursRepository extends Repository<BadgesUtilisateursI
     constructor() {
         super("badges_utilisateurs");
     }
+
+    async findByUserId(id: number){
+        return await this.query(
+            `SELECT j.*, b.*, c.nom AS categorie
+             FROM ${this.tableName} AS j
+                      JOIN badges AS b ON j.badge_id = b.id
+                      JOIN badges_categories AS c ON b.categorie_id = c.id
+             WHERE j.utilisateur_id = ?`,
+            [id]
+        );
+    }
 }

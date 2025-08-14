@@ -27,4 +27,8 @@ export class BadgesJoueursModel extends Model implements BadgesJoueursInterface{
         return await this.repository.findAll();
     }
 
+    async getByPlayerId(id: number){
+        return await this.repository.findByPlayerId(id);
+    }
+
 }

@@ -25,13 +25,23 @@ export class BadgesJoueursController extends Controller {
         res.status(200).send("Request handled successfully.");
     }
 
-    // GET /astroloutre/badges/
+    // GET /badges/joueurs/
     async getAll(req: Request, res: Response) {
         try {
-            const images = await this.model.getAll();
-            this.sendSuccess(res, images);
+            const badges = await this.model.getAll();
+            this.sendSuccess(res, badges);
         } catch (error) {
             this.handleError(res, error);
         }
     }
+
+    // GET /badges/joueurs/:id
+    async getByPlayerId(req: Request, res: Response) {
+        try {
+            const badges = await this.model.getByPlayerId(parseInt(req.params.id, 10))
+            this.sendSuccess(res, badges)
+        } catch (error) {}
+    }
+
+
 }

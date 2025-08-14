@@ -30,7 +30,7 @@ export class BadgesCategoriesRoutes extends Routes {
     ]
 
     private initializeRoutes() {
-        // GET /astroloutre/badges/categories/
+        // GET /badges/categories/
         this.router.get("/", Routes.safeHandler(
             this.controller.getAll.bind(this.controller),
             "Une erreur est survenue lors de la récupération des catégories des badges dans l'API."

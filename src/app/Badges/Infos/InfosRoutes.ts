@@ -27,13 +27,39 @@ export class BadgesInfosRoutes extends Routes {
             comment: "GET /api/badges/infos/",
             description: ""
         },
+        {
+            alias: "otr-badges-infos-getById",
+            route: "/badges/infos/:id",
+            method: "GET",
+            parameters: "id",
+            comment: "GET /api/badges/infos/:id",
+        },
+        {
+            alias: "otr-badges-infos-getByCategorieId",
+            route: "/badges/infos/categories/:id",
+            method: "GET",
+            parameters: "id",
+            comment: "GET /api/badges/infos/categories/:id",
+        },
     ]
 
     private initializeRoutes() {
-        // GET /astroloutre/badges/infos/
+        // GET /badges/infos/
         this.router.get("/", Routes.safeHandler(
             this.controller.getAll.bind(this.controller),
             "Une erreur est survenue lors de la récupération des informations des badges dans l'API."
+        ));
+
+        // /badges/infos/:id
+        this.router.get("/:id", Routes.safeHandler(
+            (req, res) => this.controller.getById(req, res),
+            "Erreur lors de la récupération des infos par ID."
+        ));
+
+        // /badges/infos/categories/:id
+        this.router.get("/categories/:categorie_id", Routes.safeHandler(
+            (req, res) => this.controller.getByCategorieId(req, res),
+            "Erreur lors de la récupération des badges par catégorie."
         ));
 
     }
