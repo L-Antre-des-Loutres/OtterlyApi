@@ -16,6 +16,7 @@ import allowedOrigins from "./allowedOrigins.json";
 import {BadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
 import {BadgesCategoriesRoutes} from "./Badges/Categories/CategoriesRoutes";
 import {BadgesUtilisateursRoutes} from "./Badges/Utilisateurs/UtilisateursRoutes";
+import {BadgesJoueursRoutes} from "./Badges/Joueurs/JoueursRoutes";
 
 dotenv.config()
 
@@ -84,6 +85,9 @@ class App {
 
         // Routes listant les badges des utilisateurs
         this.app.use("/api/badges/utilisateurs", new BadgesUtilisateursRoutes().router)
+
+        // Routes listant les badges des joueurs
+        this.app.use("/api/badges/joueurs", new BadgesJoueursRoutes().router)
 
     }
 
