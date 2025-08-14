@@ -14,7 +14,15 @@ export class BadgesUtilisateursRepository extends Repository<BadgesUtilisateursI
 
     async findByUserId(id: number){
         return await this.query(
-            `SELECT j.*, b.*, c.nom AS categorie
+            `SELECT j.*,
+                    b.*,
+                    c.nom AS categorie,
+                    (
+                        SELECT COUNT(DISTINCT j2.utilisateur_id) * 100.0 /
+                               (SELECT COUNT(*) FROM utilisateurs)
+                        FROM ${this.tableName} AS j2
+                        WHERE j2.badge_id = j.badge_id
+                    ) AS pourcentage_obtention
              FROM ${this.tableName} AS j
                       JOIN badges AS b ON j.badge_id = b.id
                       JOIN badges_categories AS c ON b.categorie_id = c.id
