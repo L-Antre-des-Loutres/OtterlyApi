@@ -13,7 +13,10 @@ import {ConnexionRoutes} from "./Discord/Connexion/ConnexionRoutes";
 import {UtilisateursDiscordRoutes} from "./Discord/UtilisateursDiscord/UtilisateursDiscordRoutes";
 import {AstroloutreImagesRoutes} from "./Astroloutre/Images/ImagesRoutes";
 import allowedOrigins from "./allowedOrigins.json";
-import {AstroloutreBadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
+import {BadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
+import {BadgesCategoriesRoutes} from "./Badges/Categories/CategoriesRoutes";
+import {BadgesUtilisateursRoutes} from "./Badges/Utilisateurs/UtilisateursRoutes";
+import {BadgesJoueursRoutes} from "./Badges/Joueurs/JoueursRoutes";
 
 dotenv.config()
 
@@ -75,7 +78,17 @@ class App {
         this.app.use("/api/astroloutre/images", new AstroloutreImagesRoutes().router)
 
         // Route des infos des badges
-        this.app.use("/api/astroloutre/badges", new AstroloutreBadgesInfosRoutes().router)
+        this.app.use("/api/badges/infos", new BadgesInfosRoutes().router)
+
+        // Route des catégories des badges
+        this.app.use("/api/badges/categories", new BadgesCategoriesRoutes().router)
+
+        // Routes listant les badges des utilisateurs
+        this.app.use("/api/badges/utilisateurs", new BadgesUtilisateursRoutes().router)
+
+        // Routes listant les badges des joueurs
+        this.app.use("/api/badges/joueurs", new BadgesJoueursRoutes().router)
+
     }
 
     // Enregistrement des services

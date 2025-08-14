@@ -14,7 +14,7 @@
  * - `obtention`: Description of how the badge is obtained.
  */
 
-export interface AstroloutreBadgesInfosInterface {
+export interface BadgesInfosInterface {
     id : number
     nom : string
     categorie_id : number
