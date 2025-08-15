@@ -19,7 +19,7 @@ export class BadgesUtilisateursRepository extends Repository<BadgesUtilisateursI
                     c.nom AS categorie,
                     (
                         SELECT COUNT(DISTINCT j2.utilisateur_id) * 100.0 /
-                               (SELECT COUNT(*) FROM utilisateurs)
+                               (SELECT COUNT(*) FROM utilisateurs_discord)
                         FROM ${this.tableName} AS j2
                         WHERE j2.badge_id = j.badge_id
                     ) AS pourcentage_obtention
