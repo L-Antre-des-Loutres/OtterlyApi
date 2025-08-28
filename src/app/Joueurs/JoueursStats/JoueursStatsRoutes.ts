@@ -123,7 +123,7 @@ export class JoueursStatsRoutes extends Routes{
         ));
 
         this.router.get("/total-stats/", Routes.safeHandler(
-            (req, res) => this.controller.getTotalStatsByUid(req, res),
+            (req, res) => this.controller.getTotalStats(req, res),
             "Erreur lors de la récupération des statistiques totales par UID."
         ));
 
