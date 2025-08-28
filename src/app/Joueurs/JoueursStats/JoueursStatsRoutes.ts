@@ -82,7 +82,17 @@ export class JoueursStatsRoutes extends Routes{
             parameters: "id",
             comment: "GET /api/joueurs/stats-serveur/stats-by-server/:id",
             description: "Obtenir les statistiques de l'ensemble des joueurs par serveur"
-        }
+        },
+        {
+            id: 57,
+            alias: "otr-joueurs-totalStats-getByUid",
+            route: "/joueurs/stats-serveur/total-stats",
+            method: "GET",
+            parameters: "",
+            comment: "GET /api/joueurs/stats-serveur/total-stats/",
+            description: "Obtenir le total des statistiques de l'ensemble des joueurs"
+        },
+
     ]
 
 
@@ -110,6 +120,11 @@ export class JoueursStatsRoutes extends Routes{
         this.router.get("/per-server-uid/:uid", Routes.safeHandler(
             (req, res) => this.controller.getByUid(req, res),
             "Erreur lors de la récupération des données par UID serveur."
+        ));
+
+        this.router.get("/total-stats/", Routes.safeHandler(
+            (req, res) => this.controller.getTotalStatsByUid(req, res),
+            "Erreur lors de la récupération des statistiques totales par UID."
         ));
 
         this.router.get("/total-stats-uid/:uid", Routes.safeHandler(

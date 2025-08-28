@@ -99,6 +99,31 @@ export class JoueursStatsRepository extends Repository<JoueursStatsInterface> {
         );
     }
 
+    // Méthode pour obtenir le total des statistiques de l'ensemble des joueurs
+    async getTotalStats(): Promise<JoueursStatsInterface[]> {
+        return await super.query(
+            `
+                SELECT
+                    js.compte_id,
+                    MAX(j.playername) AS playername,
+                    SUM(js.tmps_jeux) AS tmps_jeux,
+                    SUM(js.nb_mort) AS nb_mort,
+                    SUM(js.nb_kills) AS nb_kills,
+                    SUM(js.nb_playerkill) AS nb_playerkill,
+                    SUM(js.nb_blocs_detr) AS nb_blocs_detr,
+                    SUM(js.nb_blocs_pose) AS nb_blocs_pose,
+                    SUM(js.dist_total) AS dist_total,
+                    SUM(js.dist_pieds) AS dist_pieds,
+                    SUM(js.dist_elytres) AS dist_elytres,
+                    SUM(js.dist_vol) AS dist_vol,
+                    MAX(js.dern_enregistrment) AS dern_enregistrment
+                FROM ${this.tableName} js
+                         JOIN joueurs j ON js.compte_id = j.compte_id
+                GROUP BY js.compte_id
+            `,
+        );
+    }
+
     // Méthode pour obtenir le total des statistiques d'un joueur par son UID
     async getTotalStatsByUid(uid: string): Promise<JoueursStatsInterface[]> {
         return await super.query(
