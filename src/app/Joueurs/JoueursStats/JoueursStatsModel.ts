@@ -110,9 +110,14 @@ export class JoueursStatsModel extends Model implements JoueursStatsInterface {
         return await this.repository.getStatsByServer(serveur_id);
     }
 
-    // Méthode pour obtenir le total des statistiques d'un joueur par son UID par serveur
+    // Méthode pour obtenir le total des statistiques d'un joueur
     async getTotalStats(){
         return await this.repository.getTotalStats();
+    }
+
+    // Méthode pour obtenir le total des statisitques des joueurs sur l'ensemble des serveurs moddée
+    async getTotalStatsOnlyModdedServer(){
+        return await this.repository.getTotalStatsOnlyModdedServer();
     }
 
     // Méthode pour obtenir le total des statistiques d'un joueur par son UID par serveur

@@ -75,10 +75,21 @@ export class JoueursStatsController extends Controller {
             this.handleError(res, error)
         }
     }
+
     // GET /joueurs/stats-serveur/total-stats/
     async getTotalStats(req: Request, res: Response): Promise<void> {
         try {
             const stat = await this.model.getTotalStats()
+            this.sendSuccess(res, stat)
+        } catch (error) {
+            this.handleError(res, error)
+        }
+    }
+
+    // GET /joueurs/stats-serveur/total-stats-only-modded-server/
+    async getTotalStatsOnlyModdedServer(req: Request, res: Response): Promise<void> {
+        try {
+            const stat = await this.model.getTotalStatsOnlyModdedServer()
             this.sendSuccess(res, stat)
         } catch (error) {
             this.handleError(res, error)
