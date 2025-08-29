@@ -92,6 +92,15 @@ export class JoueursStatsRoutes extends Routes{
             comment: "GET /api/joueurs/stats-serveur/total-stats/",
             description: "Obtenir le total des statistiques de l'ensemble des joueurs"
         },
+        {
+            id: 58,
+            alias: "otr-joueurs-totalStats-only-modded-server-getByUid",
+            route: "/joueurs/stats-serveur/total-stats-only-modded-server",
+            method: "GET",
+            parameters: "",
+            comment: "GET /api/joueurs/stats-serveur/total-stats-only-modded-server/",
+            description: "Obtenir le total des statistiques de l'ensemble des joueurs sur les serveurs moddées"
+        }
 
     ]
 
@@ -124,6 +133,11 @@ export class JoueursStatsRoutes extends Routes{
 
         this.router.get("/total-stats/", Routes.safeHandler(
             (req, res) => this.controller.getTotalStats(req, res),
+            "Erreur lors de la récupération des statistiques totales par UID."
+        ));
+
+        this.router.get("/total-stats-only-modded-server/", Routes.safeHandler(
+            (req, res) => this.controller.getTotalStatsOnlyModdedServer(req, res),
             "Erreur lors de la récupération des statistiques totales par UID."
         ));
 
