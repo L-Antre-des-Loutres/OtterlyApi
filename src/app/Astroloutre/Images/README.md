@@ -6,14 +6,15 @@ Ce module gère les images utilisées dans **Astroloutre**, avec la possibilité
 
 ## 📄 Propriétés
 
-| Nom       | Type     | Description                                                    |
-|-----------|----------|----------------------------------------------------------------|
-| `id`      | `number` | Identifiant unique de l'image                                  |
-| `nom`     | `string` | Nom de l'image                                                 |
-| `origine` | `string` | Origine ou source de l'image                                   |
-| `auteur`  | `string` | Auteur ou créateur de l'image                                  |
-| `path`    | `string` | Chemin d'accès ou URL vers l'image                             |
-| `jeu`     | `string` | Nom du jeu ou contexte associé à l'image                       |
+| Nom         | Type      | Description                                  |
+|-------------|-----------|----------------------------------------------|
+| `id`        | `number`  | Identifiant unique de l'image                |
+| `nom`       | `string`  | Nom de l'image                               |
+| `origine`   | `number`  | Id du serveur d'origine de l'image           |
+| `auteur`    | `string`  | Id du joueur ayant proposé cette image       |
+| `path`      | `string`  | Chemin d'accès ou URL vers l'image           |
+| `jeu`       | `string`  | Nom du jeu ou contexte associé à l'image     |
+| `carrousel` | `boolean` | Si l'image apparait ou non dans le carrousel |
 
 ---
 

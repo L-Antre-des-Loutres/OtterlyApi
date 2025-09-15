@@ -20,10 +20,13 @@ export class AstroloutreImagesRepository extends Repository<AstroloutreImagesInt
     // Méthode pour obtenir l'ensemble des images avec un traitement différent de findAll()
     async getAll(){
         return await this.query(`
-            SELECT ai.*, s.nom AS nom_serveur
+            SELECT ai.*,
+                   s.nom        AS nom_serveur,
+                   j.playername AS auteur_pseudo
             FROM ${this.tableName} ai
-            JOIN serveurs s ON ai.origine = s.id;
-        `)
+                     JOIN serveurs s ON ai.origine = s.id
+                     LEFT JOIN joueurs j ON ai.auteur = j.id;
+        `);
     }
 
     async getByGame(jeu: string){
