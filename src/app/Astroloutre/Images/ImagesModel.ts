@@ -11,7 +11,7 @@ export class AstroloutreImagesModel extends Model implements AstroloutreImagesIn
 
     id: number
     nom: string
-    origine: string
+    origine: number
     auteur: string
     path: string
     jeu: string
@@ -20,7 +20,7 @@ export class AstroloutreImagesModel extends Model implements AstroloutreImagesIn
         super(data);
         this.id = data.id ?? 0;
         this.nom = data.nom ?? "";
-        this.origine = data.origine ?? "";
+        this.origine = data.origine ?? 0;
         this.auteur = data.auteur ?? "";
         this.path = data.path ?? "";
         this.jeu = data.jeu ?? "";

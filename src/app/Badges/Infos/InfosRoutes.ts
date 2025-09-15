@@ -33,6 +33,7 @@ export class BadgesInfosRoutes extends Routes {
             method: "GET",
             parameters: "id",
             comment: "GET /api/badges/infos/:id",
+            description: ""
         },
         {
             alias: "otr-badges-infos-getByCategorieId",
@@ -40,6 +41,7 @@ export class BadgesInfosRoutes extends Routes {
             method: "GET",
             parameters: "id",
             comment: "GET /api/badges/infos/categories/:id",
+            description: ""
         },
     ]
 

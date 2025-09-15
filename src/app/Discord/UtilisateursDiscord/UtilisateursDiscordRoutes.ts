@@ -25,7 +25,7 @@ export class UtilisateursDiscordRoutes extends Routes{
             method: "GET",
             parameters: "",
             comment: "GET /api/utilisateurs_discord/",
-            description: "Obtenir toutes les images astroloutre"
+            description: "Récupère tous les utilisateurs Discord."
         },
     ]
 

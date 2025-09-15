@@ -27,7 +27,7 @@ export class JoueursRoutes extends Routes {
             method: "GET",
             parameters: "",
             comment: "GET /api/joueurs",
-            description: "Obtenir toutes les images astroloutre"
+            description: "Récupère tous les joueurs."
         },
     ]
 

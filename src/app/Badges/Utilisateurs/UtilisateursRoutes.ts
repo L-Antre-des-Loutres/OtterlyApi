@@ -34,6 +34,7 @@ export class BadgesUtilisateursRoutes extends Routes {
             method: "GET",
             parameters: "id",
             comment: "GET /api/badges/utilisateurs/:id",
+            description: ""
         }
     ]
 

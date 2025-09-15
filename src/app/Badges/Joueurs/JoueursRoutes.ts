@@ -34,6 +34,7 @@ export class BadgesJoueursRoutes extends Routes {
             method: "GET",
             parameters: "id",
             comment: "GET /api/badges/joueurs/:id",
+            description: ""
         }
     ]
 
