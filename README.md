@@ -2,7 +2,7 @@
   <img src="./otterlyapi.png" alt="PyCaret Logo"/>
 </picture>
 
-# Otterly API
+# Otterly API - Api Serveur
 
 ![GitHub all releases](https://img.shields.io/github/downloads/matheo-1712/OtterlyAPI/total)
 ![GitHub language count](https://img.shields.io/github/languages/count/matheo-1712/OtterlyAPI)

@@ -15,6 +15,7 @@ export class AstroloutreImagesModel extends Model implements AstroloutreImagesIn
     auteur: string
     path: string
     jeu: string
+    carrousel: boolean
 
     constructor(data: Partial<AstroloutreImagesInterface>) {
         super(data);
@@ -24,13 +25,14 @@ export class AstroloutreImagesModel extends Model implements AstroloutreImagesIn
         this.auteur = data.auteur ?? "";
         this.path = data.path ?? "";
         this.jeu = data.jeu ?? "";
+        this.carrousel = data.carrousel ?? true;
     }
 
     private readonly repository = new AstroloutreImagesRepository();
 
     // Méthode pour obtenir l'ensemble des images
     async getAll(){
-        return await this.repository.findAll();
+        return await this.repository.getAll();
     }
 
     // Méthode pour obtenir les images par le jeu

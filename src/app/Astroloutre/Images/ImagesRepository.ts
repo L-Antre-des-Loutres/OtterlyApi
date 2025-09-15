@@ -17,6 +17,15 @@ export class AstroloutreImagesRepository extends Repository<AstroloutreImagesInt
         super("astroloutre_images");
     }
 
+    // Méthode pour obtenir l'ensemble des images avec un traitement différent de findAll()
+    async getAll(){
+        return await this.query(`
+            SELECT ai.*, s.nom AS nom_serveur
+            FROM ${this.tableName} ai
+            JOIN serveurs s ON ai.origine = s.id;
+        `)
+    }
+
     async getByGame(jeu: string){
         return await this.query(`SELECT * FROM ${this.tableName} WHERE jeu = ?`, [jeu]);
     }
