@@ -15,7 +15,7 @@ export interface AstroloutreImagesInterface {
     id: number,
     nom: string,
     origine: number,
-    auteur: string,
+    auteur: number,
     path: string,
     jeu: string,
     carrousel: boolean,
