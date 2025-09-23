@@ -1,9 +1,9 @@
-import express, { Application } from "express"
+import express, {Application} from "express"
 import * as dotenv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
 import cookieParser from 'cookie-parser';
-import { TokenService } from "../otterly/Token/TokenService";
+import {TokenService} from "../otterly/Token/TokenService";
 import {ApiRoute} from "../otterly/ApiRoutes/ApiRoutes";
 import {ServeursRoutes} from "./Serveurs/ServeursRoutes";
 import {JoueursRoutes} from "./Joueurs/JoueursRoutes";
@@ -17,6 +17,7 @@ import {BadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
 import {BadgesCategoriesRoutes} from "./Badges/Categories/CategoriesRoutes";
 import {BadgesUtilisateursRoutes} from "./Badges/Utilisateurs/UtilisateursRoutes";
 import {BadgesJoueursRoutes} from "./Badges/Joueurs/JoueursRoutes";
+import {PalworldStatsRoutes} from "./Palworld/Stats/PalworldStatsRoutes";
 
 dotenv.config()
 
@@ -89,6 +90,8 @@ class App {
         // Routes listant les badges des joueurs
         this.app.use("/api/badges/joueurs", new BadgesJoueursRoutes().router)
 
+        // Route des statistiques palworld
+        this.app.use("/api/palworld/stats/", new PalworldStatsRoutes().router)
     }
 
     // Enregistrement des services
