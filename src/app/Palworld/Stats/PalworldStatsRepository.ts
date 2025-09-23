@@ -22,14 +22,14 @@ export class PalworldStatsRepository extends Repository<PalworldStatsInterface> 
 
     // Obtenir l'ensemble du temps de jeux par id de serveur
     async getGameTimeByServeurId(id: number) {
-        return await this.query(`SELECT SUM(tmps_jeux) AS total_heure
+        return await this.query(`SELECT SUM(tmps_jeux) AS total_hours
                                  FROM ${this.tableName}
                                  WHERE serveur_id = ?`, [id]);
     }
 
     // Obtenir l'ensemble du temps de jeux (en heures)
     async getGameTime() {
-        return await this.query(`SELECT SUM(tmps_jeux) AS total_heure
+        return await this.query(`SELECT SUM(tmps_jeux) AS total_hours
                                  FROM ${this.tableName}`);
     }
 }
