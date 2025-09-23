@@ -213,7 +213,7 @@ export class JoueursStatsRepository extends Repository<JoueursStatsInterface> {
         )
     }
 
-    // Méthode pour obtenir le nombre total d'heures de jeu sur nos serveurs
+    // Méthode pour obtenir le nombre total d'heures de jeu sur nos serveurs minecraft
     async getTotalHours(){
         return await super.query(`SELECT SUM(tmps_jeux) as total_hours FROM ${this.tableName}`);
     }
