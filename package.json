@@ -17,6 +17,7 @@
     "@types/uuid": "^9.0.2",
     "axios": "^1.8.4",
     "bcryptjs": "^2.4.3",
+    "canvas": "^3.2.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.0",
