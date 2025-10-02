@@ -39,8 +39,7 @@ export class PalworldStatsModel extends Model implements PalworldStatsInterface 
     nb_tower_win: number
     dern_enregistrment: string
     serveur_playername: string
-    // Initialisation du repository
-    private readonly repository = new PalworldStatsRepository();
+
 
     constructor(data: Partial<PalworldStatsInterface> = {}) {
         super(data);
@@ -55,6 +54,9 @@ export class PalworldStatsModel extends Model implements PalworldStatsInterface 
         this.dern_enregistrment = data.dern_enregistrment ?? "";
         this.serveur_playername = data.serveur_playername ?? "";
     }
+
+    // Repository PalworldStats
+    private readonly repository = new PalworldStatsRepository();
 
     async getAll() {
         return await this.repository.findAll();
