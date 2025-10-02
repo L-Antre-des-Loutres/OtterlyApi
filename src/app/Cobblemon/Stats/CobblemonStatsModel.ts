@@ -51,7 +51,13 @@ export class CobblemonStatsModel extends Model implements CobblemonStatsInterfac
     // Repository CobblemonStats
     private readonly repository = new CobblemonStatsRepository();
 
-    async getAll(){
+    // Obtenir toutes les stats du joueur
+    async getAll(): Promise<CobblemonStatsInterface[]>{
         return await this.repository.getAll();
+    }
+
+    // Obtenir les stats du joueur par son ID
+    async getByCompteId(uid: string){
+        return await this.repository.getByCompteId(uid);
     }
 }

@@ -42,5 +42,11 @@ export class CobblemonStatsRoutes extends Routes {
             (req, res) => this.controller.getAll(req, res),
             "Erreur lors de la récupération des statistiques Cobblemon."
         ));
+
+        // GET /cobblemon/stats/:uid
+       this.router.get("/:uid", Routes.safeHandler(
+            (req, res) => this.controller.getByCompteId(req, res),
+            "Erreur lors de la récupération des statistiques Cobblemon par UID."
+       ));
     }
 }

@@ -16,15 +16,19 @@ export class CobblemonStatsRepository extends Repository<CobblemonStatsInterface
         super("stats_cobblemon");
 
     }
-    
-    async getAll(){
-        return await this.findAll();
+
+    // Obtenir l'ensemble des statistiques Cobblemon
+    async getAll(): Promise<CobblemonStatsInterface[]> {
+        return await this.query(`SELECT s.*, j.compte_id
+                                 FROM ${this.tableName} s
+                                          INNER JOIN joueurs_stats j ON s.joueurs_stats_id = j.id`);
     }
 
-    async getByCompteId(id: number) {
-        return await this.query(`SELECT s.*
+    // Obtenir les statistiques Cobblemon par compte_id
+    async getByCompteId(uid: string): Promise<CobblemonStatsInterface[]> {
+        return await this.query(`SELECT s.*, j.compte_id
                                  FROM ${this.tableName} s
                                           INNER JOIN joueurs_stats j ON s.joueurs_stats_id = j.id
-                                 WHERE j.compte_id = ?`, [id]);
+                                 WHERE j.compte_id = ?`, [uid]);
     }
 }
