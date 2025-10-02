@@ -18,6 +18,7 @@ import {BadgesCategoriesRoutes} from "./Badges/Categories/CategoriesRoutes";
 import {BadgesUtilisateursRoutes} from "./Badges/Utilisateurs/UtilisateursRoutes";
 import {BadgesJoueursRoutes} from "./Badges/Joueurs/JoueursRoutes";
 import {PalworldStatsRoutes} from "./Palworld/Stats/PalworldStatsRoutes";
+import {CobblemonStatsRoutes} from "./Cobblemon/Stats/CobblemonStatsRoutes";
 
 dotenv.config()
 
@@ -92,6 +93,9 @@ class App {
 
         // Route des statistiques palworld
         this.app.use("/api/palworld/stats/", new PalworldStatsRoutes().router)
+
+        // Route des statistiques cobblemon
+        this.app.use("/api/cobblemon/stats/", new CobblemonStatsRoutes().router)
     }
 
     // Enregistrement des services
