@@ -3,3 +3,4 @@
 node_modules/
 tokens.json
 build/
+/src/app/Cobblemon/Card/generatedCobblemonCard/*

@@ -99,7 +99,7 @@ class App {
         this.app.use("/api/cobblemon/stats/", new CobblemonStatsRoutes().router)
 
         // Route des cartes cobblemon
-        this.app.use("/api/cobblemon/cartes/", new CobblemonCardRoutes().router)
+        this.app.use("/api/cobblemon/card/", new CobblemonCardRoutes().router)
     }
 
     // Enregistrement des services

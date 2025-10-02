@@ -34,11 +34,5 @@ export class CobblemonCardRoutes extends Routes {
         this.initializeRoutes();
     }
 
-    private initializeRoutes() {
-        // GET /cobblemon/card/:uid
-        this.router.get("/", Routes.safeHandler(
-            (req, res) => this.controller.getCard(req, res),
-            "Erreur lors de la récupération des cartes Cobblemon."
-        ));
-    }
+    private initializeRoutes() {}
 }

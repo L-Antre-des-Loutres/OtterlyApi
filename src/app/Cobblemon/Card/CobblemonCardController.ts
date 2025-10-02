@@ -29,14 +29,4 @@ export class CobblemonCardController extends Controller {
         console.log(`Handling request: ${method} ${url}`);
         res.status(200).send("Request handled successfully.");
     }
-
-    // GET /cobblemon/stats/
-    async getCard(req: Request, res: Response) {
-        try {
-            const stats = await this.service.getCard();
-            this.sendSuccess(res, stats);
-        } catch (error) {
-            this.handleError(res, error);
-        }
-    }
 }
