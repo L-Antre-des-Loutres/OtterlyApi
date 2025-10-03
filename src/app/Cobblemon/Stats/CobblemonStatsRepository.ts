@@ -24,6 +24,12 @@ export class CobblemonStatsRepository extends Repository<CobblemonStatsInterface
 
     // Obtenir les statistiques Cobblemon par joueur_uuid
     async getByCompteId(uid: string): Promise<CobblemonStatsInterface[]> {
-        return await this.query(`SELECT * FROM ${this.tableName} WHERE joueur_uuid = ?`, [uid]);
+        return await this.query(
+            `SELECT jp.*, s.nom AS serveur_nom
+             FROM ${this.tableName} jp
+                      LEFT JOIN serveurs s ON jp.serveur_id = s.id
+             WHERE jp.joueur_uuid = ?`,
+            [uid]
+        );
     }
 }
