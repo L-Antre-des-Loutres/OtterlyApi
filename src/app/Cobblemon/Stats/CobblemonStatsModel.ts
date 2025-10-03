@@ -27,25 +27,38 @@ import {CobblemonStatsRepository} from "./CobblemonStatsRepository";
 export class CobblemonStatsModel extends Model implements CobblemonStatsInterface{
 
     // Properties
-    id: number
-    joueurs_stats_id: number
-    pkmn_1: string
-    pkmn_2: string
-    pkmn_3: string
-    pkmn_4: string
-    pkmn_5: string
-    pkmn_6: string
+    joueur_uuid: string;
+    pkmn1: string;
+    pkmn1_form: string;
+    pkmn2: string;
+    pkmn2_form: string;
+    pkmn3: string;
+    pkmn3_form: string;
+    pkmn4: string;
+    pkmn4_form: string;
+    pkmn5: string;
+    pkmn5_form: string;
+    pkmn6: string;
+    pkmn6_form: string;
+    serveur_id: number;
     
     constructor(data: Partial<CobblemonStatsInterface>) {
         super(data);
         this.id = data.id ?? 0;
-        this.joueurs_stats_id = data.joueurs_stats_id ?? 0;
-        this.pkmn_1 = data.pkmn_1 ?? "";
-        this.pkmn_2 = data.pkmn_2 ?? "";
-        this.pkmn_3 = data.pkmn_3 ?? "";
-        this.pkmn_4 = data.pkmn_4 ?? "";
-        this.pkmn_5 = data.pkmn_5 ?? "";
-        this.pkmn_6 = data.pkmn_6 ?? "";
+        this.joueur_uuid = data.joueur_uuid ?? "";
+        this.pkmn1 = data.pkmn1 ?? "";
+        this.pkmn1_form = data.pkmn1_form ?? "";
+        this.pkmn2 = data.pkmn2 ?? "";
+        this.pkmn2_form = data.pkmn2_form ?? "";
+        this.pkmn3 = data.pkmn3 ?? "";
+        this.pkmn3_form = data.pkmn3_form ?? "";
+        this.pkmn4 = data.pkmn4 ?? "";
+        this.pkmn4_form = data.pkmn4_form ?? "";
+        this.pkmn5 = data.pkmn5 ?? "";
+        this.pkmn5_form = data.pkmn5_form ?? "";
+        this.pkmn6 = data.pkmn6 ?? "";
+        this.pkmn6_form = data.pkmn6_form ?? "";
+        this.serveur_id = data.serveur_id ?? 0;
     }
 
     // Repository CobblemonStats
@@ -60,4 +73,6 @@ export class CobblemonStatsModel extends Model implements CobblemonStatsInterfac
     async getByCompteId(uid: string){
         return await this.repository.getByCompteId(uid);
     }
+
+
 }

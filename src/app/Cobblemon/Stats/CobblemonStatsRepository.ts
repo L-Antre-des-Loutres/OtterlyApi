@@ -13,22 +13,17 @@ import {CobblemonStatsInterface} from "./CobblemonStatsInterface";
 export class CobblemonStatsRepository extends Repository<CobblemonStatsInterface> {
 
     constructor() {
-        super("stats_cobblemon");
+        super("joueurs_pokemon");
 
     }
 
     // Obtenir l'ensemble des statistiques Cobblemon
     async getAll(): Promise<CobblemonStatsInterface[]> {
-        return await this.query(`SELECT s.*, j.compte_id
-                                 FROM ${this.tableName} s
-                                          INNER JOIN joueurs_stats j ON s.joueurs_stats_id = j.id`);
+        return await this.findAll();
     }
 
-    // Obtenir les statistiques Cobblemon par compte_id
+    // Obtenir les statistiques Cobblemon par joueur_uuid
     async getByCompteId(uid: string): Promise<CobblemonStatsInterface[]> {
-        return await this.query(`SELECT s.*, j.compte_id
-                                 FROM ${this.tableName} s
-                                          INNER JOIN joueurs_stats j ON s.joueurs_stats_id = j.id
-                                 WHERE j.compte_id = ?`, [uid]);
+        return await this.query(`SELECT * FROM ${this.tableName} WHERE joueur_uuid = ?`, [uid]);
     }
 }

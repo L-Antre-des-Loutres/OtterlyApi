@@ -26,6 +26,15 @@ export class CobblemonStatsRoutes extends Routes {
             parameters: "",
             comment: "GET /api/cobblemon/stats/",
             description: "Récupère l'ensemble des statistiques de Cobblemon."
+        },
+        {
+            id: 901,
+            alias: "otr-cobblemon-stats-getByCompteId",
+            route: "/cobblemon/stats/:uid",
+            method: "GET",
+            parameters: "uid",
+            comment: "GET /api/cobblemon/stats/:uid",
+            description: "Récupère les statistiques de Cobblemon pour un compte spécifique."
         }
         ]
 
