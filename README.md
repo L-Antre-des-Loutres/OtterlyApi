@@ -105,7 +105,7 @@ import axios from 'axios';
 
 ## Auteur
 
-- [Matheo Pérodeau](https://github.com/matheo-1712)
+- [matheo-1712](https://github.com/matheo-1712)
 
 ## Liaisons avec les autres services de l'Antre des Loutres
 
