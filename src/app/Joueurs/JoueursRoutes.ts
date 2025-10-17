@@ -1,4 +1,3 @@
-
 import {Router} from "express";
 import {Routes} from "../../otterly/abstractClass/routes/Routes";
 import {JoueursController} from "./JoueursController";
@@ -29,6 +28,15 @@ export class JoueursRoutes extends Routes {
             comment: "GET /api/joueurs",
             description: "Récupère tous les joueurs."
         },
+        {
+            id: 2500,
+            alias: "otr-joueurs-getUtilisateurs",
+            route: "/joueurs/link-account",
+            method: "POST",
+            parameters: "utilisateur_id, code",
+            comment: "POST /api/joueurs/link-account",
+            description: "Liaison avec un compte utilisateur."
+        }
     ]
 
     private initializeRoutes() {
@@ -37,5 +45,10 @@ export class JoueursRoutes extends Routes {
             (req, res) => this.controller.getAll(req, res),
             "Erreur lors de la récupération de tous les joueurs."
         ));
+
+        this.router.post("/link-account", Routes.safeHandler(
+            (req, res) => this.controller.linkAccount(req, res),
+            "Erreur lors de la liaison de compte."
+        ))
     }
 }
