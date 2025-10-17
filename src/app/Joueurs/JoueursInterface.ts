@@ -22,4 +22,5 @@ export interface JoueursInterface {
     premiere_co: string,
     derniere_co: string,
     playername: string,
+    joueur_id?: number,
 }

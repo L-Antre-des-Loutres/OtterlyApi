@@ -32,6 +32,24 @@ export class JoueursModel extends Model implements JoueursInterface {
     private readonly repository = new JoueursRepository();
 
     async getAll(){
-        return await this.repository.findAll();
+        return await this.repository.getAll();
+    }
+
+    // Link a player to a Discord account
+    async linkDiscordAccount(id: number, utilisateur_id: string) {
+        try {
+            await this.repository.linkDiscordAccount(id, utilisateur_id);
+        } catch (error) {
+            throw new Error(`Erreur lors de la liaison du compte : ${error}`);
+        }
+    }
+
+    // Checks if a code exists in the database and is not expired
+    async checkCode(code: string) {
+        return await this.repository.checkCode(code);
+    }
+
+    async usedCode(code: string) {
+        await this.repository.usedCode(code);
     }
 }
