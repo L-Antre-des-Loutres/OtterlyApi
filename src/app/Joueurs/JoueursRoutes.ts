@@ -30,7 +30,7 @@ export class JoueursRoutes extends Routes {
         },
         {
             id: 2500,
-            alias: "otr-joueurs-getUtilisateurs",
+            alias: "otr-joueurs-link-account",
             route: "/joueurs/link-account",
             method: "POST",
             parameters: "utilisateur_id, code",
