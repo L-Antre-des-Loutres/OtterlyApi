@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { MiddlewareAuth } from "../../otterly/Token/TokenMiddleware";
-import { Routes } from "../../otterly/abstractClass/routes/Routes";
-import { ServeursController } from "./ServeursController";
+import {Router} from "express";
+import {MiddlewareAuth} from "../../otterly/Token/TokenMiddleware";
+import {Routes} from "../../otterly/abstractClass/routes/Routes";
+import {ServeursController} from "./ServeursController";
 
 /**
  * The `ServeurRoutes` class defines all server-related API endpoints, handles routing, and applies middleware.
@@ -85,16 +85,6 @@ export class ServeursRoutes {
                     res.status(200).json({ success: true, data: serveur });
                 },
                 "Erreur lors de la suppression du serveur."
-            )
-        );
-
-        this.router.post("/start/",
-            this.middlewareAuth.handle.bind(this.middlewareAuth),
-            Routes.safeHandler(
-                async (req, res) => {
-                    await this.controller.start(req, res);
-                },
-                "Erreur lors du lancement du serveur."
             )
         );
     }

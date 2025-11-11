@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import {Controller} from "../../otterly/abstractClass/controllers/Controller";
 import {ServeursModel} from "./ServeursModel";
 
@@ -61,7 +61,7 @@ export class ServeursController extends Controller {
     // GET /api/serveurs/primaire-secondaire
     public async getServeursPrimaireSecondaire(req: Request, res: Response): Promise<void> {
         try {
-            const serveurs = await ServeursModel.getStartedServeursInfo();
+            const serveurs = await ServeursModel.getStartedServeurs();
 
             // Ajout des joueurs en ligne pour chaque serveur
             if (!serveurs) {
@@ -70,7 +70,7 @@ export class ServeursController extends Controller {
             }
 
             // TODO : Refaire cette ligne plus tard en supprimant le ANY et en corrigeant le soucis du non renvoie de nb_players autrement.
-            this.sendSuccess(res, serveurs.map(s => Object.getOwnPropertyNames(s).reduce((acc, key) => { acc[key] = s[key as keyof typeof s]; return acc; }, {} as any)));
+            this.sendSuccess(res, serveurs);
         } catch (error) {
             this.handleError(res, error);
         }
@@ -97,25 +97,5 @@ export class ServeursController extends Controller {
     }
 
     // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
-
-    // POST /api/serveurs/start/
-    public async start(req: Request, res: Response): Promise<void> {
-        try {
-            const serveur = await ServeursModel.getById(req.body.id);
-            if (!serveur) {
-                this.sendNotFound(res, "Serveur introuvable");
-                return;
-            }
-
-            const started = await ServeursModel.start(serveur);
-            if (started) {
-                this.sendSuccess(res, serveur);
-            } else {
-                this.sendError(res, "Erreur lors du lancement du serveur");
-            }
-        } catch (error) {
-            this.handleError(res, error);
-        }
-    }
     // ---------------------------------------------------------------------------------------------------
 }

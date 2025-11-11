@@ -87,8 +87,8 @@ export class ServeursModel extends Model implements ServeursInterface {
     }
 
     // Méthode de récupération des ID des serveurs primaire et secondaire
-    static async getStartedServeursId(): Promise<ServeurParametersInterface | null> {
-        return await ServeursModel.serveursParametersRepository.getServeursId();
+    static async getStartedServeurs(): Promise<ServeurParametersInterface[]> {
+        return await ServeursModel.serveursParametersRepository.getAll();
     }
 
 // Méthode pour récupérer seulement les serveurs actifs et globaux
@@ -119,30 +119,6 @@ export class ServeursModel extends Model implements ServeursInterface {
         return serveursActifGlobal.map((data: any) => new ServeursModel(data));
     }
 
-    // Méthode de récupération des informations des serveurs primaire et secondaire
-    static async getStartedServeursInfo(): Promise<ServeursModel[] | null> {
-        const serveursStartedId = await ServeursModel.getStartedServeursId();
-
-        // Vérification si les serveurs primaire et secondaire existent
-        if (serveursStartedId) {
-            const serveursPrimary = await ServeursModel.getById(serveursStartedId.id_serv_primaire);
-            const serveursSecondaire = await ServeursModel.getById(serveursStartedId.id_serv_secondaire);
-
-            // Ajout de la propriété nb_players pour chaque serveur
-            if (serveursPrimary) {
-                serveursPrimary.players_online = await ServeursModel.serveursService.getPlayersCount(serveursPrimary);
-            }
-            if (serveursSecondaire) {
-                serveursSecondaire.players_online = await ServeursModel.serveursService.getPlayersCount(serveursSecondaire);
-            }
-
-            if (serveursPrimary && serveursSecondaire) {
-                return [serveursPrimary, serveursSecondaire];
-            }
-            return null;
-        }
-        return null;
-    }
 
     // Méthode de création d'un serveur
     static async create(data: Partial<ServeursInterface>): Promise<ServeursModel> {
@@ -158,12 +134,6 @@ export class ServeursModel extends Model implements ServeursInterface {
     }
 
     // ---------------- MÉTHODES GESTION DU LANCEMENT / ARRET DU SERVEUR / INSTALLATION ------------------
-
-    // Méthode de lancement du serveur
-    static async start(serveur: ServeursModel): Promise<boolean> {
-        return (await ServeursModel.serveursParametersRepository.updateActifServeur(serveur.id));
-    }
-
     // ---------------------------------------------------------------------------------------------------
 
 }
