@@ -26,7 +26,7 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
     }
 
     async insert(data: Partial<UtilisateursDiscordInterface>) {
-        data.join_date_discord = new Date().toISOString();
+        data.join_date_discord = new Date().toLocaleString("fr-FR").replace(/,.*$/, "");
         await this.save(data as UtilisateursDiscordInterface)
     }
 
