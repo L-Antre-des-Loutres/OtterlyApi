@@ -26,7 +26,12 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
     }
 
     async insert(data: Partial<UtilisateursDiscordInterface>) {
-        data.join_date_discord = new Date().toLocaleString("fr-FR").replace(/,.*$/, "");
+        // Récupère la date actuelle à Paris
+        const now = new Date();
+        const parisDate = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Paris"}));
+
+        // Formate en DATETIME compatible MySQL
+        data.join_date_discord = parisDate.toISOString().slice(0, 19).replace("T", " ");
         await this.save(data as UtilisateursDiscordInterface)
     }
 
