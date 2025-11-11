@@ -45,6 +45,16 @@ export class UtilisateursDiscordController extends Controller {
         }
     }
 
+    // GET /utilisateurs_discord/by_discord_id/:discord_id
+    async getByDiscordId(req: Request, res: Response) {
+        try {
+            const utilisateur = await this.model.getByDiscordId(req.params.discord_id)
+            this.sendSuccess(res, utilisateur)
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
     // POST /utilisateurs_discord/
     async create(req: Request, res: Response) {
         try {

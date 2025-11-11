@@ -47,6 +47,11 @@ export class UtilisateursDiscordModel extends Model implements UtilisateursDisco
         return await this.repository.findById(id);
     }
 
+    // Méthode pour obtenir un utilisateur Discord par son ID Discord
+    async getByDiscordId(discord_id: string) {
+        return await this.repository.getByDiscordId(discord_id);
+    }
+
     // Méthode pour enregistrer un utilisateur Discord
     async create(data: Partial<UtilisateursDiscordInterface>) {
         return await this.repository.insert(data);
