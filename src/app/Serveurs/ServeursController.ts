@@ -68,8 +68,6 @@ export class ServeursController extends Controller {
                 this.sendError(res, "Serveurs introuvables");
                 return;
             }
-
-            // TODO : Refaire cette ligne plus tard en supprimant le ANY et en corrigeant le soucis du non renvoie de nb_players autrement.
             this.sendSuccess(res, serveurs);
         } catch (error) {
             this.handleError(res, error);

@@ -9,7 +9,7 @@ import {ServeurParametersInterface} from "./ServeurParametersInterface";
 
 export class ServeurParametersRepository extends Repository<ServeurParametersInterface> {
     constructor() {
-        super("serveurs_parameters");
+        super("serveurs_actifs");
     }
 
     // Méthode pour récupérer l'information complète de la table
