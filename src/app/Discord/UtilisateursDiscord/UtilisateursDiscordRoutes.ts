@@ -78,6 +78,15 @@ export class UtilisateursDiscordRoutes extends Routes {
             parameters: "id (number)",
             comment: "PUT /api/utilisateurs_discord/activity/",
             description: "Met à jour la dernière activité d’un utilisateur Discord."
+        },
+        {
+            id: 307,
+            alias: "otr-utilisateursDiscord-getByDiscordId",
+            route: "/utilisateurs_discord/by_discord_id/:discord_id",
+            method: "GET",
+            parameters: "discord_id (string)",
+            comment: "GET /api/utilisateurs_discord/by_discord_id/:discord_id",
+            description: "Récupère un utilisateur Discord par son ID Discord."
         }
     ];
 
@@ -105,7 +114,7 @@ export class UtilisateursDiscordRoutes extends Routes {
         ));
 
         // GET /utilisateurs_discord/by_discord_id/:discord_id
-        this.router.get("/utilisateurs_discord/by_discord_id/:discord_id",
+        this.router.get("/by_discord_id/:discord_id",
             Routes.safeHandler(this.controller.getByDiscordId.bind(this.controller),
                 "Une erreur est survenue lors de la récupération d’un utilisateur Discord par son Id Discord."))
 
