@@ -34,4 +34,63 @@ export class UtilisateursDiscordController extends Controller {
             this.handleError(res, error);
         }
     }
+
+    // GET /utilisateurs_discord/:id
+    async getById(req: Request, res: Response) {
+        try {
+            const utilisateur = await this.model.getById(parseInt(req.params.id, 10))
+            this.sendSuccess(res, utilisateur)
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // POST /utilisateurs_discord/
+    async create(req: Request, res: Response) {
+        try {
+            const newUtilisateur = await this.model.create(req.body);
+            this.sendSuccess(res, newUtilisateur, 201);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // PUT /utilisateurs_discord/:id
+    async update(req: Request, res: Response) {
+        try {
+            const updatedUtilisateur = await this.model.update(req.body, req.body.id);
+            this.sendSuccess(res, updatedUtilisateur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // PUT /utilisateurs_discord/vocal/
+    async updateVocalTime(req: Request, res: Response) {
+        try {
+            const updatedUtilisateur = await this.model.updateVocalTime(req.body.id, req.body.vocal_time);
+            this.sendSuccess(res, updatedUtilisateur);
+        } catch (error) {
+        }
+    }
+
+    // PUT /utilisateurs_discord/nb_message/
+    async updateNbMessage(req: Request, res: Response) {
+        try {
+            const updatedUtilisateur = await this.model.updateNbMessage(req.body.id, req.body.nb_message);
+            this.sendSuccess(res, updatedUtilisateur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // PUT /utilisateurs_discord/activity/
+    async updateActivity(req: Request, res: Response) {
+        try {
+            const updatedUtilisateur = await this.model.updateLastActivity(req.body.id);
+            this.sendSuccess(res, updatedUtilisateur);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
 }
