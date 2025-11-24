@@ -55,7 +55,7 @@ export class UtilisateursDiscordRoutes extends Routes {
         {
             id: 304,
             alias: "otr-utilisateursDiscord-updateVocalTime",
-            route: "/utilisateurs_discord/vocal",
+            route: "/utilisateurs_discord/vocal_time",
             method: "PUT",
             parameters: "id (number), vocal_time (number)",
             comment: "PUT /api/utilisateurs_discord/vocal_time/",
