@@ -57,6 +57,15 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
         );
     }
 
+    async resetDataSuppressionDate(discord_id: string) {
+        await this.query(
+            `UPDATE ${this.tableName}
+             SET delete_date = NULL
+             WHERE discord_id = ?`,
+            [discord_id]
+        )
+    }
+
     async updateNbMessage(id: number, nb_message: string) {
         await this.query(
             `UPDATE ${this.tableName}

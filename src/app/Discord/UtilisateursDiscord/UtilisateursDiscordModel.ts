@@ -69,6 +69,10 @@ export class UtilisateursDiscordModel extends Model implements UtilisateursDisco
         return await this.repository.updateDataSuppressionDate(discord_id);
     }
 
+    async resetDataSuppressionDate(discord_id: string) {
+        return await this.repository.resetDataSuppressionDate(discord_id);
+    }
+
     async updateNbMessage(id: number, nb_message: string) {
         return this.repository.updateNbMessage(id, nb_message);
     }
