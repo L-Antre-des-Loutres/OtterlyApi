@@ -97,7 +97,7 @@ export class UtilisateursDiscordRoutes extends Routes {
             description: "Met à jour la date de suppression des données d’un utilisateur Discord.",
         },
         {
-            id: 308,
+            id: 309,
             alias: "otr-utilisateursDiscord-resetDataSuppressionDate",
             route: "/utilisateurs_discord/reset_data_suppression_date",
             method: "PUT",
