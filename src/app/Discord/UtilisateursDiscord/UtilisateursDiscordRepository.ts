@@ -51,7 +51,7 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
     async updateDataSuppressionDate(discord_id: string) {
         await this.query(
             `UPDATE ${this.tableName}
-             SET suppression_date = DATE_ADD(CONVERT_TZ(NOW(), 'UTC', 'Europe/Paris'), INTERVAL 30 DAY)
+             SET delete_date = DATE_ADD(CONVERT_TZ(NOW(), 'UTC', 'Europe/Paris'), INTERVAL 30 DAY)
              WHERE discord_id = ?`,
             [discord_id]
         );
