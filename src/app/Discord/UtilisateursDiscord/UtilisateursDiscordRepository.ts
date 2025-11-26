@@ -42,7 +42,7 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
                  tag_discord    = ?,
                  pseudo_discord = ?,
                  avatar_url     = ?,
-                 roles          = ?,
+                 roles          = ?
              WHERE id = ?`,
             [data.discord_id, data.tag_discord, data.pseudo_discord, data.avatar_url, data.roles, id]
         );
