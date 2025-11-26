@@ -46,7 +46,7 @@ export class UtilisateursDiscordRoutes extends Routes {
         {
             id: 303,
             alias: "otr-utilisateursDiscord-update",
-            route: "/utilisateurs_discord/:id",
+            route: "/utilisateurs_discord",
             method: "PUT",
             parameters: "id (number), body (object)",
             comment: "PUT /api/utilisateurs_discord/:id",
