@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {Controller} from "../../../otterly/abstractClass/controllers/Controller";
 import {BadgesJoueursModel} from "./JoueursModel";
+import {otterlogs} from "../../../otterly/utils/otterlogs";
 
 /**
  * The BadgesJoueursController handles requests and operations related
@@ -40,7 +41,9 @@ export class BadgesJoueursController extends Controller {
         try {
             const badges = await this.model.getByPlayerId(parseInt(req.params.id, 10))
             this.sendSuccess(res, badges)
-        } catch (error) {}
+        } catch (error) {
+            this.handleError(res, error);
+        }
     }
 
 

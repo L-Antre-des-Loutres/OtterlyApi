@@ -20,7 +20,7 @@ export class ConnexionController extends Controller {
     }
 
     // GET /login/
-    async discordLogin(req: any, res: any): Promise<void> {
+    async discordLogin(req: Request, res: Response): Promise<void> {
         try {
             const redirect_uri = encodeURIComponent(
                 "https://otterlyapi.antredesloutres.fr/api/auth/discord/callback"

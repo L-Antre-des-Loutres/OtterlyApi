@@ -40,6 +40,8 @@ export class BadgesUtilisateursController extends Controller {
         try {
             const badges = await this.model.getByUserId(parseInt(req.params.id, 10))
             this.sendSuccess(res, badges)
-        } catch (error) {}
+        } catch (error) {
+            this.handleError(res, error);
+        }
     }
 }

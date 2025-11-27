@@ -36,16 +36,6 @@ export class ServeurService extends Service {
                         this.logError("Erreur lors de la récupération des joueurs Minecraft :", error instanceof Error ? error.message : String(error));
                         return 0;
                     }
-
-                // Palworld
-                case "Palworld":
-                    try {
-                        return await this.getPalworldPlayers(serveur);
-                    } catch (error) {
-                        this.logError("Erreur lors de la récupération des joueurs Palworld :", error instanceof Error ? error.message : String(error));
-                        return 0;
-                    }
-
                 default:
                     return 0;
             }
@@ -89,34 +79,4 @@ export class ServeurService extends Service {
             return 0;
         }
     }
-
-    // Méthode pour récupérer le nombre de joueurs sur Palworld
-    private async getPalworldPlayers(_: ServeursInterface): Promise<number> {
-        try {
-            const config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'http://127.0.0.1:8212/v1/api/players',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': process.env.PALWORLD_STRING ?? "",
-                },
-            };
-
-            const response = await axios(config);
-
-            if (response.status === 200) {
-                const players = Array.isArray(response.data.players) ? response.data.players : [];
-                return players.length;
-            } else {
-                this.logInfo(`Palworld: code de réponse inattendu ${response.status}`);
-                return 0;
-            }
-        } catch (error) {
-            this.logError("Erreur API Palworld :", error instanceof Error ? error.message : String(error));
-            return 0;
-        }
-    }
-
-
 }

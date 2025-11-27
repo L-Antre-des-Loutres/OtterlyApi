@@ -57,7 +57,7 @@ export class JoueursStatsModel extends Model implements JoueursStatsInterface {
 
     private readonly repository = new JoueursStatsRepository();
 
-    async toJSON(): Promise<Record<string, any>> {
+    async toJSON(): Promise<JoueursStatsInterface> {
         return {
             id: this.id,
             serveur_id: this.serveur_id,
@@ -76,7 +76,7 @@ export class JoueursStatsModel extends Model implements JoueursStatsInterface {
             item_crafted: this.item_crafted,
             item_broken: this.item_broken,
             achievement: this.achievement,
-            dern_enregistrment: this.dern_enregistrment,
+            dern_enregistrment: this.dern_enregistrment
         }
     }
 

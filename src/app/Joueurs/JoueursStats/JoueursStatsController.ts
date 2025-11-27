@@ -63,7 +63,9 @@ export class JoueursStatsController extends Controller {
         try {
             const totalHoursPerServer = await this.model.getTotalHoursPerServer()
             this.sendSuccess(res, totalHoursPerServer)
-        } catch (error) {}
+        } catch (error) {
+            this.handleError(res, error)
+        }
     }
 
     // GET /joueurs/stats-serveur/per-server-uid/:uid

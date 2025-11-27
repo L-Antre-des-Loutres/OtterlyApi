@@ -11,7 +11,9 @@ import {ServeursModel} from "./ServeursModel";
 
 export class ServeursController extends Controller {
     handleRequest(req: Request, res: Response): void {
-        throw new Error("Method not implemented.");
+        const {method, url} = req;
+        console.log(`Handling request: ${method} ${url}`);
+        res.status(200).send("Request handled successfully.");
     }
 
     // GET /api/serveurs
@@ -69,8 +71,13 @@ export class ServeursController extends Controller {
                 return;
             }
 
-            // TODO : Refaire cette ligne plus tard en supprimant le ANY et en corrigeant le soucis du non renvoie de nb_players autrement.
-            this.sendSuccess(res, serveurs.map(s => Object.getOwnPropertyNames(s).reduce((acc, key) => { acc[key] = s[key as keyof typeof s]; return acc; }, {} as any)));
+            this.sendSuccess(res, serveurs.map(s => {
+                const serveurObj: Partial<ServeursModel> = {};
+                Object.getOwnPropertyNames(s).forEach(key => {
+                    serveurObj[key as keyof ServeursModel] = s[key as keyof ServeursModel];
+                });
+                return serveurObj;
+            }));
         } catch (error) {
             this.handleError(res, error);
         }

@@ -15,8 +15,6 @@ export class AstroloutreImagesController extends Controller {
     }
 
     handleRequest(req: Request, res: Response): void {
-        const {method, url} = req;
-        console.log(`Handling request: ${method} ${url}`);
         res.status(200).send("Request handled successfully.");
     }
 

@@ -51,14 +51,14 @@ export class JoueursController extends Controller {
             try {
                 await this.model.linkDiscordAccount(joueur_id, utilisateur_id);
             } catch (error) {
-                this.sendError(res, "Erreur lors de la liaison du compte Discord", 500);
+                this.sendError(res, "Erreur lors de la liaison du compte Discord" + error, 500);
                 return;
             }
 
             try {
                 await this.model.usedCode(code);
             } catch (error) {
-                this.sendError(res, "Erreur lors de la mise à jour du code", 500);
+                this.sendError(res, "Erreur lors de la mise à jour du code" + error, 500);
                 return;
             }
 
