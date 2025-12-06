@@ -97,7 +97,7 @@ export class UtilisateursDiscordController extends Controller {
     // PUT /utilisateurs_discord/activity/
     async updateActivity(req: Request, res: Response) {
         try {
-            const updatedUtilisateur = await this.model.updateLastActivity(req.body.id);
+            const updatedUtilisateur = await this.model.updateLastActivity(req.body.id, req.body.last_activity);
             this.sendSuccess(res, updatedUtilisateur);
         } catch (error) {
             this.handleError(res, error);

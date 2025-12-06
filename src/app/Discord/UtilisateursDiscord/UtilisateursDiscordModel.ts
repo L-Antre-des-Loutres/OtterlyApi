@@ -69,7 +69,7 @@ export class UtilisateursDiscordModel extends Model implements UtilisateursDisco
         return this.repository.updateVocalTime(id, voix_time);
     }
 
-    async updateLastActivity(id: number) {
-        return this.repository.updateLastActivity(id);
+    async updateLastActivity(id: number, last_activity: string) {
+        return this.repository.updateLastActivity(id, last_activity);
     }
 }

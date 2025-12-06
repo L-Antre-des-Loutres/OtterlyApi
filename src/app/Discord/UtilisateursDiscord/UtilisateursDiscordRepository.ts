@@ -50,9 +50,9 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
     async updateNbMessage(id: number, nb_message: string) {
         await this.query(
             `UPDATE ${this.tableName}
-             SET nb_message = nb_message + ${nb_message}
+             SET nb_message = nb_message + ?
              WHERE id = ?`,
-            [id]
+            [nb_message, id]
         );
     }
 
@@ -65,12 +65,12 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
         );
     }
 
-    async updateLastActivity(id: number) {
+    async updateLastActivity(id: number, last_activity: string) {
         await this.query(
             `UPDATE ${this.tableName}
-             SET last_activity = CONVERT_TZ(NOW(), 'UTC', 'Europe/Paris')
+             SET last_activity = ?
              WHERE id = ?`,
-            [id]
+            [last_activity, id]
         )
     }
 }
