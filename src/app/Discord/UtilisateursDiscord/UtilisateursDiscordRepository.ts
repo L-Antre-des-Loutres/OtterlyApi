@@ -41,10 +41,29 @@ export class UtilisateursDiscordRepository extends Repository<UtilisateursDiscor
              SET discord_id     = ?,
                  tag_discord    = ?,
                  pseudo_discord = ?,
-                 avatar_url     = ?
+                 avatar_url     = ?,
+                 roles          = ?
              WHERE id = ?`,
-            [data.discord_id, data.tag_discord, data.pseudo_discord, data.avatar_url, id]
+            [data.discord_id, data.tag_discord, data.pseudo_discord, data.avatar_url, data.roles, id]
         );
+    }
+
+    async updateDataSuppressionDate(discord_id: string) {
+        await this.query(
+            `UPDATE ${this.tableName}
+             SET delete_date = DATE_ADD(CONVERT_TZ(NOW(), 'UTC', 'Europe/Paris'), INTERVAL 30 DAY)
+             WHERE discord_id = ?`,
+            [discord_id]
+        );
+    }
+
+    async resetDataSuppressionDate(discord_id: string) {
+        await this.query(
+            `UPDATE ${this.tableName}
+             SET delete_date = NULL
+             WHERE discord_id = ?`,
+            [discord_id]
+        )
     }
 
     async updateNbMessage(id: number, nb_message: string) {

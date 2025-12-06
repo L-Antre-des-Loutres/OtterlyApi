@@ -46,7 +46,7 @@ export class UtilisateursDiscordRoutes extends Routes {
         {
             id: 303,
             alias: "otr-utilisateursDiscord-update",
-            route: "/utilisateurs_discord/:id",
+            route: "/utilisateurs_discord",
             method: "PUT",
             parameters: "id (number), body (object)",
             comment: "PUT /api/utilisateurs_discord/:id",
@@ -55,7 +55,7 @@ export class UtilisateursDiscordRoutes extends Routes {
         {
             id: 304,
             alias: "otr-utilisateursDiscord-updateVocalTime",
-            route: "/utilisateurs_discord/vocal",
+            route: "/utilisateurs_discord/vocal_time",
             method: "PUT",
             parameters: "id (number), vocal_time (number)",
             comment: "PUT /api/utilisateurs_discord/vocal_time/",
@@ -87,6 +87,22 @@ export class UtilisateursDiscordRoutes extends Routes {
             parameters: "discord_id (string)",
             comment: "GET /api/utilisateurs_discord/by_discord_id/:discord_id",
             description: "Récupère un utilisateur Discord par son ID Discord."
+        },
+        {
+            id: 308,
+            alias: "otr-utilisateursDiscord-updateDataSuppressionDate",
+            route: "/utilisateurs_discord/update_data_suppression_date",
+            method: "PUT",
+            parameters: "discord_id (string)",
+            description: "Met à jour la date de suppression des données d’un utilisateur Discord.",
+        },
+        {
+            id: 309,
+            alias: "otr-utilisateursDiscord-resetDataSuppressionDate",
+            route: "/utilisateurs_discord/reset_data_suppression_date",
+            method: "PUT",
+            parameters: "discord_id (string)",
+            description: "Réinitialise la date de suppression des données d’un utilisateur Discord.",
         }
     ];
 
@@ -130,7 +146,19 @@ export class UtilisateursDiscordRoutes extends Routes {
             "Une erreur est survenue lors de la mise à jour d’un utilisateur Discord."
         ));
 
-        // PUT /utilisateurs_discord/vocal/
+        // PUT /utilisateurs_discord/update_data_suppression_date/
+        this.router.put("/update_data_suppression_date", this.middlewareAuth.handle.bind(this.middlewareAuth),
+            Routes.safeHandler(this.controller.updateDataSuppressionDate.bind(this.controller),
+            "Une erreur est survenue lors de la mise à jour de la date de suppression des données des utilisateurs Discord."
+        ));
+
+        // PUT /utilisateurs_discord/reset_data_suppression_date/
+        this.router.put("/reset_data_suppression_date", this.middlewareAuth.handle.bind(this.middlewareAuth),
+        Routes.safeHandler(this.controller.resetDataSuppressionDate.bind(this.controller),
+        "Une erreur est survenue lors de la réinitialisation de la date de suppression des données des utilisateurs Discord."
+        ));
+
+        // PUT /utilisateurs_discord/vocal_time/
         this.router.put("/vocal_time", this.middlewareAuth.handle.bind(this.middlewareAuth),
             Routes.safeHandler(this.controller.updateVocalTime.bind(this.controller),
             "Une erreur est survenue lors de la mise à jour du temps vocal d’un utilisateur Discord."

@@ -75,6 +75,26 @@ export class UtilisateursDiscordController extends Controller {
         }
     }
 
+    // PUT /utilisateurs_discord/data_suppression_date/
+    async updateDataSuppressionDate(req: Request, res: Response) {
+        try {
+            const result = await this.model.updateDataSuppressionDate(req.body.discord_id);
+            this.sendSuccess(res, result);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
+    // PUT /utilisateurs_discord/data_suppression_reset_date/
+    async resetDataSuppressionDate(req: Request, res: Response) {
+        try {
+            const result = await this.model.resetDataSuppressionDate(req.body.discord_id);
+            this.sendSuccess(res, result);
+        } catch (error) {
+            this.handleError(res, error);
+        }
+    }
+
     // PUT /utilisateurs_discord/vocal/
     async updateVocalTime(req: Request, res: Response) {
         try {

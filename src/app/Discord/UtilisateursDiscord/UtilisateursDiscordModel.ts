@@ -1,5 +1,5 @@
 import {Model} from "../../../otterly/abstractClass/models/Model";
-import {UtilisateursDiscordInterface} from "./UtilisateursDiscordInterface";
+import {Roles, UtilisateursDiscordInterface} from "./UtilisateursDiscordInterface";
 import {UtilisateursDiscordRepository} from "./UtilisateursDiscordRepository";
 
 /**
@@ -19,6 +19,8 @@ export class UtilisateursDiscordModel extends Model implements UtilisateursDisco
     last_activity: string
     nb_message: number
     avatar_url: string
+    roles: Roles[]
+    delete_date: string
 
 
     constructor(data: Partial<UtilisateursDiscordInterface>) {
@@ -32,6 +34,8 @@ export class UtilisateursDiscordModel extends Model implements UtilisateursDisco
         this.last_activity = data.last_activity ?? "";
         this.nb_message = data.nb_message ?? 0;
         this.avatar_url = data.avatar_url ?? "";
+        this.roles = data.roles ?? [];
+        this.delete_date = data.delete_date ?? "";
 
     }
 
@@ -59,6 +63,14 @@ export class UtilisateursDiscordModel extends Model implements UtilisateursDisco
 
     async update(data: Partial<UtilisateursDiscordInterface>, id: number) {
         return await this.repository.update(data, id);
+    }
+
+    async updateDataSuppressionDate(discord_id: string) {
+        return await this.repository.updateDataSuppressionDate(discord_id);
+    }
+
+    async resetDataSuppressionDate(discord_id: string) {
+        return await this.repository.resetDataSuppressionDate(discord_id);
     }
 
     async updateNbMessage(id: number, nb_message: string) {

@@ -25,4 +25,12 @@ export interface UtilisateursDiscordInterface {
     last_activity: string | null;
     nb_message: number;
     avatar_url: string;
+    roles: Roles[] | null;
+    delete_date: string | null;
+}
+
+export interface Roles {
+    id: string;
+    name: string;
+    color: string;
 }
