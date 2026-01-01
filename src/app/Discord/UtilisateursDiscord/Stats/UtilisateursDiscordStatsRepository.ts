@@ -28,13 +28,26 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
      * Insertion d'un utilisateur dans la table utilisateurs_discord_stats'
      * @param data
      */
+    /**
+     * Insertion d'un utilisateur dans la table utilisateurs_discord_stats'
+     * @param data
+     */
     async insert(data: Partial<UtilisateursDiscordStatsInterface>) {
         console.log("UtilisateursDiscordStatsRepository: insert called with", JSON.stringify(data));
 
         data.id = data.id ?? await this.getNextId();
 
+        // Serialize arrays to JSON strings
+        const dataToInsert: any = { ...data };
+        if (Array.isArray(data.voice_channels)) {
+            dataToInsert.voice_channels = JSON.stringify(data.voice_channels);
+        }
+        if (Array.isArray(data.text_channels)) {
+            dataToInsert.text_channels = JSON.stringify(data.text_channels);
+        }
+
         try {
-            await db.query(`INSERT INTO ${this.tableName} SET ?`, data);
+            await db.query(`INSERT INTO ${this.tableName} SET ?`, dataToInsert);
             return data as UtilisateursDiscordStatsInterface;
         } catch (error) {
             console.error("UtilisateursDiscordStatsRepository: Insert failed", error);
@@ -50,8 +63,17 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
      * @return {Promise<any>} A promise that resolves with the result of the update operation.
      */
     async update(data: Partial<UtilisateursDiscordStatsInterface>, id: number) {
+        // Serialize arrays to JSON strings
+        const dataToUpdate: any = { ...data };
+        if (Array.isArray(data.voice_channels)) {
+            dataToUpdate.voice_channels = JSON.stringify(data.voice_channels);
+        }
+        if (Array.isArray(data.text_channels)) {
+            dataToUpdate.text_channels = JSON.stringify(data.text_channels);
+        }
+
         return await this.query(`UPDATE ${this.tableName}
                                  SET ?
-                                 WHERE id = ?`, [data, id]);
+                                 WHERE id = ?`, [dataToUpdate, id]);
     }
 }
