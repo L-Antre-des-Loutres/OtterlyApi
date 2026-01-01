@@ -57,7 +57,10 @@ export class UtilisateursDiscordStatsController extends Controller {
     // POST /utilisateurs_discord/stats/create
     async create(req: Request, res: Response) {
         try {
-            console.log("Creating stats with body:", JSON.stringify(req.body, null, 2));
+            console.log("========================================");
+            console.log("DEBUG: create endpoint reached");
+            console.log("DEBUG: Body:", JSON.stringify(req.body, null, 2));
+            console.log("========================================");
 
             if (!req.body || Object.keys(req.body).length === 0) {
                 console.warn("Creation failed: Empty body");
@@ -68,7 +71,11 @@ export class UtilisateursDiscordStatsController extends Controller {
             console.log("Stats created successfully:", newUtilisateur);
             this.sendSuccess(res, newUtilisateur, 201);
         } catch (error) {
-            console.error("Error creating stats:", error);
+            console.error("========================================");
+            console.error("DEBUG: Error in create stats:");
+            console.error(error);
+            console.error("DEBUG: Error details:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            console.error("========================================");
             this.handleError(res, error);
         }
     }

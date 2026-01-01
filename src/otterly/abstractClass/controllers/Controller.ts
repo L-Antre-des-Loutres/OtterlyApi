@@ -18,7 +18,7 @@ import { Request, Response } from "express";
  */
 
 export abstract class Controller {
-    
+
     // Méthode pour envoyer une réponse avec succès
     protected sendSuccess(res: Response, data: any, status: number = 200): void {
         res.status(status).json({
@@ -45,7 +45,10 @@ export abstract class Controller {
 
     // Méthode pour gérer les erreurs génériques
     protected handleError(res: Response, error: any): void {
-        console.error("Erreur:", error);
+        console.error("Erreur (handleError):", error);
+        if (typeof error === 'object') {
+            console.error("Details:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
         this.sendError(res, "Erreur interne du serveur");
     }
 
