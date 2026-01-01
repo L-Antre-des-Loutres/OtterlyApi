@@ -37,7 +37,7 @@ export class UtilisateursDiscordStatsRoutes extends Routes {
         {
             id: 2202,
             alias: "otr-utilisateursDiscordStats-update",
-            route: "/utilisateurs_discord/stats",
+            route: "/utilisateurs_discord/stats/update",
             method: "PUT",
             parameters: "id (number), body (object)",
             comment: "PUT /api/utilisateurs_discord/stats",
@@ -45,7 +45,7 @@ export class UtilisateursDiscordStatsRoutes extends Routes {
         {
             id: 2205,
             alias: "otr-utilisateursDiscordStats-create",
-            route: "/utilisateurs_discord/stats",
+            route: "/utilisateurs_discord/stats/create",
             method: "POST",
             parameters: "body (object)",
             comment: "POST /api/utilisateurs_discord/stats",
@@ -77,15 +77,15 @@ export class UtilisateursDiscordStatsRoutes extends Routes {
         ));
 
         // PUT /utilisateurs_discord/stats
-        this.router.put("/", this.middlewareAuth.handle.bind(this.middlewareAuth),
+        this.router.put("/update", this.middlewareAuth.handle.bind(this.middlewareAuth),
             Routes.safeHandler(this.controller.update.bind(this.controller),
                 "Error updating Discord user stats."
             ));
 
         // POST /utilisateurs_discord/stats
-        this.router.post("/", this.middlewareAuth.handle.bind(this.middlewareAuth),
+        this.router.post("/create", this.middlewareAuth.handle.bind(this.middlewareAuth),
             Routes.safeHandler(this.controller.create.bind(this.controller),
-                "Error creating Discord user stats."
+                "Une erreur est survenue lors de la création d’un utilisateur Discord."
             ));
     }
 }

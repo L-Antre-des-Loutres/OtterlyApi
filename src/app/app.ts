@@ -11,6 +11,7 @@ import {JoueursService} from "./Joueurs/JoueursService";
 import {JoueursStatsRoutes} from "./Joueurs/JoueursStats/JoueursStatsRoutes";
 import {ConnexionRoutes} from "./Discord/Connexion/ConnexionRoutes";
 import {UtilisateursDiscordRoutes} from "./Discord/UtilisateursDiscord/UtilisateursDiscordRoutes";
+import {UtilisateursDiscordStatsRoutes} from "./Discord/UtilisateursDiscord/Stats/UtilisateursDiscordStatsRoutes";
 import {AstroloutreImagesRoutes} from "./Astroloutre/Images/ImagesRoutes";
 import allowedOrigins from "./allowedOrigins.json";
 import {BadgesInfosRoutes} from "./Badges/Infos/InfosRoutes";
@@ -19,6 +20,7 @@ import {BadgesUtilisateursRoutes} from "./Badges/Utilisateurs/UtilisateursRoutes
 import {BadgesJoueursRoutes} from "./Badges/Joueurs/JoueursRoutes";
 import {PalworldStatsRoutes} from "./Palworld/Stats/PalworldStatsRoutes";
 import {CobblemonStatsRoutes} from "./Cobblemon/Stats/CobblemonStatsRoutes";
+import {UtilisateursDiscordService} from "./Discord/UtilisateursDiscord/UtilisateursDiscordService";
 
 dotenv.config()
 
@@ -73,6 +75,9 @@ class App {
         // Route des connexions discord
         this.app.use("/api/auth/discord", new ConnexionRoutes().router)
 
+        // Route des statistiques des utilisateurs discord
+        this.app.use("/api/utilisateurs_discord/stats", new UtilisateursDiscordStatsRoutes().router)
+
         // Route des utilisateurs discord
         this.app.use("/api/utilisateurs_discord", new UtilisateursDiscordRoutes().router)
 
@@ -99,29 +104,32 @@ class App {
     }
 
     // Enregistrement des services
-    private async services(){
+    private async services() {
         // Génération des tokens
         const tokenService = new TokenService();
         await tokenService.generateInitialTokens();
         // Enregistrement des pseudos des joueurs
         const joueursService = new JoueursService();
         await joueursService.registerPlayerName()
+        // Suppression des données des utilisateurs discord qui doivent l'être
+        const utilisateurDiscordService = new UtilisateursDiscordService();
+        await utilisateurDiscordService.checkDeleteDateUser()
     }
 
     // Initialisation des services
-     private initService(){
-         const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
-         this.services().then();
+    private initService() {
+        const intervalMs = 24 * 60 * 60 * 1000; // 86 400 000 ms = 24h
+        this.services().then();
 
-         setInterval(async () => {
-             // [TASK] Lancement des tâches périodiques
-             console.log("[TASK] Lancement des tâches périodiques ")
-             try {
-                 await this.services()
-             } catch (error) {
-                 console.error("Erreur lors de l'execution du service", error);
-             }
-         }, intervalMs);
+        setInterval(async () => {
+            // [TASK] Lancement des tâches périodiques
+            console.log("[TASK] Lancement des tâches périodiques ")
+            try {
+                await this.services()
+            } catch (error) {
+                console.error("Erreur lors de l'execution du service", error);
+            }
+        }, intervalMs);
     }
 
     public start() {
