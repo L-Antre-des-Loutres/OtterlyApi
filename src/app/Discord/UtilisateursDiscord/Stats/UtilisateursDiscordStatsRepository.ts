@@ -1,5 +1,6 @@
-import {Repository} from "../../../../otterly/abstractClass/repositories/Repository";
-import {UtilisateursDiscordStatsInterface} from "./UtilisateurDiscordStatsInterface";
+import db from "../../../../otterly/db";
+import { Repository } from "../../../../otterly/abstractClass/repositories/Repository";
+import { UtilisateursDiscordStatsInterface } from "./UtilisateurDiscordStatsInterface";
 
 /**
  * Repository class for interacting with the utilisateurs_discord_stats database table.
@@ -28,7 +29,17 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
      * @param data
      */
     async insert(data: Partial<UtilisateursDiscordStatsInterface>) {
-        await this.save(data as UtilisateursDiscordStatsInterface)
+        console.log("UtilisateursDiscordStatsRepository: insert called with", JSON.stringify(data));
+
+        data.id = data.id ?? await this.getNextId();
+
+        try {
+            await db.query(`INSERT INTO ${this.tableName} SET ?`, data);
+            return data as UtilisateursDiscordStatsInterface;
+        } catch (error) {
+            console.error("UtilisateursDiscordStatsRepository: Insert failed", error);
+            throw error;
+        }
     }
 
     /**

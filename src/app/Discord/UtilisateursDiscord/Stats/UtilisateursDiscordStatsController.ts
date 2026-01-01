@@ -57,12 +57,18 @@ export class UtilisateursDiscordStatsController extends Controller {
     // POST /utilisateurs_discord/stats/create
     async create(req: Request, res: Response) {
         try {
+            console.log("Creating stats with body:", JSON.stringify(req.body, null, 2));
+
             if (!req.body || Object.keys(req.body).length === 0) {
+                console.warn("Creation failed: Empty body");
                 return this.sendError(res, "Le corps de la requête est vide.", 400);
             }
+
             const newUtilisateur = await this.model.insert(req.body);
+            console.log("Stats created successfully:", newUtilisateur);
             this.sendSuccess(res, newUtilisateur, 201);
         } catch (error) {
+            console.error("Error creating stats:", error);
             this.handleError(res, error);
         }
     }

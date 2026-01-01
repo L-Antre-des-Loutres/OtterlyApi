@@ -1,6 +1,6 @@
-import {Channel, UtilisateursDiscordStatsInterface} from "./UtilisateurDiscordStatsInterface";
-import {Model} from "../../../../otterly/abstractClass/models/Model";
-import {UtilisateursDiscordStatsRepository} from "./UtilisateursDiscordStatsRepository";
+import { Channel, UtilisateursDiscordStatsInterface } from "./UtilisateurDiscordStatsInterface";
+import { Model } from "../../../../otterly/abstractClass/models/Model";
+import { UtilisateursDiscordStatsRepository } from "./UtilisateursDiscordStatsRepository";
 
 /**
  * Represents the statistics related to Discord users, including messages sent,
@@ -51,7 +51,7 @@ export class UtilisateursDiscordStatsModel extends Model implements Utilisateurs
      * @return {Promise<void>} A promise that resolves when the data is successfully inserted.
      */
     async insert(data: Partial<UtilisateursDiscordStatsInterface>) {
-        await this.repository.insert(data)
+        return await this.repository.insert(data)
     }
 
 
