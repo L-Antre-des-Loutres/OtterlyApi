@@ -1,7 +1,7 @@
-import {Router} from "express";
-import {UtilisateursDiscordStatsController} from "./UtilisateursDiscordStatsController";
-import {Routes} from "../../../../otterly/abstractClass/routes/Routes";
-import {MiddlewareAuth} from "../../../../otterly/Token/TokenMiddleware";
+import { Router } from "express";
+import { UtilisateursDiscordStatsController } from "./UtilisateursDiscordStatsController";
+import { Routes } from "../../../../otterly/abstractClass/routes/Routes";
+import { MiddlewareAuth } from "../../../../otterly/Token/TokenMiddleware";
 
 /**
  * Class representing the routes for managing Discord user statistics.
@@ -66,7 +66,7 @@ export class UtilisateursDiscordStatsRoutes extends Routes {
     private initializeRoutes() {
         // GET /utilisateurs_discord/stats/:id
         this.router.get("/:id", Routes.safeHandler(
-            this.controller.getById.bind(this.controller),
+            this.controller.getByUserId.bind(this.controller),
             "Error retrieving Discord user stats by ID."
         ));
 
