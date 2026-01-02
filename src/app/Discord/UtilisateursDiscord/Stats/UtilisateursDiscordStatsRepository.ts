@@ -24,10 +24,7 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
                                  WHERE id_utilisateur = ?`, [id]);
     }
 
-    /**
-     * Insertion d'un utilisateur dans la table utilisateurs_discord_stats'
-     * @param data
-     */
+
     /**
      * Insertion d'un utilisateur dans la table utilisateurs_discord_stats'
      * @param data
@@ -39,6 +36,13 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
 
         // Serialize arrays to JSON strings
         const dataToInsert: any = { ...data };
+
+        console.log("DEBUG: check vocal_with", {
+            val: data.vocal_with,
+            isArray: Array.isArray(data.vocal_with),
+            typeof: typeof data.vocal_with
+        });
+
         if (Array.isArray(data.voice_channels)) {
             dataToInsert.voice_channels = JSON.stringify(data.voice_channels);
         }
