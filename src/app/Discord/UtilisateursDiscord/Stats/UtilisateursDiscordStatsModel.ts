@@ -1,6 +1,6 @@
-import { Channel, UtilisateursDiscordStatsInterface } from "./UtilisateurDiscordStatsInterface";
-import { Model } from "../../../../otterly/abstractClass/models/Model";
-import { UtilisateursDiscordStatsRepository } from "./UtilisateursDiscordStatsRepository";
+import {Channel, DiscordUser, UtilisateursDiscordStatsInterface} from "./UtilisateurDiscordStatsInterface";
+import {Model} from "../../../../otterly/abstractClass/models/Model";
+import {UtilisateursDiscordStatsRepository} from "./UtilisateursDiscordStatsRepository";
 
 /**
  * Represents the statistics related to Discord users, including messages sent,
@@ -16,6 +16,8 @@ export class UtilisateursDiscordStatsModel extends Model implements Utilisateurs
     date_stats: string
     voice_channels: Channel[]
     text_channels: Channel[]
+    vocal_with: DiscordUser[]
+
     private readonly repository = new UtilisateursDiscordStatsRepository();
 
     constructor(data: Partial<UtilisateursDiscordStatsInterface>) {
@@ -27,6 +29,7 @@ export class UtilisateursDiscordStatsModel extends Model implements Utilisateurs
         this.date_stats = data.date_stats ?? "";
         this.voice_channels = data.voice_channels ?? [];
         this.text_channels = data.text_channels ?? [];
+        this.vocal_with = data.vocal_with ?? [];
 
     }
 

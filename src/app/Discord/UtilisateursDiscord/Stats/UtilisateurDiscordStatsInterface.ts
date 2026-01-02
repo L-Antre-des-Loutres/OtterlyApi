@@ -13,9 +13,15 @@ export interface UtilisateursDiscordStatsInterface {
     date_stats: string
     voice_channels: Channel[]
     text_channels: Channel[]
+    vocal_with: DiscordUser[]
 }
 
 export interface Channel {
     id: string,
     name: string
+}
+
+export interface DiscordUser {
+    id: string,
+    username: string
 }
