@@ -45,6 +45,9 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
         if (Array.isArray(data.text_channels)) {
             dataToInsert.text_channels = JSON.stringify(data.text_channels);
         }
+        if (Array.isArray(data.vocal_with)) {
+            dataToInsert.vocal_with = JSON.stringify(data.vocal_with);
+        }
 
         try {
             await db.query(`INSERT INTO ${this.tableName} SET ?`, dataToInsert);
@@ -70,6 +73,9 @@ export class UtilisateursDiscordStatsRepository extends Repository<UtilisateursD
         }
         if (Array.isArray(data.text_channels)) {
             dataToUpdate.text_channels = JSON.stringify(data.text_channels);
+        }
+        if (Array.isArray(data.vocal_with)) {
+            dataToUpdate.vocal_with = JSON.stringify(data.vocal_with);
         }
 
         return await this.query(`UPDATE ${this.tableName}
