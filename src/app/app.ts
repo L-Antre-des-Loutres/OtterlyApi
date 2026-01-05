@@ -21,6 +21,7 @@ import {BadgesJoueursRoutes} from "./Badges/Joueurs/JoueursRoutes";
 import {PalworldStatsRoutes} from "./Palworld/Stats/PalworldStatsRoutes";
 import {CobblemonStatsRoutes} from "./Cobblemon/Stats/CobblemonStatsRoutes";
 import {UtilisateursDiscordService} from "./Discord/UtilisateursDiscord/UtilisateursDiscordService";
+import {OtterguardAuthorizedDomainRoutes} from "./OtterguardAuthorizedDomain/OtterguardAuthorizedDomainRoutes";
 
 dotenv.config()
 
@@ -101,6 +102,9 @@ class App {
 
         // Route des statistiques cobblemon
         this.app.use("/api/cobblemon/stats/", new CobblemonStatsRoutes().router)
+
+        // Route des domaines autorisés Otterguard
+        this.app.use("/api/otterguard/authorized-domain", new OtterguardAuthorizedDomainRoutes().router)
     }
 
     // Enregistrement des services
