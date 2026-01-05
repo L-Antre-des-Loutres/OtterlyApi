@@ -31,4 +31,8 @@ export class BadgesJoueursModel extends Model implements BadgesJoueursInterface{
         return await this.repository.findByPlayerId(id);
     }
 
+    async addBadge(joueur_id: number, badge_id: number) {
+        await this.repository.addBadge(joueur_id, badge_id);
+    }
+
 }
