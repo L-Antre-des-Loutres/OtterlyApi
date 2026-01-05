@@ -30,4 +30,13 @@ export class BadgesUtilisateursRepository extends Repository<BadgesUtilisateursI
             [id]
         );
     }
+
+    // Ajout du badge
+    async addBadge(utilisateur_id: number, badge_id: number) {
+        const now = new Date();
+        const parisDate = new Date(now.toLocaleString("en-US", {timeZone: "Europe/Paris"}));
+        const mysqlDatetime = parisDate.toISOString().slice(0, 19).replace("T", " ");
+        await this.query(`INSERT INTO ${this.tableName} (utilisateur_id, badge_id, date_recu)
+                          VALUES (?, ?, ?)`, [utilisateur_id, badge_id, mysqlDatetime]);
+    }
 }

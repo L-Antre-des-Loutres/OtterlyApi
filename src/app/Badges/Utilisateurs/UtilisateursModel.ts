@@ -32,4 +32,8 @@ export class BadgesUtilisateursModel extends Model implements BadgesUtilisateurs
         return await this.repository.findByUserId(id);
     }
 
+    async addBadge(utilisateur_id: number, badge_id: number) {
+        await this.repository.addBadge(utilisateur_id, badge_id);
+    }
+
 }

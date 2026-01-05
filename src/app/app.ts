@@ -22,6 +22,8 @@ import {PalworldStatsRoutes} from "./Palworld/Stats/PalworldStatsRoutes";
 import {CobblemonStatsRoutes} from "./Cobblemon/Stats/CobblemonStatsRoutes";
 import {UtilisateursDiscordService} from "./Discord/UtilisateursDiscord/UtilisateursDiscordService";
 import {OtterguardAuthorizedDomainRoutes} from "./OtterguardAuthorizedDomain/OtterguardAuthorizedDomainRoutes";
+import {BadgesUtilisateursService} from "./Badges/Utilisateurs/UtilisateursService";
+import {BadgesJoueursService} from "./Badges/Joueurs/JoueursService";
 
 dotenv.config()
 
@@ -118,6 +120,12 @@ class App {
         // Suppression des données des utilisateurs discord qui doivent l'être
         const utilisateurDiscordService = new UtilisateursDiscordService();
         await utilisateurDiscordService.checkDeleteDateUser()
+        // Assignation des badges aux utilisateurs
+        const badgesUtilisateursService = new BadgesUtilisateursService();
+        await badgesUtilisateursService.giveBadgesUtilisateurs()
+        // Assignation des badges aux joueurs
+        const badgesJoueursService = new BadgesJoueursService();
+        await badgesJoueursService.giveBadgesJoueurs()
     }
 
     // Initialisation des services
